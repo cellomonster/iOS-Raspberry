@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13E28" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" initialViewController="eRX-hr-XOl">
+    <dependencies>
+        <deployment defaultVersion="1536" identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="bDe-lU-igw">
+            <objects>
+                <viewController id="ZkF-qf-TTd" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="IWh-wM-okm"/>
+                        <viewControllerLayoutGuide type="bottom" id="FbL-6I-fW1"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="kwj-nG-3Tw">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <toolbarItems/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vKC-Rh-nbs" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="452" y="165"/>
+        </scene>
+        <!--Table View Controller - Root View Controller-->
+        <scene sceneID="cKp-cx-h4l">
+            <objects>
+                <tableViewController clearsSelectionOnViewWillAppear="NO" id="JEl-rv-fLV" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Bp6-PQ-89w">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="3o8-U1-0k8">
+                                <rect key="frame" x="0.0" y="86" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3o8-U1-0k8" id="FXy-dF-h5q">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="JEl-rv-fLV" id="JiO-S6-BAs"/>
+                            <outlet property="delegate" destination="JEl-rv-fLV" id="kru-WE-Qyg"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Root View Controller" id="7F0-YU-8j7"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3eW-L8-WbN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="986" y="-772"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="SRy-Iu-MzL">
+            <objects>
+                <navigationController id="p6x-TU-VPd" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="WqW-02-ZeG">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="JEl-rv-fLV" kind="relationship" relationship="rootViewController" id="G36-ba-oH3"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Z6X-aZ-H0m" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="452" y="-772"/>
+        </scene>
+        <!--Split View Controller-->
+        <scene sceneID="DY9-VT-lIM">
+            <objects>
+                <splitViewController id="eRX-hr-XOl" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <connections>
+                        <segue destination="p6x-TU-VPd" kind="relationship" relationship="masterViewController" id="pp1-3m-M3w"/>
+                        <segue destination="ZkF-qf-TTd" kind="relationship" relationship="detailViewController" id="bfv-8I-xZw"/>
+                    </connections>
+                </splitViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="DON-r5-iJJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-530" y="-303"/>
+        </scene>
+    </scenes>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination"/>
+    </simulatedMetricsContainer>
+</document>
