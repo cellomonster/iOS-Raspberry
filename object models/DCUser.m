@@ -9,4 +9,21 @@
 #import "DCUser.h"
 
 @implementation DCUser
+
+- (DCUser*)initFromDictionary:(NSDictionary *)dict{
+    self = [super init];
+    
+    if(![dict objectForKey:@"avatar"]){
+		[NSException exceptionWithName:@"invalid dictionary"
+                                reason:@"tried to initialize user from invalid dictionary!"
+                              userInfo:dict];
+	}
+    
+    self.username = [dict objectForKey:@"username"];
+    self.avatarHash = [dict objectForKey:@"avatar"];
+    
+    
+    return self;
+}
+
 @end

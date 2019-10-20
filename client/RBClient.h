@@ -11,6 +11,7 @@
 #import "RBGuildStore.h"
 #import "RBWebSocket.h"
 #import "RBLoginDelegate.h"
+#import "RBMessageDelegate.h"
 
 @interface RBClient: NSObject
 
@@ -19,9 +20,12 @@
 @property (strong, nonatomic) NSString *tokenString;
 
 - (RBClient *)init;
-- (void)connect;
 - (void)connectWithTokenString:(NSString*)tokenString;
+
+- (void)endSession;
+
 - (void)setLoginDelegate:(id <RBLoginDelegate>)delegate;
+- (void)setMessageDelegate:(id <RBMessageDelegate>)delegate;
 
 + (RBClient *)sharedInstance;
 

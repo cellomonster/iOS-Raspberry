@@ -11,5 +11,6 @@
 @protocol RBLoginDelegate
 
 - (void)didLogin;
+- (void)didNotLogin;
 
 @end

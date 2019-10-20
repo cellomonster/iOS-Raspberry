@@ -16,6 +16,7 @@
 
 @property RBGatewayHeart *heart;
 @property int sequenceNumber;
+@property bool authenticated;
 
 @end
 
@@ -63,7 +64,7 @@
 				
 			default:
 				
-				NSLog(@"!recieved unexpected opcode (%i)!", event.op);
+				NSLog(@"!recieved unexpected opcode (%li)!", event.op);
 				
 				break;
 		}
@@ -78,13 +79,19 @@
 		return;
 	}
 	
-	int index = [@[@"READY"] indexOfObject:event.t];
+	int index = [@[@"READY", @"MESSAGE_CREATE"] indexOfObject:event.t];
 
 	switch (index) {
 		case 0:
 			[self.loginDelegate didLogin];
 			self.guildStore = [self.guildStore storeReadyEvent:event];
+            self.authenticated = true;
 			break;
+            
+        case 1:
+            if(self.messageDelegate)
+                [self.messageDelegate handleMessageCreate:event.d];
+            break;
 			
 		defualt:
 			NSLog(@"unrecognized dispatch type on event %i!", event.s);
@@ -108,26 +115,33 @@
 	NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile: path];
 	
 	id token = dict[@"token"];*/
-	
-	
-#warning Non-explicit dependency due to singleton!!
-	id token = [RBClient sharedInstance].tokenString;
+    
+    id token = [RBClient sharedInstance].tokenString;
 	
 	//identify
 	if([token isKindOfClass:NSString.class]){
-		NSDictionary *dict = 
+		NSDictionary *dict =
 		@{
-			@"token": (NSString*)token,
-			@"properties": @{
-				@"$browser": @"raspberry",
-			},
-	 };
+          @"token": (NSString*)token,
+          @"properties": @{
+                  @"$browser": @"raspberry",
+                  },
+          };
 		
 		RBGatewayEvent *identifyEvent = [[RBGatewayEvent alloc] initWithEventType:RBGatewayEventTypeIdentify withDictionary:dict];
 		
-		[webSocket sendGatewayEvent:identifyEvent];
+		[RBClient.sharedInstance.webSocket sendGatewayEvent:identifyEvent];
 		NSLog(@"sent identify");
+        
+        [self performSelector:@selector(checkAuth) withObject:nil afterDelay:6];
 	}
+}
+
+-(void)checkAuth{
+    if(!self.authenticated){
+        [RBClient.sharedInstance endSession];
+        [self.loginDelegate didNotLogin];
+    }
 }
 
 @end

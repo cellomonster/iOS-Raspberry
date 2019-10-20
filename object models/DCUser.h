@@ -16,4 +16,6 @@
 @property NSString *avatarHash;
 @property bool isBot;
 
+- (DCUser *)initFromDictionary:(NSDictionary *)dict;
+
 @end

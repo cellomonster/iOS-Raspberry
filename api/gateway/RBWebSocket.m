@@ -14,9 +14,7 @@
 -(void)sendDictionary:(NSDictionary*)dict{
 	NSError *error;
 	
-	NSData *data = [NSJSONSerialization dataWithJSONObject:dict
-																								 options:NSJSONWritingPrettyPrinted
-																									 error:&error];
+	NSData *data = [NSJSONSerialization dataWithJSONObject:dict options:NSJSONWritingPrettyPrinted error:&error];
 	
 	//NSLog([[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
 	

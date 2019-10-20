@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "DCGuild.h"
 #import "RBGatewayEvent.h"
+#import "DCChannel.h"
 
 @interface RBGuildStore : NSObject
 
@@ -16,7 +17,11 @@
 
 -(void)addGuild:(DCGuild*)guild;
 -(void)removeGuildBySnowflake:(NSString*)snowflake;
+
 -(DCGuild*)guildAtIndex:(int)index;
+-(DCGuild*)guildOfSnowflake:(NSString*)snowflake;
+
+-(DCChannel*)channelOfSnowflake:(NSString*)snowflake;
 
 -(int) count;
 

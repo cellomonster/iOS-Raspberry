@@ -10,6 +10,7 @@
 #import "DCDiscordObject.h"
 #import "DCChannel.h"
 #import "DCUser.h"
+#import "DCGuildMember.h"
 
 typedef NS_ENUM(NSInteger, DCMessageType) {
 	DCMessageTypeDefault,
@@ -25,11 +26,12 @@ typedef NS_ENUM(NSInteger, DCMessageType) {
 @interface DCMessage : DCDiscordObject
 
 @property DCChannel *parentChannel;
-@property DCChannel *parentGuild;
+@property DCGuild *parentGuild;
 
 @property DCUser *author;
-@property DCUser *member;
+@property DCGuildMember *member;
 
+@property DCMessageType type;
 @property NSString *content;
 @property NSDate *timestamp;
 
@@ -40,5 +42,6 @@ typedef NS_ENUM(NSInteger, DCMessageType) {
 @property NSArray *attachments;
 @property NSArray *embeds;
 
+- (DCMessage *)initFromDictionary:(NSDictionary *)dict;
 
 @end

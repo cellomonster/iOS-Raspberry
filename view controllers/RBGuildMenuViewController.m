@@ -9,12 +9,14 @@
 #import "RBGuildMenuViewController.h"
 #import "RBClient.h"
 #import "DCChannel.h"
+#import "RBChatViewController.h"
 
 @interface RBGuildMenuViewController ()
 
 @property (weak, nonatomic) IBOutlet UITableView *guildTableView;
 @property (weak, nonatomic) IBOutlet UITableView *channelTableView;
 @property DCGuild *focusedGuild;
+@property DCChannel *selectedChannel;
 
 @end
 
@@ -35,10 +37,20 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	
 	if(tableView == self.guildTableView){
-		self.focusedGuild = [RBClient.sharedInstance.guildStore guildAtIndex:indexPath.row];
+		self.focusedGuild = [RBClient.sharedInstance.guildStore guildAtIndex:(int)indexPath.row];
 		[self.channelTableView reloadData];
 	}
+    
+    if(tableView == self.channelTableView){
+        
+        NSString *key = [[self.focusedGuild.channels allKeys] objectAtIndex:indexPath.row];
+        self.selectedChannel = (DCChannel*)[self.focusedGuild.channels objectForKey:key];
+        
+        [self performSegueWithIdentifier:@"guilds to chat" sender:self];
+    }
 }
+
+
 
 #pragma mark - Table view data source
 
@@ -51,8 +63,17 @@
 	if(tableView == self.guildTableView)
 		return [RBClient.sharedInstance.guildStore count];
 	
-	if(tableView == self.channelTableView)
-		return self.focusedGuild.channels.count;
+    if(tableView == self.channelTableView)
+        return self.focusedGuild.channels.count;
+    
+    return 0;
+}
+
+- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    if([segue.destinationViewController class] == [RBChatViewController class]){
+        ((RBChatViewController*)segue.destinationViewController).activeChannel = self.selectedChannel;
+        ((RBChatViewController*)segue.destinationViewController).title = self.selectedChannel.name;
+    }
 }
 
 
@@ -62,7 +83,7 @@
 	
 	if(tableView == self.guildTableView){
 		cell = [tableView dequeueReusableCellWithIdentifier:@"guild" forIndexPath:indexPath];
-		cell.textLabel.text = [RBClient.sharedInstance.guildStore guildAtIndex:indexPath.row].name;
+		cell.textLabel.text = [RBClient.sharedInstance.guildStore guildAtIndex:(int)indexPath.row].name;
 	}
 	
 	if(tableView == self.channelTableView){
