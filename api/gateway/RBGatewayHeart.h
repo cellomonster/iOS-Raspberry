@@ -12,6 +12,7 @@
 @interface RBGatewayHeart : NSObject
 
 - (void)beginBeating:(int)everyMilliseconds throughWebsocket:(RBWebSocket*)websocket withSequenceNumber:(int*)sequenceNumber;
+- (void)endHeartbeat;
 
 @property bool didRecieveResponse;
 @property int *sequenceNumber;

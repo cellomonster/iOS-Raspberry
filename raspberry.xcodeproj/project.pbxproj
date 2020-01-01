@@ -38,7 +38,6 @@
 		09610CE6224745F5000E65E1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09610CC0224745F5000E65E1 /* UIKit.framework */; };
 		09610CE7224745F5000E65E1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09610CC2224745F5000E65E1 /* Foundation.framework */; };
 		09610D0F22474651000E65E1 /* DCChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = 09610CFE22474651000E65E1 /* DCChannel.m */; };
-		09610D1022474651000E65E1 /* DCDiscordObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 09610D0022474651000E65E1 /* DCDiscordObject.m */; };
 		09610D1122474651000E65E1 /* DCEmoji.m in Sources */ = {isa = PBXBuildFile; fileRef = 09610D0222474651000E65E1 /* DCEmoji.m */; };
 		09610D1222474651000E65E1 /* DCGuild.m in Sources */ = {isa = PBXBuildFile; fileRef = 09610D0422474651000E65E1 /* DCGuild.m */; };
 		09610D1322474651000E65E1 /* DCGuildMember.m in Sources */ = {isa = PBXBuildFile; fileRef = 09610D0622474651000E65E1 /* DCGuildMember.m */; };
@@ -58,10 +57,15 @@
 		09610D3E22474658000E65E1 /* base64.c in Sources */ = {isa = PBXBuildFile; fileRef = 09610D2E22474658000E65E1 /* base64.c */; };
 		09610D3F22474658000E65E1 /* NSData+SRB64Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 09610D3122474658000E65E1 /* NSData+SRB64Additions.m */; };
 		09610D4022474658000E65E1 /* SRWebSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 09610D3422474658000E65E1 /* SRWebSocket.m */; };
+		09A4D348235DDD2B00A7E59C /* RBMembersTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09A4D347235DDD2B00A7E59C /* RBMembersTableViewController.m */; };
+		09A4D34C23614D9900A7E59C /* FTWCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 09A4D34B23614D9900A7E59C /* FTWCache.m */; };
+		09A4D34F23614E1400A7E59C /* UIImageView+Network.m in Sources */ = {isa = PBXBuildFile; fileRef = 09A4D34E23614E1400A7E59C /* UIImageView+Network.m */; };
+		09A4D35123615EB800A7E59C /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09A4D35023615EB800A7E59C /* Media.xcassets */; };
 		09A6136E22A191B400D23078 /* RBWebSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 09A6136D22A191B400D23078 /* RBWebSocket.m */; };
 		09A88761229F6FFD006D2BEF /* RBWebSocketDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 09CE3DED226BC30300CF6E55 /* RBWebSocketDelegate.m */; };
 		09A88762229F6FFD006D2BEF /* RBGatewayEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 09CE3DF6226BC77E00CF6E55 /* RBGatewayEvent.m */; };
 		09A88764229F6FFD006D2BEF /* RBCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 09CE3DF9226BCA6B00CF6E55 /* RBCommon.m */; };
+		09AB656F23BAC60A005ADD68 /* RBUserStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 09AB656E23BAC60A005ADD68 /* RBUserStore.m */; };
 		09C48AFE22A206BC0059F91E /* RBGuildStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 09C48AFD22A206BC0059F91E /* RBGuildStore.m */; };
 		09CE3DEE226BC30300CF6E55 /* RBWebSocketDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 09CE3DED226BC30300CF6E55 /* RBWebSocketDelegate.m */; };
 		09CE3DF7226BC77E00CF6E55 /* RBGatewayEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 09CE3DF6226BC77E00CF6E55 /* RBGatewayEvent.m */; };
@@ -133,7 +137,6 @@
 		09610CFD22474651000E65E1 /* DCChannel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCChannel.h; sourceTree = "<group>"; };
 		09610CFE22474651000E65E1 /* DCChannel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCChannel.m; sourceTree = "<group>"; };
 		09610CFF22474651000E65E1 /* DCDiscordObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCDiscordObject.h; sourceTree = "<group>"; };
-		09610D0022474651000E65E1 /* DCDiscordObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCDiscordObject.m; sourceTree = "<group>"; };
 		09610D0122474651000E65E1 /* DCEmoji.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCEmoji.h; sourceTree = "<group>"; };
 		09610D0222474651000E65E1 /* DCEmoji.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCEmoji.m; sourceTree = "<group>"; };
 		09610D0322474651000E65E1 /* DCGuild.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCGuild.h; sourceTree = "<group>"; };
@@ -174,9 +177,19 @@
 		09610D3222474658000E65E1 /* SocketRocket-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SocketRocket-Prefix.pch"; sourceTree = "<group>"; };
 		09610D3322474658000E65E1 /* SRWebSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRWebSocket.h; sourceTree = "<group>"; };
 		09610D3422474658000E65E1 /* SRWebSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRWebSocket.m; sourceTree = "<group>"; };
+		096EEC5E2370DA240026D06D /* RBMessageItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RBMessageItem.h; sourceTree = "<group>"; };
 		099A611F22FA6A6200C8E877 /* RBLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RBLoginViewController.h; sourceTree = "<group>"; };
+		09A4D346235DDD2B00A7E59C /* RBMembersTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RBMembersTableViewController.h; sourceTree = "<group>"; };
+		09A4D347235DDD2B00A7E59C /* RBMembersTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RBMembersTableViewController.m; sourceTree = "<group>"; };
+		09A4D34A23614D9900A7E59C /* FTWCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTWCache.h; sourceTree = "<group>"; };
+		09A4D34B23614D9900A7E59C /* FTWCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTWCache.m; sourceTree = "<group>"; };
+		09A4D34D23614E1400A7E59C /* UIImageView+Network.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+Network.h"; sourceTree = "<group>"; };
+		09A4D34E23614E1400A7E59C /* UIImageView+Network.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+Network.m"; sourceTree = "<group>"; };
+		09A4D35023615EB800A7E59C /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		09A6136C22A191B400D23078 /* RBWebSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RBWebSocket.h; sourceTree = "<group>"; };
 		09A6136D22A191B400D23078 /* RBWebSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RBWebSocket.m; sourceTree = "<group>"; };
+		09AB656D23BAC60A005ADD68 /* RBUserStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RBUserStore.h; path = "data sources/RBUserStore.h"; sourceTree = "<group>"; };
+		09AB656E23BAC60A005ADD68 /* RBUserStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RBUserStore.m; path = "data sources/RBUserStore.m"; sourceTree = "<group>"; };
 		09C48AFC22A206BC0059F91E /* RBGuildStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RBGuildStore.h; path = "data sources/RBGuildStore.h"; sourceTree = "<group>"; };
 		09C48AFD22A206BC0059F91E /* RBGuildStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RBGuildStore.m; path = "data sources/RBGuildStore.m"; sourceTree = "<group>"; };
 		09CE3DEC226BC30300CF6E55 /* RBWebSocketDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RBWebSocketDelegate.h; sourceTree = "<group>"; };
@@ -266,6 +279,7 @@
 		09610CB4224745F5000E65E1 = {
 			isa = PBXGroup;
 			children = (
+				09A4D35023615EB800A7E59C /* Media.xcassets */,
 				09610CC6224745F5000E65E1 /* raspberry */,
 				09EF390A2247D1FF00C3FA68 /* view controllers */,
 				09EF390B2248072700C3FA68 /* client */,
@@ -331,7 +345,6 @@
 			isa = PBXGroup;
 			children = (
 				09610CFF22474651000E65E1 /* DCDiscordObject.h */,
-				09610D0022474651000E65E1 /* DCDiscordObject.m */,
 				09610D0322474651000E65E1 /* DCGuild.h */,
 				09610D0422474651000E65E1 /* DCGuild.m */,
 				09610CFD22474651000E65E1 /* DCChannel.h */,
@@ -340,14 +353,15 @@
 				09610D0222474651000E65E1 /* DCEmoji.m */,
 				09610D0522474651000E65E1 /* DCGuildMember.h */,
 				09610D0622474651000E65E1 /* DCGuildMember.m */,
-				09610D0722474651000E65E1 /* DCMessage.h */,
-				09610D0822474651000E65E1 /* DCMessage.m */,
-				09610D0922474651000E65E1 /* DCMessageAttatchment.h */,
-				09610D0A22474651000E65E1 /* DCMessageAttatchment.m */,
 				09610D0B22474651000E65E1 /* DCRole.h */,
 				09610D0C22474651000E65E1 /* DCRole.m */,
 				09610D0D22474651000E65E1 /* DCUser.h */,
 				09610D0E22474651000E65E1 /* DCUser.m */,
+				096EEC5E2370DA240026D06D /* RBMessageItem.h */,
+				09610D0722474651000E65E1 /* DCMessage.h */,
+				09610D0822474651000E65E1 /* DCMessage.m */,
+				09610D0922474651000E65E1 /* DCMessageAttatchment.h */,
+				09610D0A22474651000E65E1 /* DCMessageAttatchment.m */,
 			);
 			path = "object models";
 			sourceTree = "<group>";
@@ -355,6 +369,7 @@
 		09610D1822474658000E65E1 /* lib */ = {
 			isa = PBXGroup;
 			children = (
+				09A4D34923614D8700A7E59C /* ftwcache */,
 				095BF89D235ACFB500F3FCD8 /* bubl tabl view */,
 				09610D1922474658000E65E1 /* AFNetworking */,
 				09610D2D22474658000E65E1 /* SocketRocket */,
@@ -402,11 +417,24 @@
 			path = SocketRocket;
 			sourceTree = "<group>";
 		};
+		09A4D34923614D8700A7E59C /* ftwcache */ = {
+			isa = PBXGroup;
+			children = (
+				09A4D34D23614E1400A7E59C /* UIImageView+Network.h */,
+				09A4D34E23614E1400A7E59C /* UIImageView+Network.m */,
+				09A4D34A23614D9900A7E59C /* FTWCache.h */,
+				09A4D34B23614D9900A7E59C /* FTWCache.m */,
+			);
+			name = ftwcache;
+			sourceTree = "<group>";
+		};
 		09C48AFF22A206C40059F91E /* data sources */ = {
 			isa = PBXGroup;
 			children = (
 				09C48AFC22A206BC0059F91E /* RBGuildStore.h */,
 				09C48AFD22A206BC0059F91E /* RBGuildStore.m */,
+				09AB656D23BAC60A005ADD68 /* RBUserStore.h */,
+				09AB656E23BAC60A005ADD68 /* RBUserStore.m */,
 			);
 			name = "data sources";
 			sourceTree = "<group>";
@@ -443,6 +471,8 @@
 				ABA4603B2303645D00AC83DF /* RBSettingsViewController.m */,
 				095BF89A235ACF8D00F3FCD8 /* RBChatViewController.h */,
 				095BF89B235ACF8D00F3FCD8 /* RBChatViewController.m */,
+				09A4D346235DDD2B00A7E59C /* RBMembersTableViewController.h */,
+				09A4D347235DDD2B00A7E59C /* RBMembersTableViewController.m */,
 			);
 			path = "view controllers";
 			sourceTree = "<group>";
@@ -544,6 +574,7 @@
 				095BF8B5235ACFB500F3FCD8 /* bubbleMine@2x.png in Resources */,
 				090E0E7A22481240004B30AC /* API Settings.plist in Resources */,
 				095BF8BA235ACFB500F3FCD8 /* typingMine.png in Resources */,
+				09A4D35123615EB800A7E59C /* Media.xcassets in Resources */,
 				095BF8BD235ACFB500F3FCD8 /* typingSomeone@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -585,14 +616,15 @@
 				09610CCD224745F5000E65E1 /* main.m in Sources */,
 				09610CD1224745F5000E65E1 /* RBAppDelegate.m in Sources */,
 				095BF8BF235ACFB500F3FCD8 /* UIBubbleHeaderTableViewCell.m in Sources */,
+				09A4D34F23614E1400A7E59C /* UIImageView+Network.m in Sources */,
 				09610D0F22474651000E65E1 /* DCChannel.m in Sources */,
-				09610D1022474651000E65E1 /* DCDiscordObject.m in Sources */,
 				095BF8BE235ACFB500F3FCD8 /* NSBubbleData.m in Sources */,
 				09610D1122474651000E65E1 /* DCEmoji.m in Sources */,
 				095BF8C1235ACFB500F3FCD8 /* UIBubbleTableViewCell.m in Sources */,
 				09610D1222474651000E65E1 /* DCGuild.m in Sources */,
 				09610D1322474651000E65E1 /* DCGuildMember.m in Sources */,
 				09610D1422474651000E65E1 /* DCMessage.m in Sources */,
+				09A4D348235DDD2B00A7E59C /* RBMembersTableViewController.m in Sources */,
 				09610D1522474651000E65E1 /* DCMessageAttatchment.m in Sources */,
 				09610D1622474651000E65E1 /* DCRole.m in Sources */,
 				095BF89C235ACF8D00F3FCD8 /* RBChatViewController.m in Sources */,
@@ -611,8 +643,10 @@
 				09610D3E22474658000E65E1 /* base64.c in Sources */,
 				09610D3F22474658000E65E1 /* NSData+SRB64Additions.m in Sources */,
 				09610D4022474658000E65E1 /* SRWebSocket.m in Sources */,
+				09AB656F23BAC60A005ADD68 /* RBUserStore.m in Sources */,
 				09EF390E2248074400C3FA68 /* RBClient.m in Sources */,
 				091B9D97226B5C2C0047C75B /* RBGatewayHeart.m in Sources */,
+				09A4D34C23614D9900A7E59C /* FTWCache.m in Sources */,
 				09A6136E22A191B400D23078 /* RBWebSocket.m in Sources */,
 				ABE3940D22FE7630007144DD /* RBLoginViewController.m in Sources */,
 				095BF8C0235ACFB500F3FCD8 /* UIBubbleTableView.m in Sources */,

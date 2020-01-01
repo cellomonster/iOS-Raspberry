@@ -9,6 +9,7 @@
 #import "DCRole.h"
 
 @implementation DCRole
+@synthesize snowflake = _snowflake;
 
 - (DCRole *)initFromDictionary:(NSDictionary *)dict {
 	self = [super init];

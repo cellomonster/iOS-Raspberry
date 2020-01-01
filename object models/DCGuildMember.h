@@ -15,7 +15,7 @@ typedef NS_ENUM(NSInteger, DCGuildMemberVoiceChatState) {
 	DCGuildMemberVoiceChatStateDeafened,
 };
 
-@interface DCGuildMember : NSObject
+@interface DCGuildMember : NSObject <DCDiscordObject>
 
 @property DCUser *user;
 @property NSString *nickname;

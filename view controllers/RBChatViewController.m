@@ -11,12 +11,16 @@
 #import "NSBubbleData.h"
 #import "DCMessage.h"
 #import "RBClient.h"
+#import "FTWCache.h"
+#import "RBMessageItem.h"
+#import "DCMessageAttatchment.h"
 
 @interface RBChatViewController ()
 
 @property IBOutlet UIBubbleTableView *chatTableView;
 
 @property NSMutableArray *messages;
+@property dispatch_queue_t imageQueue;
 
 @end
 
@@ -24,6 +28,8 @@
 
 -(void)viewDidLoad{
     [RBClient.sharedInstance setMessageDelegate:self];
+    self.chatTableView.showAvatars = YES;
+    self.imageQueue = dispatch_queue_create("com.trevir.imageDownload", DISPATCH_QUEUE_SERIAL);
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -42,11 +48,48 @@
 
 -(NSBubbleData *)bubbleTableView:(UIBubbleTableView *)tableView dataForRow:(NSInteger)row{
     
-    NSString *content = ((DCMessage*)[self.messages objectAtIndex:row]).content;
+    NSBubbleData *bubbleData;
     
-    NSBubbleData *data = [[NSBubbleData alloc]initWithText:content date:[NSDate date] type:BubbleTypeSomeoneElse];
+    id <RBMessageItem> item = [self.messages objectAtIndex:row];
     
-    return data;
+    if([item isKindOfClass:[DCMessage class]]) {
+        bubbleData = [NSBubbleData dataWithText:((DCMessage*)item).content date:[NSDate date] type:BubbleTypeSomeoneElse];
+    }
+    
+    if([item isKindOfClass:[DCMessageAttatchment class]]) {
+        
+        DCMessageAttatchment* attachment = ((DCMessageAttatchment*)item);
+        
+        if(!attachment.image){
+            ((DCMessageAttatchment*)item).image = [UIImage imageNamed:@"default"];
+            
+            dispatch_async(self.imageQueue, ^{
+                [attachment loadImage];
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [tableView reloadData];
+                });
+            });
+        }
+        
+        bubbleData = [NSBubbleData dataWithImage:attachment.image date:[NSDate date] type:BubbleTypeSomeoneElse];
+    }
+    
+    if(item.author.avatarImage != nil) {
+        bubbleData.avatar = item.author.avatarImage;
+    } else {
+        item.author.avatarImage = [UIImage imageNamed:@"default"];
+        
+        dispatch_async(self.imageQueue, ^{
+            [item.author loadAvatarImage];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [tableView reloadData];
+            });
+        });
+    }
+    
+    return bubbleData;
 }
 
 #pragma mark rbmessagedelegate

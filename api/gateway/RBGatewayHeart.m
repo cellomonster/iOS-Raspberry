@@ -12,6 +12,7 @@
 @interface RBGatewayHeart()
 
 @property RBWebSocket *websocket;
+@property NSTimer *heatbeatTimer;
 
 @end
 
@@ -20,13 +21,18 @@
 - (void)beginBeating:(int)everyMilliseconds throughWebsocket:(RBWebSocket*)websocket withSequenceNumber:(int*)sequenceNumber {
 	self.websocket = websocket;
 	self.sequenceNumber = sequenceNumber;
-	[NSTimer scheduledTimerWithTimeInterval:everyMilliseconds / 1000.0f
+	self.heatbeatTimer = [NSTimer scheduledTimerWithTimeInterval:everyMilliseconds / 1000.0f
 																	 target:self
 																 selector:@selector(sendHeartbeat:)
 																 userInfo:nil
 																	repeats:YES];
 	
 	NSLog(@"began heartbeat every %f seconds", everyMilliseconds / 1000.0f);
+}
+
+- (void)endHeartbeat{
+    if(self.heatbeatTimer.isValid)
+        [self.heatbeatTimer invalidate];
 }
 
 - (void)sendHeartbeat:(NSTimer *)timer{

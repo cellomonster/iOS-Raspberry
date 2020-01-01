@@ -9,5 +9,6 @@
 #import "DCGuildMember.h"
 
 @implementation DCGuildMember
+@synthesize snowflake = _snowflake;
 
 @end

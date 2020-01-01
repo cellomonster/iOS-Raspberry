@@ -34,6 +34,7 @@
 	self = [super init];
 	
 	self.guildStore = [[RBGuildStore alloc] init];
+    self.userStore = [[RBUserStore alloc] init];
     
 	self.webSocketDelegate = [[RBWebSocketDelegate alloc] initWithGuildStore:self.guildStore];
 	
@@ -57,6 +58,10 @@
     self.webSocket = [[RBWebSocket alloc] initWithURL:url];
     self.webSocket.delegate = self.webSocketDelegate;
     [self.webSocket open];
+}
+
+- (void)resumeWithSequenceNumber:(int)seqNum{
+    
 }
 
 - (void)endSession{

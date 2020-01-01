@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "DCDiscordObject.h"
 
-@interface DCEmoji : DCDiscordObject
+@interface DCEmoji : NSObject <DCDiscordObject>
 
 @property NSString *name;
 	

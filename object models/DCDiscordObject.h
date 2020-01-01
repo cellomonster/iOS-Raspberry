@@ -8,10 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
-@interface DCDiscordObject : NSObject
+@protocol DCDiscordObject <NSObject>
 
 @property NSString *snowflake;
-
--(id)initFromDictionary:(NSDictionary*)dict;
 
 @end

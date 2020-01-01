@@ -8,7 +8,14 @@
 
 #import "DCUser.h"
 
+@interface DCUser ()
+
+@property bool isLoadingOrHasLoadedAvatarImage;
+
+@end
+
 @implementation DCUser
+@synthesize snowflake = _snowflake;
 
 - (DCUser*)initFromDictionary:(NSDictionary *)dict{
     self = [super init];
@@ -19,11 +26,25 @@
                               userInfo:dict];
 	}
     
+    self.snowflake = [dict objectForKey:@"id"];
+    
     self.username = [dict objectForKey:@"username"];
     self.avatarHash = [dict objectForKey:@"avatar"];
     
-    
     return self;
+}
+
+- (UIImage *)loadAvatarImage {
+    NSString *imgURLstr = [NSString stringWithFormat:@"https://cdn.discordapp.com/avatars/%@/%@.png", self.snowflake, self.avatarHash];
+    NSURL* imgURL = [NSURL URLWithString:imgURLstr];
+        
+    NSData *data = [NSData dataWithContentsOfURL:imgURL];
+            
+    NSLog(@"loaded pfp for %@", self.username);
+            
+    self.avatarImage = [UIImage imageWithData:data];
+    
+    return self.avatarImage;
 }
 
 @end

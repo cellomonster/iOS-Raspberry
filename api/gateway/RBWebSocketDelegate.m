@@ -22,9 +22,10 @@
 
 @implementation RBWebSocketDelegate
 
-- (RBWebSocketDelegate*)initWithGuildStore:(RBGuildStore *)guildStore	{
+- (RBWebSocketDelegate*)initWithGuildStore:(RBGuildStore *)guildStore {
 	self = [super init];
 	self.guildStore = guildStore;
+    
 	return self;
 }
 
@@ -41,6 +42,9 @@
 				
 			case RBGatewayEventTypeHeartbeat:
 				NSLog(@"recieved heartbeat");
+                if(!self.heart.didRecieveResponse){
+                    
+                }
 				break;
 				
 			case RBGatewayEventTypeReconnect:
@@ -64,7 +68,7 @@
 				
 			default:
 				
-				NSLog(@"!recieved unexpected opcode (%li)!", event.op);
+				NSLog(@"!recieved unexpected opcode (%i)!", event.op);
 				
 				break;
 		}
@@ -108,6 +112,8 @@
 	}
 	
 	//Begin heartbeat
+    if(self.heart)
+        [self.heart endHeartbeat];
 	self.heart = [RBGatewayHeart new];
 	[self.heart beginBeating:[event.d[@"heartbeat_interval"] intValue] throughWebsocket:webSocket withSequenceNumber:&_sequenceNumber];
 	
@@ -132,16 +138,7 @@
 		
 		[RBClient.sharedInstance.webSocket sendGatewayEvent:identifyEvent];
 		NSLog(@"sent identify");
-        
-        [self performSelector:@selector(checkAuth) withObject:nil afterDelay:6];
 	}
-}
-
--(void)checkAuth{
-    if(!self.authenticated){
-        [RBClient.sharedInstance endSession];
-        [self.loginDelegate didNotLogin];
-    }
 }
 
 @end

@@ -9,5 +9,6 @@
 #import "DCEmoji.h"
 
 @implementation DCEmoji
+@synthesize snowflake = _snowflake;
 
 @end

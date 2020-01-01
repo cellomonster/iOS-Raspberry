@@ -11,15 +11,10 @@
 #import "DCRole.h"
 
 @implementation DCGuild
+@synthesize snowflake = _snowflake;
 
 -(DCGuild*)initFromDictionary:(NSDictionary *)dict{
 	self = [super init];
-	
-	if(![dict objectForKey:@"icon"]){
-		[NSException exceptionWithName:@"invalid dictionary"
-														reason:@"tried to initialize guild from invalid dictionary!"
-													userInfo:dict];
-	}
 	
 	self.snowflake = [dict objectForKey:@"id"];
 	
@@ -27,13 +22,16 @@
 	
 	NSLog(@"%@", self.name);
 	
+    
 	//Channels
 	NSArray *jsonChannels = ((NSArray*)[dict objectForKey:@"channels"]);
-	self.channels = [[NSMutableDictionary alloc] init];
+	self.channels = [[NSMutableDictionary alloc] initWithCapacity:jsonChannels.count];
 	for(NSDictionary *jsonChannel in jsonChannels){
 		DCChannel *channel = [[DCChannel alloc] initFromDictionary:jsonChannel];
 		[self.channels setObject:channel forKey:channel.snowflake];
 	}
+    
+    NSLog(@"%@", [dict objectForKey:@"members"]);
 	
 	//Roles
 	/* NSArray *jsonRoles = ((NSArray*)[dict objectForKey:@"roles"]);

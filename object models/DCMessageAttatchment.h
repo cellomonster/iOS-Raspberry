@@ -7,15 +7,28 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "DCDiscordObject.h"
+#import "RBMessageItem.h"
 
-@interface DCMessageAttatchment : NSObject
+@interface DCMessageAttatchment : NSObject <RBMessageItem>
+
+typedef NS_ENUM(NSInteger, DCMessageAttatchmentType) {
+	DCMessageAttatchmentTypeImage,
+	DCMessageAttatchmentTypeOther,
+};
+
+@property DCMessageAttatchmentType attachmentType;
 
 @property NSString *fileName;
 @property int sizeInBytes;
-@property NSURL *fileURLString;
+@property NSURL *fileURL;
 @property NSURL *proxiedFileURLString;
 
-@property int imageWidth;
-@property int imageHeight;
+@property NSUInteger imageWidth;
+@property NSUInteger imageHeight;
+@property UIImage *image;
+
+- (DCMessageAttatchment*)initFromDictionary:(NSDictionary *)dict;
+- (UIImage*)loadImage;
 
 @end

@@ -8,8 +8,9 @@
 
 #import <Foundation/Foundation.h>
 #import "DCDiscordObject.h"
+#import "RBMessageItem.h"
 
-@interface DCGuild : DCDiscordObject
+@interface DCGuild : NSObject <DCDiscordObject>
 
 @property int sortingPosition;
 @property NSArray *permissions;

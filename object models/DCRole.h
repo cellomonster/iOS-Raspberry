@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "DCDiscordObject.h"
 
-@interface DCRole : DCDiscordObject
+@interface DCRole : NSObject <DCDiscordObject>
 
 @property NSString *name;
 @property UIColor *color;

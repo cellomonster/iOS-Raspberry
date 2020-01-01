@@ -9,13 +9,15 @@
 #import <Foundation/Foundation.h>
 #import "DCDiscordObject.h"
 
-@interface DCUser : DCDiscordObject
+@interface DCUser : NSObject <DCDiscordObject>
 
 @property NSString *username;
 @property NSString *discriminator;
-@property NSString *avatarHash;
+@property NSURL *avatarHash;
+@property UIImage *avatarImage;
 @property bool isBot;
 
 - (DCUser *)initFromDictionary:(NSDictionary *)dict;
+- (UIImage *)loadAvatarImage;
 
 @end

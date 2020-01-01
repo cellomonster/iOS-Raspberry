@@ -9,17 +9,13 @@
 #import "DCChannel.h"
 #import "RBClient.h"
 #import "DCMessage.h"
+#import "DCMessageAttatchment.h"
 
 @implementation DCChannel
+@synthesize snowflake = _snowflake;
 
 - (DCChannel *)initFromDictionary:(NSDictionary *)dict {
 	self = [super init];
-	
-	if(![dict objectForKey:@"type"]){
-		[NSException exceptionWithName:@"invalid dictionary"
-														reason:@"tried to initialize channel from invalid dictionary!"
-													userInfo:dict];
-	}
 	
 	self.snowflake = [dict objectForKey:@"id"];
 	self.name = [dict objectForKey:@"name"];
@@ -59,6 +55,10 @@
             if([jsonMessage isKindOfClass:[NSDictionary class]]){
                 DCMessage *message = [[DCMessage alloc] initFromDictionary:jsonMessage];
                 [messages addObject:message];
+                
+                for(DCMessageAttatchment *messageAttachment in [message.attachments allValues]){
+                    [messages addObject:messageAttachment];
+                }
             }
         }
 	}

@@ -18,7 +18,7 @@ typedef NS_ENUM(NSInteger, DCChannelType) {
 	DCChannelTypeGuildCatagory,
 };
 
-@interface DCChannel : DCDiscordObject
+@interface DCChannel : NSObject <DCDiscordObject>
 
 @property DCGuild *parentGuild;
 @property NSString *parentCatagorySnowflake;

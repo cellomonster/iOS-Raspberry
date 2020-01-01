@@ -23,7 +23,7 @@ typedef NS_ENUM(NSInteger, DCMessageType) {
 	DCMessageTypeMemberJoinedAlert
 };
 
-@interface DCMessage : DCDiscordObject
+@interface DCMessage : NSObject <RBMessageItem>
 
 @property DCChannel *parentChannel;
 @property DCGuild *parentGuild;
@@ -39,7 +39,7 @@ typedef NS_ENUM(NSInteger, DCMessageType) {
 @property NSArray *mentionedUsers;
 @property NSArray *mentionedRoles;
 
-@property NSArray *attachments;
+@property NSMutableDictionary *attachments;
 @property NSArray *embeds;
 
 - (DCMessage *)initFromDictionary:(NSDictionary *)dict;

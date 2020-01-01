@@ -12,10 +12,12 @@
 #import "RBWebSocket.h"
 #import "RBLoginDelegate.h"
 #import "RBMessageDelegate.h"
+#import "RBUserStore.h"
 
 @interface RBClient: NSObject
 
 @property (strong, nonatomic) RBGuildStore *guildStore;
+@property (strong, nonatomic) RBUserStore *userStore;
 @property (strong, nonatomic) RBWebSocket *webSocket;
 @property (strong, nonatomic) NSString *tokenString;
 
