@@ -36,7 +36,7 @@
 	self.guildStore = [[RBGuildStore alloc] init];
     self.userStore = [[RBUserStore alloc] init];
     
-	self.webSocketDelegate = [[RBWebSocketDelegate alloc] initWithGuildStore:self.guildStore];
+	self.webSocketDelegate = [[RBWebSocketDelegate alloc] initWithGuildStore:self.guildStore andUser:self.user];
 	
 	[self.webSocket setDelegate:self.webSocketDelegate];
 	

@@ -15,9 +15,10 @@
 @interface RBWebSocketDelegate : NSObject <SRWebSocketDelegate>
 
 @property RBGuildStore *guildStore;
+@property DCUser *user;
 @property id <RBLoginDelegate> loginDelegate;
 @property id <RBMessageDelegate> messageDelegate;
 
--(RBWebSocketDelegate*)initWithGuildStore:(RBGuildStore*)guildStore;
+-(RBWebSocketDelegate*)initWithGuildStore:(RBGuildStore*)guildStore andUser:(DCUser*)user;
 
 @end

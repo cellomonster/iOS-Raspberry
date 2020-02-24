@@ -22,9 +22,10 @@
 
 @implementation RBWebSocketDelegate
 
-- (RBWebSocketDelegate*)initWithGuildStore:(RBGuildStore *)guildStore {
+- (RBWebSocketDelegate*)initWithGuildStore:(RBGuildStore *)guildStore andUser:(DCUser *)user {
 	self = [super init];
 	self.guildStore = guildStore;
+    self.user = user;
     
 	return self;
 }
@@ -88,7 +89,8 @@
 	switch (index) {
 		case 0:
 			[self.loginDelegate didLogin];
-			self.guildStore = [self.guildStore storeReadyEvent:event];
+			[self.guildStore storeReadyEvent:event];
+            self.user = [[DCUser alloc] initFromDictionary:event.d];
             self.authenticated = true;
 			break;
             

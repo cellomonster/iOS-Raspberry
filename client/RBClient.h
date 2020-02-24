@@ -21,6 +21,8 @@
 @property (strong, nonatomic) RBWebSocket *webSocket;
 @property (strong, nonatomic) NSString *tokenString;
 
+@property (strong, nonatomic) DCUser *user;
+
 - (RBClient *)init;
 - (void)connectWithTokenString:(NSString*)tokenString;
 

@@ -33,7 +33,6 @@ typedef NS_ENUM(NSInteger, DCMessageType) {
 
 @property DCMessageType type;
 @property NSString *content;
-@property NSDate *timestamp;
 
 @property bool mentionEveryone;
 @property NSArray *mentionedUsers;

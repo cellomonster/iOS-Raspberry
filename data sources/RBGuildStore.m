@@ -18,10 +18,10 @@
 
 @implementation RBGuildStore
 
--(RBGuildStore*)storeReadyEvent:(RBGatewayEvent*)event {
+-(void)storeReadyEvent:(RBGatewayEvent*)event {
 	if(![event.t isEqualToString:@"READY"]){
 		NSLog(@"event %i isn't a ready event!", event.s);
-		return nil;
+		return;
 	}
 	
 	self.guildDictionary = [NSMutableDictionary new];
@@ -35,8 +35,6 @@
         
         [self.channelDictionary addEntriesFromDictionary:guild.channels];
 	}
-	
-	return self;
 }
 
 -(void)addGuild:(DCGuild *)guild{

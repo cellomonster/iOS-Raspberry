@@ -37,14 +37,18 @@
 - (UIImage *)loadAvatarImage {
     NSString *imgURLstr = [NSString stringWithFormat:@"https://cdn.discordapp.com/avatars/%@/%@.png", self.snowflake, self.avatarHash];
     NSURL* imgURL = [NSURL URLWithString:imgURLstr];
-        
-    NSData *data = [NSData dataWithContentsOfURL:imgURL];
-            
-    NSLog(@"loaded pfp for %@", self.username);
-            
-    self.avatarImage = [UIImage imageWithData:data];
     
-    return self.avatarImage;
+    if(imgURL){
+        NSData *data = [NSData dataWithContentsOfURL:imgURL];
+            
+        NSLog(@"loaded pfp for %@", self.username);
+            
+        self.avatarImage = [UIImage imageWithData:data];
+    
+        return self.avatarImage;
+    }else{
+        return [UIImage imageNamed:@"default"];
+    }
 }
 
 @end

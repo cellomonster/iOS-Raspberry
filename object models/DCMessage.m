@@ -13,7 +13,7 @@
 @implementation DCMessage
 @synthesize snowflake = _snowflake;
 @synthesize author = _author;
-@synthesize time = _time;
+@synthesize timestamp = _timestamp;
 @synthesize member = _member;
 
 - (DCMessage *)initFromDictionary:(NSDictionary *)dict {
@@ -33,13 +33,20 @@
     self.parentGuild = [RBClient.sharedInstance.guildStore guildOfSnowflake:[dict objectForKey:@"guild_id"]];
     self.parentChannel = [RBClient.sharedInstance.guildStore channelOfSnowflake:[dict objectForKey:@"channel_id"]];
     
-    NSDateFormatter *dateFormat = [NSDateFormatter new];
-    //correcting format to include seconds and decimal place
-    dateFormat.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
-    // Always use this locale when parsing fixed format date strings
-    NSLocale* posix = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"];
-    dateFormat.locale = posix;
-    self.timestamp = [dateFormat dateFromString:[dict objectForKey:@"timestamp"]];
+#warning need to fix date parsing!
+    
+    //FORMAT: 2020-01-03T15:46:52.158000+00:00
+    
+    /*NSDateFormatter *dateFormat = [NSDateFormatter new];
+    [dateFormat setDateFormat: @"yyyy-MM-dd'T'HH:mm:ss"];
+    [dateFormat setTimeZone:[NSTimeZone systemTimeZone]];
+    [dateFormat setLocale: [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"]];
+    [dateFormat setFormatterBehavior:NSDateFormatterBehaviorDefault];
+    
+    NSString *dateString = [dict objectForKey:@"timestamp"];
+    self.timestamp = [dateFormat dateFromString:dateString];
+    
+    NSLog(@"%@", [dateFormat dateFromString:dateString]);*/
     
     
     NSArray *jsonAttachments = (NSArray*)([dict objectForKey:@"attachments"]);
@@ -48,6 +55,8 @@
     for(NSDictionary *jsonAttachment in jsonAttachments){
         DCMessageAttatchment *messageAttachment = [[DCMessageAttatchment alloc] initFromDictionary:jsonAttachment];
         messageAttachment.author = self.author;
+        messageAttachment.member = self.member;
+        messageAttachment.timestamp = self.timestamp;
         [self.attachments setObject:messageAttachment forKey:messageAttachment.snowflake];
     }
     

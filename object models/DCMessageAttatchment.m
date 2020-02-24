@@ -12,7 +12,7 @@
 @implementation DCMessageAttatchment
 @synthesize snowflake = _snowflake;
 @synthesize author = _author;
-@synthesize time = _time;
+@synthesize timestamp = _timestamp;
 @synthesize member = _member;
 
 

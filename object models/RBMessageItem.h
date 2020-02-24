@@ -14,7 +14,7 @@
 @protocol RBMessageItem <DCDiscordObject>
 
 @property DCUser *author;
-@property NSDate *time;
+@property NSDate *timestamp;
 @property DCGuildMember *member;
 
 @end
