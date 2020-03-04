@@ -29,6 +29,6 @@ typedef NS_ENUM(NSInteger, DCMessageAttatchmentType) {
 @property UIImage *image;
 
 - (DCMessageAttatchment*)initFromDictionary:(NSDictionary *)dict;
-- (UIImage*)loadImage;
+- (void)loadImage;
 
 @end

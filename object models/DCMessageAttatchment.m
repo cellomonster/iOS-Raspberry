@@ -35,18 +35,17 @@
     return self;
 }
 
-- (UIImage *)loadImage {
+- (void)loadImage {
     if(self.attachmentType == DCMessageAttatchmentTypeImage){
+        
+        NSLog(@"loading attachment image... %@", self.fileURL);
+        
         NSData *data = [NSData dataWithContentsOfURL:self.fileURL];
         
         NSLog(@"loaded image %@", self.fileURL);
     
         self.image = [UIImage imageWithData:data];
-        
-        return self.image;
     }
-    
-    return nil;
 }
 
 @end

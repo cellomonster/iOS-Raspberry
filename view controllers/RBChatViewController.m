@@ -20,7 +20,7 @@
 @property IBOutlet UIBubbleTableView *chatTableView;
 
 @property NSMutableArray *messages;
-@property dispatch_queue_t imageQueue;
+@property NSOperationQueue* imageQueue;
 
 @end
 
@@ -29,7 +29,8 @@
 -(void)viewDidLoad{
     [RBClient.sharedInstance setMessageDelegate:self];
     self.chatTableView.showAvatars = YES;
-    self.imageQueue = dispatch_queue_create("com.trevir.imageDownload", DISPATCH_QUEUE_SERIAL);
+    self.imageQueue = [NSOperationQueue new];
+    self.imageQueue.maxConcurrentOperationCount = 1;
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -38,6 +39,10 @@
     }
     [self.chatTableView reloadData];
     [self.chatTableView scrollBubbleViewToBottomAnimated:true];
+}
+
+-(void) viewWillDisappear:(BOOL)animated {
+    [self.imageQueue cancelAllOperations];
 }
 
 #pragma mark uibubbletableview data source
@@ -63,13 +68,13 @@
         if(!attachment.image){
             ((DCMessageAttatchment*)item).image = [UIImage imageNamed:@"default"];
             
-            dispatch_async(self.imageQueue, ^{
+            NSBlockOperation* loadImageOperation = [NSBlockOperation blockOperationWithBlock: ^{
                 [attachment loadImage];
                 
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [tableView reloadData];
-                });
-            });
+                [tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:YES];
+            }];
+            
+            [self.imageQueue addOperation:loadImageOperation];
         }
         
         bubbleData = [NSBubbleData dataWithImage:attachment.image date:[NSDate date] type:BubbleTypeSomeoneElse];
@@ -80,13 +85,13 @@
     } else {
         item.author.avatarImage = [UIImage imageNamed:@"default"];
         
-        dispatch_async(self.imageQueue, ^{
+        NSBlockOperation* loadImageOperation = [NSBlockOperation blockOperationWithBlock: ^{
             [item.author loadAvatarImage];
             
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [tableView reloadData];
-            });
-        });
+            [tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:YES];
+        }];
+        
+        [self.imageQueue addOperation:loadImageOperation];
     }
     
     return bubbleData;
