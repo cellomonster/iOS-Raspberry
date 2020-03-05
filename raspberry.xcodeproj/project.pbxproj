@@ -57,10 +57,11 @@
 		09610D3E22474658000E65E1 /* base64.c in Sources */ = {isa = PBXBuildFile; fileRef = 09610D2E22474658000E65E1 /* base64.c */; };
 		09610D3F22474658000E65E1 /* NSData+SRB64Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 09610D3122474658000E65E1 /* NSData+SRB64Additions.m */; };
 		09610D4022474658000E65E1 /* SRWebSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 09610D3422474658000E65E1 /* SRWebSocket.m */; };
+		0983EC95240FF27A00A1E94D /* TRMalleableFrameView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0983EC94240FF27A00A1E94D /* TRMalleableFrameView.m */; };
+		0983EC972410A5AB00A1E94D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0983EC962410A5AB00A1E94D /* Images.xcassets */; };
 		09A4D348235DDD2B00A7E59C /* RBMembersTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09A4D347235DDD2B00A7E59C /* RBMembersTableViewController.m */; };
 		09A4D34C23614D9900A7E59C /* FTWCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 09A4D34B23614D9900A7E59C /* FTWCache.m */; };
 		09A4D34F23614E1400A7E59C /* UIImageView+Network.m in Sources */ = {isa = PBXBuildFile; fileRef = 09A4D34E23614E1400A7E59C /* UIImageView+Network.m */; };
-		09A4D35123615EB800A7E59C /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09A4D35023615EB800A7E59C /* Media.xcassets */; };
 		09A6136E22A191B400D23078 /* RBWebSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 09A6136D22A191B400D23078 /* RBWebSocket.m */; };
 		09A88761229F6FFD006D2BEF /* RBWebSocketDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 09CE3DED226BC30300CF6E55 /* RBWebSocketDelegate.m */; };
 		09A88762229F6FFD006D2BEF /* RBGatewayEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 09CE3DF6226BC77E00CF6E55 /* RBGatewayEvent.m */; };
@@ -178,6 +179,9 @@
 		09610D3322474658000E65E1 /* SRWebSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRWebSocket.h; sourceTree = "<group>"; };
 		09610D3422474658000E65E1 /* SRWebSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRWebSocket.m; sourceTree = "<group>"; };
 		096EEC5E2370DA240026D06D /* RBMessageItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RBMessageItem.h; sourceTree = "<group>"; };
+		0983EC93240FF27A00A1E94D /* TRMalleableFrameView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRMalleableFrameView.h; sourceTree = "<group>"; };
+		0983EC94240FF27A00A1E94D /* TRMalleableFrameView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRMalleableFrameView.m; sourceTree = "<group>"; };
+		0983EC962410A5AB00A1E94D /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		099A611F22FA6A6200C8E877 /* RBLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RBLoginViewController.h; sourceTree = "<group>"; };
 		09A4D346235DDD2B00A7E59C /* RBMembersTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RBMembersTableViewController.h; sourceTree = "<group>"; };
 		09A4D347235DDD2B00A7E59C /* RBMembersTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RBMembersTableViewController.m; sourceTree = "<group>"; };
@@ -185,7 +189,6 @@
 		09A4D34B23614D9900A7E59C /* FTWCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTWCache.m; sourceTree = "<group>"; };
 		09A4D34D23614E1400A7E59C /* UIImageView+Network.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+Network.h"; sourceTree = "<group>"; };
 		09A4D34E23614E1400A7E59C /* UIImageView+Network.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+Network.m"; sourceTree = "<group>"; };
-		09A4D35023615EB800A7E59C /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		09A6136C22A191B400D23078 /* RBWebSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RBWebSocket.h; sourceTree = "<group>"; };
 		09A6136D22A191B400D23078 /* RBWebSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RBWebSocket.m; sourceTree = "<group>"; };
 		09AB656D23BAC60A005ADD68 /* RBUserStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RBUserStore.h; path = "data sources/RBUserStore.h"; sourceTree = "<group>"; };
@@ -279,7 +282,6 @@
 		09610CB4224745F5000E65E1 = {
 			isa = PBXGroup;
 			children = (
-				09A4D35023615EB800A7E59C /* Media.xcassets */,
 				09610CC6224745F5000E65E1 /* raspberry */,
 				09EF390A2247D1FF00C3FA68 /* view controllers */,
 				09EF390B2248072700C3FA68 /* client */,
@@ -322,6 +324,7 @@
 				09610CD0224745F5000E65E1 /* RBAppDelegate.m */,
 				09EF39082247D18E00C3FA68 /* Storyboard.storyboard */,
 				AB783A1723039EF80001B787 /* Storyboard ipad.storyboard */,
+				0983EC962410A5AB00A1E94D /* Images.xcassets */,
 				09610CC7224745F5000E65E1 /* Supporting Files */,
 			);
 			path = raspberry;
@@ -473,6 +476,8 @@
 				095BF89B235ACF8D00F3FCD8 /* RBChatViewController.m */,
 				09A4D346235DDD2B00A7E59C /* RBMembersTableViewController.h */,
 				09A4D347235DDD2B00A7E59C /* RBMembersTableViewController.m */,
+				0983EC93240FF27A00A1E94D /* TRMalleableFrameView.h */,
+				0983EC94240FF27A00A1E94D /* TRMalleableFrameView.m */,
 			);
 			path = "view controllers";
 			sourceTree = "<group>";
@@ -567,6 +572,7 @@
 				095BF8B6235ACFB500F3FCD8 /* bubbleSomeone.png in Resources */,
 				09610CD3224745F5000E65E1 /* Default.png in Resources */,
 				09610CD5224745F5000E65E1 /* Default@2x.png in Resources */,
+				0983EC972410A5AB00A1E94D /* Images.xcassets in Resources */,
 				09610CD7224745F5000E65E1 /* Default-568h@2x.png in Resources */,
 				09EF39092247D18E00C3FA68 /* Storyboard.storyboard in Resources */,
 				095BF8B4235ACFB500F3FCD8 /* bubbleMine.png in Resources */,
@@ -574,7 +580,6 @@
 				095BF8B5235ACFB500F3FCD8 /* bubbleMine@2x.png in Resources */,
 				090E0E7A22481240004B30AC /* API Settings.plist in Resources */,
 				095BF8BA235ACFB500F3FCD8 /* typingMine.png in Resources */,
-				09A4D35123615EB800A7E59C /* Media.xcassets in Resources */,
 				095BF8BD235ACFB500F3FCD8 /* typingSomeone@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -647,6 +652,7 @@
 				09EF390E2248074400C3FA68 /* RBClient.m in Sources */,
 				091B9D97226B5C2C0047C75B /* RBGatewayHeart.m in Sources */,
 				09A4D34C23614D9900A7E59C /* FTWCache.m in Sources */,
+				0983EC95240FF27A00A1E94D /* TRMalleableFrameView.m in Sources */,
 				09A6136E22A191B400D23078 /* RBWebSocket.m in Sources */,
 				ABE3940D22FE7630007144DD /* RBLoginViewController.m in Sources */,
 				095BF8C0235ACFB500F3FCD8 /* UIBubbleTableView.m in Sources */,
@@ -745,6 +751,8 @@
 		09610CF6224745F5000E65E1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "raspberry/raspberry-Prefix.pch";
@@ -759,6 +767,8 @@
 		09610CF7224745F5000E65E1 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "raspberry/raspberry-Prefix.pch";

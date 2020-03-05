@@ -14,10 +14,12 @@
 #import "FTWCache.h"
 #import "RBMessageItem.h"
 #import "DCMessageAttatchment.h"
+#import "TRMalleableFrameView.h"
 
 @interface RBChatViewController ()
 
-@property IBOutlet UIBubbleTableView *chatTableView;
+@property (weak, nonatomic) IBOutlet UIBubbleTableView *chatTableView;
+@property (weak, nonatomic) IBOutlet UIToolbar *chatToolbar;
 
 @property NSMutableArray *messages;
 @property NSOperationQueue* imageQueue;
@@ -31,6 +33,15 @@
     self.chatTableView.showAvatars = YES;
     self.imageQueue = [NSOperationQueue new];
     self.imageQueue.maxConcurrentOperationCount = 1;
+    
+    [NSNotificationCenter.defaultCenter addObserver:self
+                                           selector:@selector(keyboardWillShow:)
+                                               name:UIKeyboardWillShowNotification
+                                             object:nil];
+	[NSNotificationCenter.defaultCenter addObserver:self
+                                           selector:@selector(keyboardWillHide:)
+                                               name:UIKeyboardWillHideNotification
+                                             object:nil];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -43,6 +54,42 @@
 
 -(void) viewWillDisappear:(BOOL)animated {
     [self.imageQueue cancelAllOperations];
+}
+
+- (void)keyboardWillShow:(NSNotification *)notification {
+	
+	//thx to Pierre Legrain
+	//http://pyl.io/2015/08/17/animating-in-sync-with-ios-keyboard/
+	
+	int keyboardHeight = [[notification.userInfo objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size.height;
+	float keyboardAnimationDuration = [[notification.userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
+	int keyboardAnimationCurve = [[notification.userInfo objectForKey: UIKeyboardAnimationCurveUserInfoKey] integerValue];
+	
+	[UIView beginAnimations:nil context:NULL];
+	[UIView setAnimationDuration:keyboardAnimationDuration];
+	[UIView setAnimationCurve:keyboardAnimationCurve];
+	[UIView setAnimationBeginsFromCurrentState:YES];
+	[self.chatTableView setHeight:self.view.height - keyboardHeight - self.chatToolbar.height];
+	[self.chatToolbar setY:self.view.height - keyboardHeight - self.chatToolbar.height];
+	[UIView commitAnimations];
+	
+	
+	/*if(self.viewingPresentTime)
+		[self.chatTableView setContentOffset:CGPointMake(0, self.chatTableView.contentSize.height - self.chatTableView.frame.size.height) animated:NO];*/
+}
+
+- (void)keyboardWillHide:(NSNotification *)notification {
+	
+	float keyboardAnimationDuration = [[notification.userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
+	int keyboardAnimationCurve = [[notification.userInfo objectForKey: UIKeyboardAnimationCurveUserInfoKey] integerValue];
+	
+	[UIView beginAnimations:nil context:NULL];
+	[UIView setAnimationDuration:keyboardAnimationDuration];
+	[UIView setAnimationCurve:keyboardAnimationCurve];
+	[UIView setAnimationBeginsFromCurrentState:YES];
+	[self.chatTableView setHeight:self.view.height - self.chatToolbar.height];
+	[self.chatToolbar setY:self.view.height - self.chatToolbar.height];
+	[UIView commitAnimations];
 }
 
 #pragma mark uibubbletableview data source
@@ -65,8 +112,9 @@
         
         DCMessageAttatchment* attachment = ((DCMessageAttatchment*)item);
         
-        if(!attachment.image){
-            ((DCMessageAttatchment*)item).image = [UIImage imageNamed:@"default"];
+        if(attachment.attachmentType == DCMessageAttatchmentTypeImage && !attachment.image){
+            
+            ((DCMessageAttatchment*)item).image = [UIImage new];
             
             NSBlockOperation* loadImageOperation = [NSBlockOperation blockOperationWithBlock: ^{
                 [attachment loadImage];
@@ -83,14 +131,13 @@
     if(item.author.avatarImage != nil) {
         bubbleData.avatar = item.author.avatarImage;
     } else {
-        item.author.avatarImage = [UIImage imageNamed:@"default"];
+        item.author.avatarImage = [UIImage new];
         
         NSBlockOperation* loadImageOperation = [NSBlockOperation blockOperationWithBlock: ^{
             [item.author loadAvatarImage];
-            
             [tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:YES];
         }];
-        
+            
         [self.imageQueue addOperation:loadImageOperation];
     }
     
