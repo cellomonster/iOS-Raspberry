@@ -759,7 +759,7 @@
 				INFOPLIST_FILE = "raspberry/raspberry-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos6.1;
+				SDKROOT = iphoneos6.0;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -775,7 +775,7 @@
 				INFOPLIST_FILE = "raspberry/raspberry-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos6.1;
+				SDKROOT = iphoneos6.0;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

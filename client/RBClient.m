@@ -44,7 +44,7 @@
 }
 
 - (void)connectWithTokenString:(NSString*)tokenString {
-	self.tokenString = tokenString;
+	self.tokenString = [tokenString stringByReplacingOccurrencesOfString:@"\"" withString:@""];;
     
     NSString *path = [NSBundle.mainBundle pathForResource: @"API Settings" ofType:@"plist"];
 	NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile: path];
