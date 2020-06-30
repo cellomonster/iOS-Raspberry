@@ -25,13 +25,13 @@
 	return self;
 }
 
-- (NSArray *)getLastNumMessages:(int)number {
-    NSMutableArray *messages = [NSMutableArray arrayWithCapacity:number];
+- (NSArray *)retrieveMessages:(int)numberOfMessages {
+    NSMutableArray *messages = [NSMutableArray arrayWithCapacity:numberOfMessages];
 	
 	//Generate URL from args
 	NSMutableString* getChannelAddress = [[NSString stringWithFormat: @"https://discordapp.com/api/channels/%@/messages?", self.snowflake] mutableCopy];
     
-    [getChannelAddress appendString:[NSString stringWithFormat:@"limit=%i", number]];
+    [getChannelAddress appendString:[NSString stringWithFormat:@"limit=%i", numberOfMessages]];
 	
 	NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:getChannelAddress] cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:2];
 	
@@ -64,6 +64,30 @@
 	}
 	
 	return [[messages reverseObjectEnumerator] allObjects];;
+}
+
+- (void)sendMessage:(NSString*)message {
+    NSURL* channelURL = [NSURL URLWithString: [NSString stringWithFormat:@"https://discordapp.com/api/channels/%@/messages", self.snowflake]];
+    
+    NSMutableURLRequest *urlRequest=[NSMutableURLRequest requestWithURL:channelURL cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:1];
+    
+    NSString* messageString = [NSString stringWithFormat:@"{\"content\":\"%@\"}", message];
+    
+    [urlRequest setHTTPMethod:@"POST"];
+    
+    [urlRequest setHTTPBody:[NSData dataWithBytes:[messageString UTF8String] length:[messageString length]]];
+    [urlRequest addValue:RBClient.sharedInstance.tokenString forHTTPHeaderField:@"Authorization"];
+    [urlRequest addValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    
+    
+    NSError *error = nil;
+    NSHTTPURLResponse *responseCode = nil;
+    [NSURLConnection sendSynchronousRequest:urlRequest returningResponse:&responseCode error:&error];
+    
+    if(error){
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:error.localizedFailureReason message:error.localizedDescription delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alertView show];
+    }
 }
 
 @end

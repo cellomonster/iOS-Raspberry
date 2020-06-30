@@ -207,7 +207,11 @@
                                             <textInputTraits key="textInputTraits"/>
                                         </textField>
                                     </barButtonItem>
-                                    <barButtonItem systemItem="reply" id="LFM-H3-9Gb"/>
+                                    <barButtonItem systemItem="reply" id="LFM-H3-9Gb">
+                                        <connections>
+                                            <action selector="sendButtonWasPressed:" destination="Dbc-2A-UEw" id="zhs-x6-TKQ"/>
+                                        </connections>
+                                    </barButtonItem>
                                 </items>
                                 <color key="tintColor" red="0.80000001192092896" green="0.80000001192092896" blue="0.80000001192092896" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="barTintColor" red="0.83529418710000003" green="0.85098046059999999" blue="0.8980392814" alpha="1" colorSpace="deviceRGB"/>
@@ -233,6 +237,8 @@
                     </navigationItem>
                     <connections>
                         <outlet property="chatTableView" destination="akq-cx-cQD" id="QOr-je-bXe"/>
+                        <outlet property="chatToolbar" destination="ma9-2d-3A9" id="Iwp-bU-Gdq"/>
+                        <outlet property="messageField" destination="sAS-X1-3th" id="TzX-MI-5C3"/>
                         <segue destination="4TV-i0-spJ" kind="modal" id="Psg-On-Mcm"/>
                     </connections>
                 </viewController>
@@ -282,7 +288,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bwv-Yc-6N9">
-                                <rect key="frame" x="0.0" y="292" width="320" height="168"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="460"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                             </view>
@@ -299,10 +305,10 @@
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="bwv-Yc-6N9" secondAttribute="trailing" type="default" id="1iU-zu-cWN"/>
                             <constraint firstItem="bwv-Yc-6N9" firstAttribute="leading" secondItem="gTr-MM-CgQ" secondAttribute="leading" type="default" id="94f-mF-6zc"/>
-                            <constraint firstItem="bwv-Yc-6N9" firstAttribute="top" secondItem="gTr-MM-CgQ" secondAttribute="top" constant="292" id="DJv-TP-yPt"/>
                             <constraint firstItem="jdU-UP-HTP" firstAttribute="centerX" secondItem="bwv-Yc-6N9" secondAttribute="centerX" type="default" id="pyG-MU-YeL"/>
                             <constraint firstAttribute="bottom" secondItem="bwv-Yc-6N9" secondAttribute="bottom" type="default" id="qpP-UF-B8U"/>
                             <constraint firstAttribute="bottom" secondItem="jdU-UP-HTP" secondAttribute="bottom" constant="120" id="srf-cC-zy7"/>
+                            <constraint firstItem="bwv-Yc-6N9" firstAttribute="top" secondItem="gTr-MM-CgQ" secondAttribute="top" type="default" id="utZ-se-Sl2"/>
                         </constraints>
                     </view>
                 </viewController>

@@ -38,6 +38,7 @@ typedef NS_ENUM(NSInteger, DCChannelType) {
 
 - (DCChannel*)initFromDictionary:(NSDictionary *)dict;
 
-- (NSArray*)getLastNumMessages:(int)number;
+- (NSArray*)retrieveMessages:(int)numberOfMessages;
+- (void)sendMessage:(NSString*)message;
 
 @end

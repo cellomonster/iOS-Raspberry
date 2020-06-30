@@ -20,6 +20,7 @@
 
 @property (weak, nonatomic) IBOutlet UIBubbleTableView *chatTableView;
 @property (weak, nonatomic) IBOutlet UIToolbar *chatToolbar;
+@property (weak, nonatomic) IBOutlet UITextField *messageField;
 
 @property NSMutableArray *messages;
 @property NSOperationQueue* imageQueue;
@@ -46,7 +47,7 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     if(self.activeChannel){
-        self.messages = (NSMutableArray*)[self.activeChannel getLastNumMessages:50];
+        self.messages = (NSMutableArray*)[self.activeChannel retrieveMessages:50];
     }
     [self.chatTableView reloadData];
     [self.chatTableView scrollBubbleViewToBottomAnimated:true];
@@ -76,6 +77,11 @@
 	
 	/*if(self.viewingPresentTime)
 		[self.chatTableView setContentOffset:CGPointMake(0, self.chatTableView.contentSize.height - self.chatTableView.frame.size.height) animated:NO];*/
+}
+
+- (IBAction)sendButtonWasPressed:(id)sender {
+    [self.activeChannel sendMessage:self.messageField.text];
+    self.messageField.text = @"";
 }
 
 - (void)keyboardWillHide:(NSNotification *)notification {
