@@ -127,9 +127,19 @@
             
             ((DCMessageAttatchment*)item).image = [UIImage new];
             
-            NSBlockOperation* loadImageOperation = [NSBlockOperation blockOperationWithBlock: ^{
+//            NSBlockOperation* loadImageOperation = [NSBlockOperation blockOperationWithBlock: ^{
+//                [attachment loadImage];
+//                if(!loadImageOperation.isCancelled){
+//                    [tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:YES];
+//                }
+//            }];
+            
+            NSBlockOperation *loadImageOperation = [[NSBlockOperation alloc] init];
+            __weak NSBlockOperation *weakOperation = loadImageOperation;
+            [loadImageOperation addExecutionBlock:^{
                 [attachment loadImage];
-                
+                if([weakOperation isCancelled])
+                    return;
                 [tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:YES];
             }];
             
