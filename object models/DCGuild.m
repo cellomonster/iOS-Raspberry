@@ -19,8 +19,10 @@
 	self.snowflake = [dict objectForKey:@"id"];
 	
 	self.name = [dict objectForKey:@"name"];
+    
+    self.sortingPosition = [[dict objectForKey:@"position"] intValue];
 	
-	//NSLog(@"%@", self.name);
+	NSLog(@"%@ - %d", self.name, self.sortingPosition);
 	
     
 	//Channels
@@ -28,18 +30,32 @@
 	self.channels = [[NSMutableDictionary alloc] initWithCapacity:jsonChannels.count];
 	for(NSDictionary *jsonChannel in jsonChannels){
 		DCChannel *channel = [[DCChannel alloc] initFromDictionary:jsonChannel];
-		[self.channels setObject:channel forKey:channel.snowflake];
+        if(channel.channelType == DCChannelTypeGuildText || channel.channelType == DCChannelTypeDirectMessage || channel.channelType == DCChannelTypeGroupMessage)
+            [self.channels setObject:channel forKey:channel.snowflake];
 	}
+    
+    
+    self.sortedChannels = [[self.channels allValues] sortedArrayUsingComparator:^(DCChannel* c1, DCChannel* c2) {
+        
+        if (c1.sortingPosition > c2.sortingPosition) {
+            return (NSComparisonResult)NSOrderedDescending;
+        }
+        
+        if (c1.sortingPosition < c2.sortingPosition) {
+            return (NSComparisonResult)NSOrderedAscending;
+        }
+        return (NSComparisonResult)NSOrderedSame;
+    }];
     
     //NSLog(@"%@", [dict objectForKey:@"members"]);
 	
 	//Roles
 	/* NSArray *jsonRoles = ((NSArray*)[dict objectForKey:@"roles"]);
-	self.roles = [[NSMutableDictionary alloc] init];
-	for(NSDictionary *jsonRole in jsonRoles){
-		DCRole *role = [[DCRole alloc] initFromDictionary:jsonRole];
-		[self.channels setObject:role forKey:role.snowflake];
-	}*/
+     self.roles = [[NSMutableDictionary alloc] init];
+     for(NSDictionary *jsonRole in jsonRoles){
+     DCRole *role = [[DCRole alloc] initFromDictionary:jsonRole];
+     [self.channels setObject:role forKey:role.snowflake];
+     }*/
 	
 	return self;
 }

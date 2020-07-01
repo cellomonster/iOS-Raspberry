@@ -42,9 +42,7 @@
 	}
     
     if(tableView == self.channelTableView){
-        
-        NSString *key = [[self.focusedGuild.channels allKeys] objectAtIndex:indexPath.row];
-        self.selectedChannel = (DCChannel*)[self.focusedGuild.channels objectForKey:key];
+        self.selectedChannel = (DCChannel*)[self.focusedGuild.sortedChannels objectAtIndex:indexPath.row];
         
         [self performSegueWithIdentifier:@"guilds to chat" sender:self];
     }
@@ -88,8 +86,7 @@
 	
 	if(tableView == self.channelTableView){
 		cell = [tableView dequeueReusableCellWithIdentifier:@"channel" forIndexPath:indexPath];
-		NSString *key = [[self.focusedGuild.channels allKeys] objectAtIndex:indexPath.row];
-		cell.textLabel.text = ((DCChannel*)[self.focusedGuild.channels objectForKey:key]).name;
+		cell.textLabel.text = ((DCChannel*)[self.focusedGuild.sortedChannels objectAtIndex:indexPath.row]).name;
 	}
   
 	return cell;

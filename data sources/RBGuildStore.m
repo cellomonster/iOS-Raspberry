@@ -12,6 +12,7 @@
 @interface RBGuildStore()
 
 @property NSMutableDictionary* guildDictionary;
+@property NSMutableArray* guildKeys;
 @property NSMutableDictionary* channelDictionary;
 
 @end
@@ -35,6 +36,11 @@
         
         [self.channelDictionary addEntriesFromDictionary:guild.channels];
 	}
+    
+    self.guildKeys = [[NSMutableArray alloc] initWithCapacity:self.guildDictionary.count];
+    //self.guildKeys[0] =
+    self.guildKeys = [[event.d objectForKey:@"user_settings"] objectForKey:@"guild_positions"];
+    NSLog(@"%@", self.guildKeys);
 }
 
 -(void)addGuild:(DCGuild *)guild{
@@ -42,8 +48,8 @@
 }
 
 -(DCGuild*)guildAtIndex:(int)index{
-	NSArray *keys = [self.guildDictionary allKeys];
-	return [self.guildDictionary objectForKey:keys[index]];
+    NSString* key = self.guildKeys[index + 1];
+	return [self.guildDictionary objectForKey:key];
 }
 
 -(DCGuild*)guildOfSnowflake:(NSString *)snowflake{

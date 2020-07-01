@@ -23,6 +23,7 @@
 @property NSMutableDictionary *emoji;
 @property NSMutableDictionary *members;
 @property NSMutableDictionary *channels;
+@property NSArray *sortedChannels;
 
 @property bool isLarge;
 @property bool isAvailable;

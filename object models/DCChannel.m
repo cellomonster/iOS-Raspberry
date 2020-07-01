@@ -19,8 +19,19 @@
 	
 	self.snowflake = [dict objectForKey:@"id"];
 	self.name = [dict objectForKey:@"name"];
+    id sortingPositionId = [dict objectForKey:@"position"];
+    if(sortingPositionId != nil){
+        self.sortingPosition = [sortingPositionId intValue];
+    }
+    
+    self.parentCatagorySnowflake = [dict objectForKey:@"parent_id"];
+    if(self.parentCatagorySnowflake == nil){
+        self.parentCatagorySnowflake = @"no cat";
+    }
+    
+    self.channelType = [[dict objectForKey:@"type"] intValue];
 	
-	//NSLog(@"| %@", self.name);
+	NSLog(@"| %@ - %@ - %d", self.name, self.parentCatagorySnowflake ,self.sortingPosition);
 	
 	return self;
 }

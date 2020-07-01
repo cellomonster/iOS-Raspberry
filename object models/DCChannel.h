@@ -16,6 +16,8 @@ typedef NS_ENUM(NSInteger, DCChannelType) {
 	DCChannelTypeGuildVoice,
 	DCChannelTypeGroupMessage,
 	DCChannelTypeGuildCatagory,
+    DCChannelTypeGuildNews,
+    DCChannelTypeGuildStore,
 };
 
 @interface DCChannel : NSObject <DCDiscordObject>
