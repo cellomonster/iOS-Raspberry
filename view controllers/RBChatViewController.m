@@ -32,6 +32,7 @@
 -(void)viewDidLoad{
     [RBClient.sharedInstance setMessageDelegate:self];
     self.chatTableView.showAvatars = YES;
+    self.chatTableView.watchingInRealTime = YES;
     self.imageQueue = [NSOperationQueue new];
     self.imageQueue.maxConcurrentOperationCount = 1;
     
@@ -50,7 +51,7 @@
         self.messages = (NSMutableArray*)[self.activeChannel retrieveMessages:50];
     }
     [self.chatTableView reloadData];
-    [self.chatTableView scrollBubbleViewToBottomAnimated:true];
+    [self scrollChatToBottom];
 }
 
 -(void) viewWillDisappear:(BOOL)animated {
@@ -73,15 +74,14 @@
 	[self.chatTableView setHeight:self.view.height - keyboardHeight - self.chatToolbar.height];
 	[self.chatToolbar setY:self.view.height - keyboardHeight - self.chatToolbar.height];
 	[UIView commitAnimations];
+    
+    if(self.chatTableView.watchingInRealTime){
+        [self.chatTableView scrollBubbleViewToBottomAnimated:true];
+    }
 	
 	
 	/*if(self.viewingPresentTime)
 		[self.chatTableView setContentOffset:CGPointMake(0, self.chatTableView.contentSize.height - self.chatTableView.frame.size.height) animated:NO];*/
-}
-
-- (IBAction)sendButtonWasPressed:(id)sender {
-    [self.activeChannel sendMessage:self.messageField.text];
-    self.messageField.text = @"";
 }
 
 - (void)keyboardWillHide:(NSNotification *)notification {
@@ -96,6 +96,11 @@
 	[self.chatTableView setHeight:self.view.height - self.chatToolbar.height];
 	[self.chatToolbar setY:self.view.height - self.chatToolbar.height];
 	[UIView commitAnimations];
+}
+
+- (IBAction)sendButtonWasPressed:(id)sender {
+    [self.activeChannel sendMessage:self.messageField.text];
+    self.messageField.text = @"";
 }
 
 #pragma mark uibubbletableview data source
@@ -154,14 +159,15 @@
 
 -(void)handleMessageCreate:(NSDictionary *)dict{
     DCMessage *message = [[DCMessage alloc] initFromDictionary:dict];
-  
-    NSLog(@"%p == %p", message.parentChannel, self.activeChannel);
     
     if(message.parentChannel == self.activeChannel){
         [self.messages addObject:message];
         [self.chatTableView reloadData];
-        [self.chatTableView scrollBubbleViewToBottomAnimated:true];
     }
+}
+
+-(void)scrollChatToBottom{
+    [self.chatTableView scrollBubbleViewToBottomAnimated:false];
 }
 
 @end

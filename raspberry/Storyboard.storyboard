@@ -198,10 +198,9 @@
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ma9-2d-3A9">
                                 <rect key="frame" x="0.0" y="372" width="320" height="44"/>
                                 <items>
-                                    <barButtonItem title="Item" systemItem="camera" id="Oev-9C-v7g"/>
                                     <barButtonItem style="plain" id="aOj-gh-fY5">
                                         <textField key="customView" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="sAS-X1-3th">
-                                            <rect key="frame" x="56" y="7" width="202" height="30"/>
+                                            <rect key="frame" x="12" y="7" width="243" height="30"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <textInputTraits key="textInputTraits"/>

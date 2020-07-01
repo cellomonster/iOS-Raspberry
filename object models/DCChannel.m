@@ -20,27 +20,37 @@
 	self.snowflake = [dict objectForKey:@"id"];
 	self.name = [dict objectForKey:@"name"];
 	
-	NSLog(@"| %@", self.name);
+	//NSLog(@"| %@", self.name);
 	
 	return self;
 }
 
+- (NSMutableURLRequest*)authedMutableURLRequestFromString:(NSString*)requestString{
+    
+    NSString* baseString = @"https://discordapp.com/api/channels/%@%@";
+    NSString* compositeString = [NSString stringWithFormat:baseString, self.snowflake, requestString];
+    NSURL* url = [NSURL URLWithString:compositeString];
+    
+    NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:2];
+
+    [urlRequest addValue:RBClient.sharedInstance.tokenString forHTTPHeaderField:@"Authorization"];
+    [urlRequest addValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [urlRequest addValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    
+    return urlRequest;
+    
+}
+
 - (NSArray *)retrieveMessages:(int)numberOfMessages {
     NSMutableArray *messages = [NSMutableArray arrayWithCapacity:numberOfMessages];
-	
-	//Generate URL from args
-	NSMutableString* getChannelAddress = [[NSString stringWithFormat: @"https://discordapp.com/api/channels/%@/messages?", self.snowflake] mutableCopy];
     
-    [getChannelAddress appendString:[NSString stringWithFormat:@"limit=%i", numberOfMessages]];
+    NSString* requestString = [NSString stringWithFormat:@"/messages?limit=%i", numberOfMessages];
 	
-	NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:getChannelAddress] cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:2];
-	
-	[urlRequest addValue:RBClient.sharedInstance.tokenString forHTTPHeaderField:@"Authorization"];
-	[urlRequest addValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+	NSMutableURLRequest* request = [self authedMutableURLRequestFromString:requestString];
 	
 	NSError *error;
 	NSHTTPURLResponse *responseCode;
-	NSData *response = [NSURLConnection sendSynchronousRequest:urlRequest returningResponse:&responseCode error:&error];
+	NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:&responseCode error:&error];
     
     if(error){
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:error.localizedFailureReason message:error.localizedDescription delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
@@ -67,22 +77,17 @@
 }
 
 - (void)sendMessage:(NSString*)message {
-    NSURL* channelURL = [NSURL URLWithString: [NSString stringWithFormat:@"https://discordapp.com/api/channels/%@/messages", self.snowflake]];
-    
-    NSMutableURLRequest *urlRequest=[NSMutableURLRequest requestWithURL:channelURL cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:1];
+    NSMutableURLRequest* request = [self authedMutableURLRequestFromString:@"/messages"];
     
     NSString* messageString = [NSString stringWithFormat:@"{\"content\":\"%@\"}", message];
     
-    [urlRequest setHTTPMethod:@"POST"];
-    
-    [urlRequest setHTTPBody:[NSData dataWithBytes:[messageString UTF8String] length:[messageString length]]];
-    [urlRequest addValue:RBClient.sharedInstance.tokenString forHTTPHeaderField:@"Authorization"];
-    [urlRequest addValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [request setHTTPMethod:@"POST"];
+    [request setHTTPBody:[NSData dataWithBytes:[messageString UTF8String] length:[messageString length]]];
     
     
     NSError *error = nil;
     NSHTTPURLResponse *responseCode = nil;
-    [NSURLConnection sendSynchronousRequest:urlRequest returningResponse:&responseCode error:&error];
+    [NSURLConnection sendSynchronousRequest:request returningResponse:&responseCode error:&error];
     
     if(error){
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:error.localizedFailureReason message:error.localizedDescription delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];

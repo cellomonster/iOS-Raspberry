@@ -148,6 +148,10 @@
     }
     
     [super reloadData];
+    
+    if(self.watchingInRealTime){
+        [self scrollBubbleViewToBottomAnimated:false];
+    }
 }
 
 #pragma mark - UITableViewDelegate implementation
@@ -228,6 +232,17 @@
     cell.showAvatar = self.showAvatars;
     
     return cell;
+}
+
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    CGFloat height = scrollView.frame.size.height;
+    
+    CGFloat contentYoffset = scrollView.contentOffset.y;
+    
+    CGFloat distanceFromBottom = scrollView.contentSize.height - contentYoffset;
+    
+    self.watchingInRealTime = distanceFromBottom <= height;
 }
 
 #pragma mark - Public interface

@@ -20,7 +20,7 @@
 	
 	self.name = [dict objectForKey:@"name"];
 	
-	NSLog(@"%@", self.name);
+	//NSLog(@"%@", self.name);
 	
     
 	//Channels
@@ -31,7 +31,7 @@
 		[self.channels setObject:channel forKey:channel.snowflake];
 	}
     
-    NSLog(@"%@", [dict objectForKey:@"members"]);
+    //NSLog(@"%@", [dict objectForKey:@"members"]);
 	
 	//Roles
 	/* NSArray *jsonRoles = ((NSArray*)[dict objectForKey:@"roles"]);
