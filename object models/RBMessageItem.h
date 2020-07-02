@@ -8,8 +8,9 @@
 
 #import <Foundation/Foundation.h>
 #import "DCDiscordObject.h"
-#import "DCUser.h"
-#import "DCGuildMember.h"
+
+@class DCUser;
+@class DCGuildMember;
 
 @protocol RBMessageItem <DCDiscordObject>
 

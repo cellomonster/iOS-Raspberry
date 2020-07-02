@@ -7,10 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "DCDiscordObject.h"
-#import "DCChannel.h"
-#import "DCUser.h"
-#import "DCGuildMember.h"
+#import "RBMessageItem.h"
+
+@class DCChannel;
+@class DCGuild;
+@class DCGuildMember;
 
 typedef NS_ENUM(NSInteger, DCMessageType) {
 	DCMessageTypeDefault,

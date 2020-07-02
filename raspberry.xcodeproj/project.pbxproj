@@ -80,6 +80,7 @@
 		ABA46039230362C000AC83DF /* RBGuildMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ABA46038230362C000AC83DF /* RBGuildMenuViewController.m */; };
 		ABA4603C2303645D00AC83DF /* RBSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ABA4603B2303645D00AC83DF /* RBSettingsViewController.m */; };
 		ABE3940D22FE7630007144DD /* RBLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ABE3940C22FE7630007144DD /* RBLoginViewController.m */; };
+		B924F06224AE3E2F005CBF95 /* DCPermissionOverwrite.m in Sources */ = {isa = PBXBuildFile; fileRef = B924F06124AE3E2F005CBF95 /* DCPermissionOverwrite.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -214,6 +215,8 @@
 		ABA4603A2303645D00AC83DF /* RBSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RBSettingsViewController.h; sourceTree = "<group>"; };
 		ABA4603B2303645D00AC83DF /* RBSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RBSettingsViewController.m; sourceTree = "<group>"; };
 		ABE3940C22FE7630007144DD /* RBLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RBLoginViewController.m; sourceTree = "<group>"; };
+		B924F06024AE3E2F005CBF95 /* DCPermissionOverwrite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCPermissionOverwrite.h; sourceTree = "<group>"; };
+		B924F06124AE3E2F005CBF95 /* DCPermissionOverwrite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCPermissionOverwrite.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -356,6 +359,8 @@
 				09610D0222474651000E65E1 /* DCEmoji.m */,
 				09610D0522474651000E65E1 /* DCGuildMember.h */,
 				09610D0622474651000E65E1 /* DCGuildMember.m */,
+				B924F06024AE3E2F005CBF95 /* DCPermissionOverwrite.h */,
+				B924F06124AE3E2F005CBF95 /* DCPermissionOverwrite.m */,
 				09610D0B22474651000E65E1 /* DCRole.h */,
 				09610D0C22474651000E65E1 /* DCRole.m */,
 				09610D0D22474651000E65E1 /* DCUser.h */,
@@ -619,6 +624,7 @@
 				09A88762229F6FFD006D2BEF /* RBGatewayEvent.m in Sources */,
 				09A88764229F6FFD006D2BEF /* RBCommon.m in Sources */,
 				09610CCD224745F5000E65E1 /* main.m in Sources */,
+				B924F06224AE3E2F005CBF95 /* DCPermissionOverwrite.m in Sources */,
 				09610CD1224745F5000E65E1 /* RBAppDelegate.m in Sources */,
 				095BF8BF235ACFB500F3FCD8 /* UIBubbleHeaderTableViewCell.m in Sources */,
 				09A4D34F23614E1400A7E59C /* UIImageView+Network.m in Sources */,

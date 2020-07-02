@@ -15,6 +15,7 @@
 #import "RBMessageItem.h"
 #import "DCMessageAttatchment.h"
 #import "TRMalleableFrameView.h"
+#import "DCUser.h"
 
 @interface RBChatViewController ()
 

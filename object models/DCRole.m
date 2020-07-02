@@ -13,6 +13,10 @@
 
 - (DCRole *)initFromDictionary:(NSDictionary *)dict {
 	self = [super init];
+    
+    self.name = [dict objectForKey:@"name"];
+    self.snowflake = [dict objectForKey:@"id"];
+    self.permissions = [[dict objectForKey:@"permissions"] intValue];
 	
 	return self;
 }

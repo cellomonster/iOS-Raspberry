@@ -11,6 +11,9 @@
 #import "RBGatewayEvent.h"
 #import "RBGatewayHeart.h"
 #import "RBCommon.h"
+#import "DCUser.h"
+#import "RBGuildStore.h"
+#import "RBUserStore.h"
 
 @interface RBWebSocketDelegate () <SRWebSocketDelegate>
 
@@ -22,10 +25,10 @@
 
 @implementation RBWebSocketDelegate
 
-- (RBWebSocketDelegate*)initWithGuildStore:(RBGuildStore *)guildStore andUser:(DCUser *)user {
+- (RBWebSocketDelegate*)initWithGuildStore:(RBGuildStore *)guildStore andUserStore:(RBUserStore*)userStore {
 	self = [super init];
 	self.guildStore = guildStore;
-    self.user = user;
+    self.userStore = userStore;
     
 	return self;
 }
@@ -87,12 +90,16 @@
 	int index = [@[@"READY", @"MESSAGE_CREATE"] indexOfObject:event.t];
 
 	switch (index) {
-		case 0:
+		case 0: {
 			[self.loginDelegate didLogin];
+            NSDictionary* userDict = [event.d objectForKey:@"user"];
+            DCUser* user = [[DCUser alloc] initFromDictionary:userDict];
+            [self.userStore addUser:user];
+            self.userStore.clientUser = user;
 			[self.guildStore storeReadyEvent:event];
-            self.user = [[DCUser alloc] initFromDictionary:event.d];
             self.authenticated = true;
-			break;
+        }
+            break;
             
         case 1:
             if(self.messageDelegate)

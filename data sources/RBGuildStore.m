@@ -8,6 +8,8 @@
 
 #import "RBGuildStore.h"
 #import "DCChannel.h"
+#import "DCGuild.h"
+#import "RBGatewayEvent.h"
 
 @interface RBGuildStore()
 

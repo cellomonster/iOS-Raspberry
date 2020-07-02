@@ -10,6 +10,8 @@
 #import "RBClient.h"
 #import "DCChannel.h"
 #import "RBChatViewController.h"
+#import "RBGuildStore.h"
+#import "DCGuild.h"
 
 @interface RBGuildMenuViewController ()
 

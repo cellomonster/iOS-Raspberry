@@ -10,6 +10,7 @@
 #import "RBWebSocket.h"
 #import "RBWebSocketDelegate.h"
 #import "RBGuildStore.h"
+#import "RBUserStore.h"
 
 @interface RBClient ()
 
@@ -36,7 +37,7 @@
 	self.guildStore = [[RBGuildStore alloc] init];
     self.userStore = [[RBUserStore alloc] init];
     
-	self.webSocketDelegate = [[RBWebSocketDelegate alloc] initWithGuildStore:self.guildStore andUser:self.user];
+	self.webSocketDelegate = [[RBWebSocketDelegate alloc] initWithGuildStore:self.guildStore andUserStore:self.userStore];
 	
 	[self.webSocket setDelegate:self.webSocketDelegate];
 	

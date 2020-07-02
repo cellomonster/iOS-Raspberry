@@ -7,9 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "DCGuild.h"
-#import "RBGatewayEvent.h"
-#import "DCChannel.h"
+
+@class DCGuild;
+@class RBGatewayEvent;
+@class DCChannel;
 
 @interface RBGuildStore : NSObject
 

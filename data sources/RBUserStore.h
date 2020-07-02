@@ -7,11 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "DCUser.h"
+
+@class DCUser;
 
 @interface RBUserStore : NSObject
 
-@property DCUser *clientUser;
+@property DCUser* clientUser;
 
 - (RBUserStore*)init;
 

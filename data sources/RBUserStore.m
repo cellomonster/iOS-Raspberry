@@ -7,6 +7,7 @@
 //
 
 #import "RBUserStore.h"
+#import "DCUser.h"
 
 @interface RBUserStore ()
 

@@ -7,18 +7,24 @@
 //
 
 #import "DCChannel.h"
+#import "DCGuild.h"
 #import "RBClient.h"
+#import "DCGuildMember.h"
+#import "DCUser.h"
 #import "DCMessage.h"
 #import "DCMessageAttatchment.h"
+#import "DCPermissionOverwrite.h"
 
 @implementation DCChannel
 @synthesize snowflake = _snowflake;
 
-- (DCChannel *)initFromDictionary:(NSDictionary *)dict {
+- (DCChannel *)initFromDictionary:(NSDictionary *)dict andGuild:(DCGuild*)guild {
 	self = [super init];
 	
 	self.snowflake = [dict objectForKey:@"id"];
 	self.name = [dict objectForKey:@"name"];
+    self.parentGuild = guild;
+    
     id sortingPositionId = [dict objectForKey:@"position"];
     if(sortingPositionId != nil){
         self.sortingPosition = [sortingPositionId intValue];
@@ -30,8 +36,69 @@
     }
     
     self.channelType = [[dict objectForKey:@"type"] intValue];
+    
+    NSArray* jsonPermissionOverwrites = (NSArray*)[dict objectForKey:@"permission_overwrites"];
+    self.permissionOverwrites = [[NSMutableDictionary alloc] initWithCapacity:jsonPermissionOverwrites.count];
+    for(NSDictionary* jsonPermissionOverwrite in jsonPermissionOverwrites){
+        DCPermissionOverwrite* permOverwrite = [[DCPermissionOverwrite alloc] initWithDictionary:jsonPermissionOverwrite];
+        if(permOverwrite.appliesToSnowflake != nil)
+            [self.permissionOverwrites setObject:permOverwrite forKey:permOverwrite.appliesToSnowflake];
+    }
+    
+    self.isVisible = true;
+    
+    for(DCPermissionOverwrite* permOverwrite in [self.permissionOverwrites allValues]){
+        
+        if([guild.userGuildMember.roles objectForKey:permOverwrite.appliesToSnowflake]){
+            if((permOverwrite.deny & 0x400) == 0x400){
+                self.isVisible = false;
+                NSLog(@"cannot read messages in %@", self.name);
+            }
+            
+            if((permOverwrite.allow & 0x400) == 0x400){
+                self.isVisible = true;
+                NSLog(@"CAN read messages in %@", self.name);
+                break;
+            }
+        }
+    }
+    
+    int isVisibleCode = 0;
+    self.isVisible = false;
+    
+    for(DCPermissionOverwrite* permOverwrite in [self.permissionOverwrites allValues]){
+        
+        if(permOverwrite.type == DCPermissionOverwriteTypeRole){
+            
+            //Check if this channel dictates permissions over any roles the user has
+            if([guild.userGuildMember.roles objectForKey:permOverwrite.appliesToSnowflake]){
+                
+                if((permOverwrite.deny & 1024) == 1024 && isVisibleCode < 1)
+                    isVisibleCode = 1;
+                
+                if(((permOverwrite.allow & 1024) == 1024) && isVisibleCode < 2)
+                    isVisibleCode = 2;
+            }
+        }else{
+            //Check if
+            if([permOverwrite.appliesToSnowflake isEqualToString:guild.userGuildMember.user.snowflake]){
+                
+                if((permOverwrite.deny & 1024) == 1024 && isVisibleCode < 3)
+                    isVisibleCode = 3;
+                
+                if((permOverwrite.allow & 1024) == 1024){
+                    isVisibleCode = 4;
+                    break;
+                }
+            }
+        }
+    }
+    
+    if(isVisibleCode == 0 || isVisibleCode == 2 || isVisibleCode == 4){
+        self.isVisible = true;
+    }
 	
-	NSLog(@"| %@ - %@ - %d", self.name, self.parentCatagorySnowflake ,self.sortingPosition);
+	//NSLog(@"| %@ - %@ - %d", self.name, self.parentCatagorySnowflake ,self.sortingPosition);
 	
 	return self;
 }

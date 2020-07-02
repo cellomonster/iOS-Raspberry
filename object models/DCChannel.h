@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "DCDiscordObject.h"
-#import "DCGuild.h"
+@class DCGuild;
 
 typedef NS_ENUM(NSInteger, DCChannelType) {
 	DCChannelTypeGuildText,
@@ -25,7 +25,7 @@ typedef NS_ENUM(NSInteger, DCChannelType) {
 @property DCGuild *parentGuild;
 @property NSString *parentCatagorySnowflake;
 @property int sortingPosition;
-@property NSArray *permissionOverwrites;
+@property NSMutableDictionary *permissionOverwrites;
 @property DCChannelType channelType;
 
 @property NSString *name;
@@ -34,11 +34,14 @@ typedef NS_ENUM(NSInteger, DCChannelType) {
 
 @property NSString *lastMessageSnowflake;
 
+@property bool canSendMessages;
+@property bool isVisible;
+
 //Properties exclusive to DM channels
 @property NSArray *messageRecipients;
 @property NSString *messageIconHash;
 
-- (DCChannel*)initFromDictionary:(NSDictionary *)dict;
+- (DCChannel*)initFromDictionary:(NSDictionary *)dict andGuild:(DCGuild*)guild;
 
 - (NSArray*)retrieveMessages:(int)numberOfMessages;
 - (void)sendMessage:(NSString*)message;

@@ -8,22 +8,26 @@
 
 #import <Foundation/Foundation.h>
 #import "DCDiscordObject.h"
-#import "RBMessageItem.h"
+@class RBMessageItem;
+@class DCGuildMember;
+@class DCRole;
 
 @interface DCGuild : NSObject <DCDiscordObject>
 
-@property int sortingPosition;
 @property NSArray *permissions;
 @property bool ownedByUser;
 
 @property NSString *name;
 @property NSString *iconHash;
 
+@property DCRole* everyoneRole;
 @property NSMutableDictionary *roles;
 @property NSMutableDictionary *emoji;
 @property NSMutableDictionary *members;
 @property NSMutableDictionary *channels;
 @property NSArray *sortedChannels;
+
+@property DCGuildMember *userGuildMember;
 
 @property bool isLarge;
 @property bool isAvailable;

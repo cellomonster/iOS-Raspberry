@@ -9,6 +9,9 @@
 #import "DCMessage.h"
 #import "RBClient.h"
 #import "DCMessageAttatchment.h"
+#import "RBUserStore.h"
+#import "RBGuildStore.h"
+#import "DCUser.h"
 
 @implementation DCMessage
 @synthesize snowflake = _snowflake;
