@@ -48,7 +48,7 @@
 }
 
 -(DCGuild*)guildAtIndex:(int)index{
-    NSString* key = self.guildKeys[index + 1];
+    NSString* key = self.guildKeys[index];
 	return [self.guildDictionary objectForKey:key];
 }
 

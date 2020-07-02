@@ -116,7 +116,9 @@
     id <RBMessageItem> item = [self.messages objectAtIndex:row];
     
     if([item isKindOfClass:[DCMessage class]]) {
-        bubbleData = [NSBubbleData dataWithText:((DCMessage*)item).content date:[NSDate date] type:BubbleTypeSomeoneElse];
+        DCMessage* message = (DCMessage*)item;
+        NSString* bubbleText = [NSString stringWithFormat:@"%@:\n%@", message.author.username, message.content];
+        bubbleData = [NSBubbleData dataWithText:bubbleText date:[NSDate date] type:BubbleTypeSomeoneElse];
     }
     
     if([item isKindOfClass:[DCMessageAttatchment class]]) {
@@ -126,13 +128,6 @@
         if(attachment.attachmentType == DCMessageAttatchmentTypeImage && !attachment.image){
             
             ((DCMessageAttatchment*)item).image = [UIImage new];
-            
-//            NSBlockOperation* loadImageOperation = [NSBlockOperation blockOperationWithBlock: ^{
-//                [attachment loadImage];
-//                if(!loadImageOperation.isCancelled){
-//                    [tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:YES];
-//                }
-//            }];
             
             NSBlockOperation *loadImageOperation = [[NSBlockOperation alloc] init];
             __weak NSBlockOperation *weakOperation = loadImageOperation;
