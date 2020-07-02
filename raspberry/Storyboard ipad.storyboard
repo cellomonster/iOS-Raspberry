@@ -25,6 +25,7 @@
             <objects>
                 <splitViewController id="eRX-hr-XOl" sceneMemberID="viewController">
                     <toolbarItems/>
+                    <size key="freeformSize" width="768" height="1024"/>
                     <connections>
                         <segue destination="p6x-TU-VPd" kind="relationship" relationship="masterViewController" id="psD-mm-oPJ"/>
                         <segue destination="YA9-2h-KIM" kind="relationship" relationship="detailViewController" id="Q6i-Fh-uL2"/>
@@ -206,7 +207,7 @@
                                     <outlet property="bubbleDataSource" destination="Zk9-vp-H3k" id="X6R-dB-cbV"/>
                                 </connections>
                             </tableView>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" misplaced="YES" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Meq-9q-QvR">
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Meq-9q-QvR">
                                 <rect key="frame" x="2" y="960" width="768" height="44"/>
                                 <items>
                                     <barButtonItem style="plain" id="Ojs-ek-5Or">
@@ -229,13 +230,12 @@
                         </subviews>
                         <color key="backgroundColor" red="0.83529418710000003" green="0.85098046059999999" blue="0.8980392814" alpha="1" colorSpace="deviceRGB"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="ACZ-oX-XkC" secondAttribute="trailing" id="5QJ-cy-Lbd"/>
-                            <constraint firstItem="ACZ-oX-XkC" firstAttribute="bottom" secondItem="Meq-9q-QvR" secondAttribute="top" id="6c5-yW-WIZ"/>
-                            <constraint firstItem="ACZ-oX-XkC" firstAttribute="leading" secondItem="Meq-9q-QvR" secondAttribute="leading" id="DhY-dv-G9d"/>
                             <constraint firstItem="Meq-9q-QvR" firstAttribute="leading" secondItem="NFx-Iv-v1I" secondAttribute="leading" id="EEf-9z-mIY"/>
+                            <constraint firstAttribute="trailing" secondItem="ACZ-oX-XkC" secondAttribute="trailing" id="Tc7-a8-ldG"/>
+                            <constraint firstItem="Meq-9q-QvR" firstAttribute="top" secondItem="ACZ-oX-XkC" secondAttribute="bottom" id="Wib-EJ-J06"/>
+                            <constraint firstItem="ACZ-oX-XkC" firstAttribute="top" secondItem="bYW-hW-1NL" secondAttribute="bottom" id="XJN-q7-YuO"/>
                             <constraint firstItem="Meq-9q-QvR" firstAttribute="bottom" secondItem="NFx-Iv-v1I" secondAttribute="bottom" id="ajg-5a-Zph"/>
-                            <constraint firstItem="ACZ-oX-XkC" firstAttribute="trailing" secondItem="Meq-9q-QvR" secondAttribute="trailing" id="ndl-Tp-IdP"/>
-                            <constraint firstItem="ACZ-oX-XkC" firstAttribute="top" secondItem="NFx-Iv-v1I" secondAttribute="top" id="ypZ-Ch-JZ9"/>
+                            <constraint firstItem="ACZ-oX-XkC" firstAttribute="leading" secondItem="NFx-Iv-v1I" secondAttribute="leading" id="gFN-JO-2am"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Chat" id="qCa-vV-RKP">
@@ -254,7 +254,6 @@
         <!--Navigation Controller-->
         <scene sceneID="Lhd-bx-dU4">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="50C-uN-EFZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController definesPresentationContext="YES" id="YA9-2h-KIM" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="v09-tg-vq4"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
@@ -266,6 +265,7 @@
                         <segue destination="Zk9-vp-H3k" kind="modal" id="oSj-ih-EWD"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="50C-uN-EFZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="452" y="237"/>
         </scene>

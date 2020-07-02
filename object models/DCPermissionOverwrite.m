@@ -13,6 +13,12 @@
 -(DCPermissionOverwrite*)initWithDictionary:(NSDictionary *)dict{
     self = [super init];
     
+    if(![dict objectForKey:@"allow"]){
+		[NSException exceptionWithName:@"invalid dictionary"
+                                reason:@"tried to initialize permission overwrite from invalid dictionary!"
+                              userInfo:dict];
+	}
+    
     self.appliesToSnowflake = [dict objectForKey:@"id"];
     
     NSString* type = [dict objectForKey:@"type"];

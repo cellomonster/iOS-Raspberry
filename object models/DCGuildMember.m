@@ -18,6 +18,12 @@
 - (DCGuildMember*)initFromDictionary:(NSDictionary *)dict inGuild:(DCGuild*)guild{
     self = [super init];
     
+    if(![dict objectForKey:@"deaf"]){
+		[NSException exceptionWithName:@"invalid dictionary"
+                                reason:@"tried to initialize guild member from invalid dictionary!"
+                              userInfo:dict];
+	}
+    
     self.nickname = [dict objectForKey:@"nick"];
     
     NSDictionary* jsonUser = [dict objectForKey:@"user"];

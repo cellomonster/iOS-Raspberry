@@ -63,8 +63,17 @@
 	
 	//thx to Pierre Legrain
 	//http://pyl.io/2015/08/17/animating-in-sync-with-ios-keyboard/
-	
-	int keyboardHeight = [[notification.userInfo objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size.height;
+    
+    UIInterfaceOrientation interfaceOrientation = [[UIApplication sharedApplication] statusBarOrientation];
+    
+    CGRect keyboardRect = [[notification.userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    int keyboardHeight;
+    if(interfaceOrientation > 2){
+        keyboardHeight = keyboardRect.size.width;
+    }else{
+        keyboardHeight = keyboardRect.size.height;
+    }
+    
 	float keyboardAnimationDuration = [[notification.userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
 	int keyboardAnimationCurve = [[notification.userInfo objectForKey: UIKeyboardAnimationCurveUserInfoKey] integerValue];
 	
@@ -119,7 +128,7 @@
     if([item isKindOfClass:[DCMessage class]]) {
         DCMessage* message = (DCMessage*)item;
         NSString* bubbleText = [NSString stringWithFormat:@"%@:\n%@", message.author.username, message.content];
-        bubbleData = [NSBubbleData dataWithText:bubbleText date:[NSDate date] type:BubbleTypeSomeoneElse];
+        bubbleData = [NSBubbleData dataWithText:bubbleText date:[NSDate date] type:!message.writtenByUser];
     }
     
     if([item isKindOfClass:[DCMessageAttatchment class]]) {
@@ -142,7 +151,7 @@
             [self.imageQueue addOperation:loadImageOperation];
         }
         
-        bubbleData = [NSBubbleData dataWithImage:attachment.image date:[NSDate date] type:BubbleTypeSomeoneElse];
+        bubbleData = [NSBubbleData dataWithImage:attachment.image date:[NSDate date] type:!attachment.writtenByUser];
     }
     
     if(item.author.avatarImage != nil) {

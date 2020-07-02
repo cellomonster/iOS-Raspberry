@@ -22,12 +22,20 @@
 - (DCMessage *)initFromDictionary:(NSDictionary *)dict {
 	self = [super init];
     
+    if(![dict objectForKey:@"channel_id"]){
+		[NSException exceptionWithName:@"invalid dictionary"
+                                reason:@"tried to initialize message from invalid dictionary!"
+                              userInfo:dict];
+	}
+    
 	self.snowflake = [dict objectForKey:@"id"];
     
     self.type = (NSInteger)[dict objectForKey:@"type"];
 	
 	self.author = [RBClient.sharedInstance.userStore getUserBySnowflake:[[dict objectForKey:@"author"] objectForKey:@"id"]];
-    if(!self.author) {
+    if(self.author == RBClient.sharedInstance.userStore.clientUser){
+        self.writtenByUser = true;
+    }else if(!self.author) {
         self.author = [[DCUser alloc] initFromDictionary:[dict objectForKey:@"author"]];
         [RBClient.sharedInstance.userStore addUser:self.author];
     }
@@ -39,17 +47,17 @@
 #warning need to fix date parsing!
     
     //FORMAT: 2020-01-03T15:46:52.158000+00:00
-    
-    /*NSDateFormatter *dateFormat = [NSDateFormatter new];
-    [dateFormat setDateFormat: @"yyyy-MM-dd'T'HH:mm:ss"];
-    [dateFormat setTimeZone:[NSTimeZone systemTimeZone]];
-    [dateFormat setLocale: [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"]];
-    [dateFormat setFormatterBehavior:NSDateFormatterBehaviorDefault];
-    
-    NSString *dateString = [dict objectForKey:@"timestamp"];
-    self.timestamp = [dateFormat dateFromString:dateString];
-    
-    NSLog(@"%@", [dateFormat dateFromString:dateString]);*/
+//    
+//    NSDateFormatter *dateFormat = [NSDateFormatter new];
+//    [dateFormat setDateFormat: @"yyyy-MM-dd'T'HH:mm:ss"];
+//    [dateFormat setTimeZone:[NSTimeZone systemTimeZone]];
+//    [dateFormat setLocale: [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"]];
+//    [dateFormat setFormatterBehavior:NSDateFormatterBehaviorDefault];
+//    
+//    NSString *dateString = [dict objectForKey:@"timestamp"];
+//    self.timestamp = [dateFormat dateFromString:dateString];
+//    
+//    NSLog(@"%@", [dateFormat dateFromString:dateString]);
     
     
     NSArray *jsonAttachments = (NSArray*)([dict objectForKey:@"attachments"]);
@@ -60,6 +68,7 @@
         messageAttachment.author = self.author;
         messageAttachment.member = self.member;
         messageAttachment.timestamp = self.timestamp;
+        messageAttachment.writtenByUser = self.writtenByUser;
         [self.attachments setObject:messageAttachment forKey:messageAttachment.snowflake];
     }
     

@@ -242,7 +242,7 @@
     
     CGFloat distanceFromBottom = scrollView.contentSize.height - contentYoffset;
     
-    self.watchingInRealTime = distanceFromBottom <= height;
+    self.watchingInRealTime = distanceFromBottom - 20 <= height;
 }
 
 #pragma mark - Public interface

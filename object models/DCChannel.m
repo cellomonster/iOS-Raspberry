@@ -20,6 +20,12 @@
 
 - (DCChannel *)initFromDictionary:(NSDictionary *)dict andGuild:(DCGuild*)guild {
 	self = [super init];
+    
+    if(![dict objectForKey:@"type"]){
+		[NSException exceptionWithName:@"invalid dictionary"
+                                reason:@"tried to initialize channel from invalid dictionary!"
+                              userInfo:dict];
+	}
 	
 	self.snowflake = [dict objectForKey:@"id"];
 	self.name = [dict objectForKey:@"name"];
@@ -43,24 +49,6 @@
         DCPermissionOverwrite* permOverwrite = [[DCPermissionOverwrite alloc] initWithDictionary:jsonPermissionOverwrite];
         if(permOverwrite.appliesToSnowflake != nil)
             [self.permissionOverwrites setObject:permOverwrite forKey:permOverwrite.appliesToSnowflake];
-    }
-    
-    self.isVisible = true;
-    
-    for(DCPermissionOverwrite* permOverwrite in [self.permissionOverwrites allValues]){
-        
-        if([guild.userGuildMember.roles objectForKey:permOverwrite.appliesToSnowflake]){
-            if((permOverwrite.deny & 0x400) == 0x400){
-                self.isVisible = false;
-                NSLog(@"cannot read messages in %@", self.name);
-            }
-            
-            if((permOverwrite.allow & 0x400) == 0x400){
-                self.isVisible = true;
-                NSLog(@"CAN read messages in %@", self.name);
-                break;
-            }
-        }
     }
     
     int isVisibleCode = 0;
@@ -97,8 +85,6 @@
     if(isVisibleCode == 0 || isVisibleCode == 2 || isVisibleCode == 4){
         self.isVisible = true;
     }
-	
-	//NSLog(@"| %@ - %@ - %d", self.name, self.parentCatagorySnowflake ,self.sortingPosition);
 	
 	return self;
 }

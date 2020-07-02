@@ -14,6 +14,12 @@
 - (DCRole *)initFromDictionary:(NSDictionary *)dict {
 	self = [super init];
     
+    if(![dict objectForKey:@"hoist"]){
+		[NSException exceptionWithName:@"invalid dictionary"
+                                reason:@"tried to initialize role from invalid dictionary!"
+                              userInfo:dict];
+	}
+    
     self.name = [dict objectForKey:@"name"];
     self.snowflake = [dict objectForKey:@"id"];
     self.permissions = [[dict objectForKey:@"permissions"] intValue];

@@ -28,6 +28,8 @@ typedef NS_ENUM(NSInteger, DCMessageAttatchmentType) {
 @property NSUInteger imageHeight;
 @property UIImage *image;
 
+@property bool writtenByUser;
+
 - (DCMessageAttatchment*)initFromDictionary:(NSDictionary *)dict;
 - (void)loadImage;
 

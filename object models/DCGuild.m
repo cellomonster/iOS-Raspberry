@@ -18,28 +18,32 @@
 
 -(DCGuild*)initFromDictionary:(NSDictionary *)dict{
 	self = [super init];
+    
+    if(![dict objectForKey:@"region"]){
+		[NSException exceptionWithName:@"invalid dictionary"
+                                reason:@"tried to initialize guild from invalid dictionary!"
+                              userInfo:dict];
+	}
 	
 	self.snowflake = [dict objectForKey:@"id"];
-	
 	self.name = [dict objectForKey:@"name"];
-    
     self.ownedByUser = [[dict objectForKey:@"owner"] boolValue];
+    
+    // Order in which objects must be initialized:
+    // Roles, Guild members, and channels
 	
     //Roles
     NSArray *jsonRoles = ((NSArray*)[dict objectForKey:@"roles"]);
     self.roles = [[NSMutableDictionary alloc]initWithCapacity:jsonRoles.count];
-//    for(int i = 0; i < jsonRoles.count; i++){
-//        NSDictionary* jsonRole = (NSDictionary*)jsonRoles[i];
-//        
-//    }
+
     for(NSDictionary* jsonRole in jsonRoles){
+        NSLog(@"%@", jsonRole);
         DCRole* role = [[DCRole alloc] initFromDictionary:jsonRole];
         [self.roles setObject:role forKey:role.snowflake];
         // todo move into initWithDictionary in role object
-        if([role.name isEqualToString:@"@everyone"]){
-            self.everyoneRole = role;
-        }
     }
+    
+    self.everyoneRole = [self.roles objectForKey:self.snowflake];
     
     //Guild members
     NSArray *jsonMembers = ((NSArray*)[dict objectForKey:@"members"]);
@@ -71,8 +75,6 @@
         }
         return (NSComparisonResult)NSOrderedSame;
     }];
-    
-    //NSLog(@"%@", [dict objectForKey:@"members"]);
 	
 	return self;
 }

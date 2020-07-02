@@ -42,6 +42,8 @@ typedef NS_ENUM(NSInteger, DCMessageType) {
 @property NSMutableDictionary *attachments;
 @property NSArray *embeds;
 
+@property bool writtenByUser;
+
 - (DCMessage *)initFromDictionary:(NSDictionary *)dict;
 
 @end
