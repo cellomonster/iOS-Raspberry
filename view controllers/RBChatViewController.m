@@ -75,7 +75,7 @@
     }
     
 	float keyboardAnimationDuration = [[notification.userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
-	int keyboardAnimationCurve = [[notification.userInfo objectForKey: UIKeyboardAnimationCurveUserInfoKey] integerValue];
+	int keyboardAnimationCurve = [[notification.userInfo objectForKey: UIKeyboardAnimationCurveUserInfoKey] intValue];
 	
 	[UIView beginAnimations:nil context:NULL];
 	[UIView setAnimationDuration:keyboardAnimationDuration];
@@ -97,7 +97,7 @@
 - (void)keyboardWillHide:(NSNotification *)notification {
 	
 	float keyboardAnimationDuration = [[notification.userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
-	int keyboardAnimationCurve = [[notification.userInfo objectForKey: UIKeyboardAnimationCurveUserInfoKey] integerValue];
+	int keyboardAnimationCurve = [[notification.userInfo objectForKey: UIKeyboardAnimationCurveUserInfoKey] intValue];
 	
 	[UIView beginAnimations:nil context:NULL];
 	[UIView setAnimationDuration:keyboardAnimationDuration];
@@ -177,6 +177,11 @@
     
     if(message.parentChannel == self.activeChannel){
         [self.messages addObject:message];
+        
+        for(DCMessageAttatchment *messageAttachment in [message.attachments allValues]){
+            [self.messages addObject:messageAttachment];
+        }
+        
         [self.chatTableView reloadData];
     }
 }

@@ -99,7 +99,6 @@
 
     [urlRequest addValue:RBClient.sharedInstance.tokenString forHTTPHeaderField:@"Authorization"];
     [urlRequest addValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-    [urlRequest addValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     
     return urlRequest;
     
@@ -128,11 +127,12 @@
         for(id jsonMessage in parsedResponse){
             if([jsonMessage isKindOfClass:[NSDictionary class]]){
                 DCMessage *message = [[DCMessage alloc] initFromDictionary:jsonMessage];
-                [messages addObject:message];
                 
                 for(DCMessageAttatchment *messageAttachment in [message.attachments allValues]){
                     [messages addObject:messageAttachment];
                 }
+                
+                [messages addObject:message];
             }
         }
 	}
