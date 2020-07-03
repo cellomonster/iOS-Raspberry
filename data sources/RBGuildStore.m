@@ -39,6 +39,18 @@
         [self.channelDictionary addEntriesFromDictionary:guild.channels];
 	}
     
+#warning this can probably be simplified
+    NSArray* readStates = [event.d objectForKey:@"read_state"];
+    for(NSDictionary* readState in readStates){
+        
+        NSString* channelSnowflake = [readState objectForKey:@"id"];
+        NSString* lastReadMessageSnowflake = [readState objectForKey:@"last_message_id"];
+        
+        DCChannel* channel = [self.channelDictionary objectForKey:channelSnowflake];
+        
+        channel.isRead = [lastReadMessageSnowflake isEqualToString:channel.lastMessageReadOnLoginSnowflake];
+    }
+    
     self.guildKeys = [[NSMutableArray alloc] initWithCapacity:self.guildDictionary.count];
     //self.guildKeys[0] =
     self.guildKeys = [[event.d objectForKey:@"user_settings"] objectForKey:@"guild_positions"];

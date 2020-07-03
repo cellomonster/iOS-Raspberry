@@ -29,6 +29,7 @@
 	
 	self.snowflake = [dict objectForKey:@"id"];
 	self.name = [dict objectForKey:@"name"];
+    self.lastMessageReadOnLoginSnowflake = [dict objectForKey:@"last_message_id"];
     self.parentGuild = guild;
     
     id sortingPositionId = [dict objectForKey:@"position"];
@@ -96,12 +97,11 @@
     NSURL* url = [NSURL URLWithString:compositeString];
     
     NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:2];
-
+    
     [urlRequest addValue:RBClient.sharedInstance.tokenString forHTTPHeaderField:@"Authorization"];
     [urlRequest addValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     
     return urlRequest;
-    
 }
 
 - (NSArray *)retrieveMessages:(int)numberOfMessages {
@@ -151,7 +151,33 @@
     
     NSError *error = nil;
     NSHTTPURLResponse *responseCode = nil;
+    
     [NSURLConnection sendSynchronousRequest:request returningResponse:&responseCode error:&error];
+    
+    if(error){
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:error.localizedFailureReason message:error.localizedDescription delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alertView show];
+    }
+}
+
+- (void)markAsReadWithMessage:(DCMessage*)message{
+    self.isRead = true;
+    
+    NSString* requestString = [NSString stringWithFormat:@"/messages/%@/ack", message.snowflake];
+    
+    NSMutableURLRequest* request = [self authedMutableURLRequestFromString:requestString];
+    
+    [request setHTTPMethod:@"POST"];
+    
+    NSString* messageString = @"{\"token\":\"a\"}";
+    [request setHTTPBody:[NSData dataWithBytes:[messageString UTF8String] length:[messageString length]]];
+    
+    NSError *error = nil;
+    NSHTTPURLResponse *responseCode = nil;
+    
+    [NSURLConnection sendSynchronousRequest:request returningResponse:&responseCode error:&error];
+    
+    NSLog(@"%d", responseCode.statusCode);
     
     if(error){
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:error.localizedFailureReason message:error.localizedDescription delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];

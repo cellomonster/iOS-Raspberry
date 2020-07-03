@@ -52,6 +52,8 @@
         self.selectedChannel = (DCChannel*)[self.focusedGuild.sortedChannels objectAtIndex:indexPath.row];
         
         [self performSegueWithIdentifier:@"guilds to chat" sender:self];
+        
+        [tableView cellForRowAtIndexPath:indexPath].accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
 }
 
@@ -111,8 +113,20 @@
 	}
 	
 	if(tableView == self.channelTableView){
+        DCChannel* channel = (DCChannel*)[self.focusedGuild.sortedChannels objectAtIndex:indexPath.row];
+        
 		cell = [tableView dequeueReusableCellWithIdentifier:@"channel" forIndexPath:indexPath];
-		cell.textLabel.text = ((DCChannel*)[self.focusedGuild.sortedChannels objectAtIndex:indexPath.row]).name;
+		cell.textLabel.text = channel.name;
+        
+        UITableViewCellAccessoryType unreadIndicatorType;
+        
+        if(channel.isRead){
+            unreadIndicatorType = UITableViewCellAccessoryDisclosureIndicator;
+        }else{
+            unreadIndicatorType = UITableViewCellAccessoryDetailDisclosureButton;
+        }
+        
+        cell.accessoryType = unreadIndicatorType;
 	}
   
 	return cell;

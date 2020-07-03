@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "DCDiscordObject.h"
 @class DCGuild;
+@class DCMessage;
 
 typedef NS_ENUM(NSInteger, DCChannelType) {
 	DCChannelTypeGuildText,
@@ -32,10 +33,12 @@ typedef NS_ENUM(NSInteger, DCChannelType) {
 @property NSString *topic;
 @property bool isNSFW;
 
-@property NSString *lastMessageSnowflake;
+@property NSString *lastMessageReadOnLoginSnowflake;
 
 @property bool canSendMessages;
 @property bool isVisible;
+
+@property bool isRead;
 
 //Properties exclusive to DM channels
 @property NSArray *messageRecipients;
@@ -45,5 +48,6 @@ typedef NS_ENUM(NSInteger, DCChannelType) {
 
 - (NSArray*)retrieveMessages:(int)numberOfMessages;
 - (void)sendMessage:(NSString*)message;
+- (void)markAsReadWithMessage:(DCMessage*)message;
 
 @end
