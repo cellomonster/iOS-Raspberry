@@ -137,7 +137,7 @@
         }
 	}
 	
-	return [[messages reverseObjectEnumerator] allObjects];;
+	return messages;
 }
 
 - (void)sendMessage:(NSString*)message {

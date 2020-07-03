@@ -27,7 +27,8 @@
     self.imageWidth = (NSUInteger)[dict objectForKey:@"width"];
     self.imageHeight = (NSUInteger)[dict objectForKey:@"height"];
     
-    if(self.imageWidth)
+#warning there's probably a much better way to do this
+    if([[self.fileName pathExtension] isEqualToString:@"png"] || [[self.fileName pathExtension] isEqualToString:@"jpg"] || [[self.fileName pathExtension] isEqualToString:@"jpeg"] || [[self.fileName pathExtension] isEqualToString:@"gif"] || [[self.fileName pathExtension] isEqualToString:@"webp"])
         self.attachmentType = DCMessageAttatchmentTypeImage;
     else
         self.attachmentType = DCMessageAttatchmentTypeOther;
@@ -35,16 +36,28 @@
     return self;
 }
 
-- (void)loadImage {
+- (void)queueLoadImageOperationInQueue:(NSOperationQueue *)queue withCompletionHandler:(void(^)())handler{
     if(self.attachmentType == DCMessageAttatchmentTypeImage){
+        NSBlockOperation *loadImageOperation = [[NSBlockOperation alloc] init];
         
-        NSLog(@"loading attachment image... %@", self.fileURL);
+        [loadImageOperation addExecutionBlock:^{
+            
+            NSLog(@"loading attachment image... %@", self.fileURL);
+            
+            NSData *data = [NSData dataWithContentsOfURL:self.fileURL];
+            
+            NSLog(@"loaded image %@", self.fileURL);
+            
+            self.image = [UIImage imageWithData:data];
+            
+            _attachmentLoadCompletionHandler = [handler copy];
+            
+            _attachmentLoadCompletionHandler();
+            
+            _attachmentLoadCompletionHandler = nil;
+        }];
         
-        NSData *data = [NSData dataWithContentsOfURL:self.fileURL];
-        
-        NSLog(@"loaded image %@", self.fileURL);
-    
-        self.image = [UIImage imageWithData:data];
+        [queue addOperation:loadImageOperation];
     }
 }
 

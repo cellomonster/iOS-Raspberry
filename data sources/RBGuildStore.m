@@ -42,7 +42,6 @@
     self.guildKeys = [[NSMutableArray alloc] initWithCapacity:self.guildDictionary.count];
     //self.guildKeys[0] =
     self.guildKeys = [[event.d objectForKey:@"user_settings"] objectForKey:@"guild_positions"];
-    NSLog(@"%@", self.guildKeys);
 }
 
 -(void)addGuild:(DCGuild *)guild{

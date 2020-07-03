@@ -25,6 +25,7 @@
 
 @property NSMutableArray *messages;
 @property NSOperationQueue* imageQueue;
+@property NSOperationQueue* avatarQueue;
 
 @end
 
@@ -36,6 +37,8 @@
     self.chatTableView.watchingInRealTime = YES;
     self.imageQueue = [NSOperationQueue new];
     self.imageQueue.maxConcurrentOperationCount = 1;
+    self.avatarQueue = [NSOperationQueue new];
+    self.avatarQueue.maxConcurrentOperationCount = 1;
     
     [NSNotificationCenter.defaultCenter addObserver:self
                                            selector:@selector(keyboardWillShow:)
@@ -49,7 +52,9 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     if(self.activeChannel){
-        self.messages = (NSMutableArray*)[self.activeChannel retrieveMessages:50];
+        NSArray* messages = [self.activeChannel retrieveMessages:50];
+        self.messages = (NSMutableArray*)[[messages reverseObjectEnumerator] allObjects];
+        [self loadAttachments:self.messages usingQueue:self.imageQueue inTableView:self.chatTableView];
     }
     [self.chatTableView reloadData];
     [self scrollChatToBottom];
@@ -88,10 +93,6 @@
     if(self.chatTableView.watchingInRealTime){
         [self.chatTableView scrollBubbleViewToBottomAnimated:true];
     }
-	
-	
-	/*if(self.viewingPresentTime)
-		[self.chatTableView setContentOffset:CGPointMake(0, self.chatTableView.contentSize.height - self.chatTableView.frame.size.height) animated:NO];*/
 }
 
 - (void)keyboardWillHide:(NSNotification *)notification {
@@ -135,22 +136,6 @@
         
         DCMessageAttatchment* attachment = ((DCMessageAttatchment*)item);
         
-        if(attachment.attachmentType == DCMessageAttatchmentTypeImage && !attachment.image){
-            
-            ((DCMessageAttatchment*)item).image = [UIImage new];
-            
-            NSBlockOperation *loadImageOperation = [[NSBlockOperation alloc] init];
-            __weak NSBlockOperation *weakOperation = loadImageOperation;
-            [loadImageOperation addExecutionBlock:^{
-                [attachment loadImage];
-                if([weakOperation isCancelled])
-                    return;
-                [tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:YES];
-            }];
-            
-            [self.imageQueue addOperation:loadImageOperation];
-        }
-        
         bubbleData = [NSBubbleData dataWithImage:attachment.image date:[NSDate date] type:!attachment.writtenByUser];
     }
     
@@ -164,10 +149,30 @@
             [tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:YES];
         }];
             
-        [self.imageQueue addOperation:loadImageOperation];
+        [self.avatarQueue addOperation:loadImageOperation];
     }
     
     return bubbleData;
+}
+
+-(void)loadAttachments:(NSArray*) arrayOfMessages usingQueue: (NSOperationQueue*)queue inTableView:(UITableView*)tableView{
+    for(int i = arrayOfMessages.count - 1; i > -1; i--){
+        NSObject<RBMessageItem>* item = arrayOfMessages[i];
+        
+        if([item isKindOfClass:[DCMessageAttatchment class]]) {
+            
+            DCMessageAttatchment* attachment = ((DCMessageAttatchment*)item);
+            
+            if(attachment.attachmentType == DCMessageAttatchmentTypeImage && !attachment.image){
+                
+                attachment.image = [UIImage new];
+                
+                [attachment queueLoadImageOperationInQueue:self.imageQueue withCompletionHandler:^{
+                    [tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:YES];
+                }];
+            }
+        }
+    }
 }
 
 #pragma mark rbmessagedelegate
@@ -180,9 +185,11 @@
         
         for(DCMessageAttatchment *messageAttachment in [message.attachments allValues]){
             [self.messages addObject:messageAttachment];
+            
+            [messageAttachment queueLoadImageOperationInQueue:self.imageQueue withCompletionHandler:^{
+                [self.chatTableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:YES];
+            }];
         }
-        
-        [self.chatTableView reloadData];
     }
 }
 

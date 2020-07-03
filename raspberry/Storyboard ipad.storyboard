@@ -208,11 +208,11 @@
                                 </connections>
                             </tableView>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Meq-9q-QvR">
-                                <rect key="frame" x="2" y="960" width="768" height="44"/>
+                                <rect key="frame" x="0.0" y="960" width="768" height="44"/>
                                 <items>
                                     <barButtonItem style="plain" id="Ojs-ek-5Or">
                                         <textField key="customView" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="Wem-Uy-toj">
-                                            <rect key="frame" x="12" y="7" width="387" height="30"/>
+                                            <rect key="frame" x="12" y="7" width="475" height="30"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <textInputTraits key="textInputTraits"/>
@@ -231,15 +231,15 @@
                         <color key="backgroundColor" red="0.83529418710000003" green="0.85098046059999999" blue="0.8980392814" alpha="1" colorSpace="deviceRGB"/>
                         <constraints>
                             <constraint firstItem="acQ-yk-1jX" firstAttribute="top" secondItem="Meq-9q-QvR" secondAttribute="bottom" id="4P0-PY-pjl"/>
-                            <constraint firstAttribute="trailing" secondItem="Meq-9q-QvR" secondAttribute="trailing" constant="-2" id="DMs-sn-p7n"/>
                             <constraint firstAttribute="trailing" secondItem="ACZ-oX-XkC" secondAttribute="trailing" id="DTp-K9-kks"/>
-                            <constraint firstItem="Meq-9q-QvR" firstAttribute="leading" secondItem="NFx-Iv-v1I" secondAttribute="leading" constant="2" id="Iye-jR-yVK"/>
                             <constraint firstItem="ACZ-oX-XkC" firstAttribute="leading" secondItem="NFx-Iv-v1I" secondAttribute="leading" id="L0j-G9-5PS"/>
                             <constraint firstItem="ACZ-oX-XkC" firstAttribute="leading" secondItem="NFx-Iv-v1I" secondAttribute="leading" id="g4V-tc-ebf"/>
                             <constraint firstItem="ACZ-oX-XkC" firstAttribute="top" secondItem="NFx-Iv-v1I" secondAttribute="top" id="gbB-6K-W56"/>
                             <constraint firstItem="Meq-9q-QvR" firstAttribute="top" secondItem="ACZ-oX-XkC" secondAttribute="bottom" id="hw1-Hj-jnl"/>
+                            <constraint firstItem="Meq-9q-QvR" firstAttribute="leading" secondItem="NFx-Iv-v1I" secondAttribute="leading" id="i1k-Ky-kt0"/>
                             <constraint firstAttribute="trailing" secondItem="ACZ-oX-XkC" secondAttribute="trailing" id="jzQ-ME-2eH"/>
                             <constraint firstItem="ACZ-oX-XkC" firstAttribute="top" secondItem="bYW-hW-1NL" secondAttribute="bottom" id="k9d-2V-fSC"/>
+                            <constraint firstAttribute="trailing" secondItem="Meq-9q-QvR" secondAttribute="trailing" id="zL5-vA-1fG"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Chat" id="qCa-vV-RKP">
