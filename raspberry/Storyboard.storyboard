@@ -95,23 +95,23 @@
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="35X-XL-fJi">
-                                <rect key="frame" x="0.0" y="0.0" width="100" height="416"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="51" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="35X-XL-fJi">
+                                <rect key="frame" x="0.0" y="0.0" width="50" height="416"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="100" id="lqs-yf-OID"/>
+                                    <constraint firstAttribute="width" constant="50" id="MOZ-w1-weD"/>
                                 </constraints>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="guild" textLabel="C26-cD-4eM" style="IBUITableViewCellStyleDefault" id="PPZ-8J-IDa">
-                                        <rect key="frame" x="0.0" y="22" width="100" height="44"/>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="guild" textLabel="C26-cD-4eM" rowHeight="50" style="IBUITableViewCellStyleDefault" id="PPZ-8J-IDa">
+                                        <rect key="frame" x="0.0" y="22" width="50" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="100" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="50" height="49"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="C26-cD-4eM">
-                                                    <rect key="frame" x="10" y="0.0" width="80" height="43"/>
+                                                    <rect key="frame" x="10" y="0.0" width="30" height="49"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -128,19 +128,19 @@
                                 </connections>
                             </tableView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="cPI-ny-xap">
-                                <rect key="frame" x="100" y="0.0" width="220" height="416"/>
+                                <rect key="frame" x="50" y="0.0" width="270" height="416"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="channel" textLabel="ZII-mL-qd8" style="IBUITableViewCellStyleDefault" id="jB8-z0-IvX">
-                                        <rect key="frame" x="0.0" y="46" width="220" height="46"/>
+                                        <rect key="frame" x="0.0" y="46" width="270" height="46"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="10" y="1" width="200" height="43"/>
+                                            <rect key="frame" x="10" y="1" width="250" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ZII-mL-qd8">
-                                                    <rect key="frame" x="10" y="0.0" width="180" height="43"/>
+                                                    <rect key="frame" x="10" y="0.0" width="230" height="43"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -160,12 +160,12 @@
                         </subviews>
                         <constraints>
                             <constraint firstItem="cPI-ny-xap" firstAttribute="top" secondItem="35X-XL-fJi" secondAttribute="top" type="default" id="1FA-CD-ksR"/>
-                            <constraint firstAttribute="trailing" secondItem="cPI-ny-xap" secondAttribute="trailing" type="user" id="4TJ-IN-Y6x"/>
-                            <constraint firstItem="cPI-ny-xap" firstAttribute="top" secondItem="mZ7-Ch-qXE" secondAttribute="top" type="default" id="Pps-5y-aVb"/>
-                            <constraint firstAttribute="bottom" secondItem="35X-XL-fJi" secondAttribute="bottom" type="default" id="ZpO-Vi-Vcf"/>
+                            <constraint firstItem="cPI-ny-xap" firstAttribute="leading" secondItem="mZ7-Ch-qXE" secondAttribute="leading" constant="50" type="user" id="ZzF-kN-R5v"/>
+                            <constraint firstAttribute="bottom" secondItem="cPI-ny-xap" secondAttribute="bottom" type="default" id="fXy-EO-dhY"/>
+                            <constraint firstItem="cPI-ny-xap" firstAttribute="top" secondItem="mZ7-Ch-qXE" secondAttribute="top" type="default" id="ku0-8I-bsb"/>
                             <constraint firstItem="cPI-ny-xap" firstAttribute="bottom" secondItem="35X-XL-fJi" secondAttribute="bottom" type="default" id="lTf-FJ-iIm"/>
-                            <constraint firstItem="35X-XL-fJi" firstAttribute="leading" secondItem="mZ7-Ch-qXE" secondAttribute="leading" type="user" id="rOk-Lw-hOC"/>
-                            <constraint firstItem="cPI-ny-xap" firstAttribute="leading" secondItem="35X-XL-fJi" secondAttribute="leading" constant="100" type="user" id="tHG-K0-B7V"/>
+                            <constraint firstItem="35X-XL-fJi" firstAttribute="leading" secondItem="mZ7-Ch-qXE" secondAttribute="leading" type="default" id="nAJ-RB-pIk"/>
+                            <constraint firstAttribute="trailing" secondItem="cPI-ny-xap" secondAttribute="trailing" type="user" id="u6Q-AV-tSl"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Guilds" id="Xcb-fG-LXz"/>

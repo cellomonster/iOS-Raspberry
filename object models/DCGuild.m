@@ -28,6 +28,7 @@
 	self.snowflake = [dict objectForKey:@"id"];
 	self.name = [dict objectForKey:@"name"];
     self.ownedByUser = [[dict objectForKey:@"owner"] boolValue];
+    self.iconHash = [dict objectForKey:@"icon"];
     
     // Order in which objects must be initialized:
     // Roles, Guild members, and channels
@@ -77,6 +78,24 @@
     }];
 	
 	return self;
+}
+
+- (UIImage *)loadIconImage {
+    NSString *imgURLstr = [NSString stringWithFormat:@"https://cdn.discordapp.com/icons/%@/%@.png", self.snowflake, self.iconHash];
+    NSLog(@"%@", imgURLstr);
+    NSURL* imgURL = [NSURL URLWithString:imgURLstr];
+    
+    if(imgURL){
+        NSData *data = [NSData dataWithContentsOfURL:imgURL];
+        
+        NSLog(@"loaded guild icon of %@", self.name);
+        
+        self.iconImage = [UIImage imageWithData:data];
+        
+        return self.iconImage;
+    }else{
+        return [UIImage imageNamed:@"default"];
+    }
 }
 
 @end

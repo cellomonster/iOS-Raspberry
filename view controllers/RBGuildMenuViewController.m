@@ -20,6 +20,8 @@
 @property DCGuild *focusedGuild;
 @property DCChannel *selectedChannel;
 
+@property NSOperationQueue* serverIconImageQueue;
+
 @end
 
 @implementation RBGuildMenuViewController
@@ -27,6 +29,9 @@
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	
+    self.serverIconImageQueue = [NSOperationQueue new];
+    self.serverIconImageQueue.maxConcurrentOperationCount = 1;
+    
 	self.navigationItem.hidesBackButton = YES;
 }
 
@@ -82,8 +87,27 @@
 	UITableViewCell *cell;
 	
 	if(tableView == self.guildTableView){
+        DCGuild* guild = [RBClient.sharedInstance.guildStore guildAtIndex:(int)indexPath.row];
 		cell = [tableView dequeueReusableCellWithIdentifier:@"guild" forIndexPath:indexPath];
-		cell.textLabel.text = [RBClient.sharedInstance.guildStore guildAtIndex:(int)indexPath.row].name;
+		cell.textLabel.text = @"";// = guild.name;
+        
+        if(!guild.iconImage){
+            
+            guild.iconImage = [UIImage new];
+            
+            NSBlockOperation *loadImageOperation = [[NSBlockOperation alloc] init];
+            __weak NSBlockOperation *weakOperation = loadImageOperation;
+            [loadImageOperation addExecutionBlock:^{
+                [guild loadIconImage];
+                if([weakOperation isCancelled])
+                    return;
+                [tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:YES];
+            }];
+            
+            [self.serverIconImageQueue addOperation:loadImageOperation];
+        }
+        
+        cell.imageView.image = guild.iconImage;
 	}
 	
 	if(tableView == self.channelTableView){

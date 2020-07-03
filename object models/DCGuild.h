@@ -27,6 +27,8 @@
 @property NSMutableDictionary *channels;
 @property NSArray *sortedChannels;
 
+@property UIImage *iconImage;
+
 @property DCGuildMember *userGuildMember;
 
 @property bool isLarge;
@@ -34,5 +36,7 @@
 @property bool sendNotificationForEveryMessage;
 
 -(DCGuild*)initFromDictionary:(NSDictionary*)dict;
+
+- (UIImage *)loadIconImage;
 
 @end
