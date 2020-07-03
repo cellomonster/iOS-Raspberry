@@ -14,6 +14,7 @@
 #import "DCUser.h"
 #import "RBGuildStore.h"
 #import "RBUserStore.h"
+#import "DCMessage.h"
 
 @interface RBWebSocketDelegate () <SRWebSocketDelegate>
 
@@ -98,12 +99,16 @@
             self.userStore.clientUser = user;
 			[self.guildStore storeReadyEvent:event];
             self.authenticated = true;
+            
+            //NSLog(@"%@", event.d);
         }
             break;
             
         case 1:
-            if(self.messageDelegate)
-                [self.messageDelegate handleMessageCreate:event.d];
+            if(self.messageDelegate){
+                DCMessage* message = [[DCMessage alloc] initFromDictionary:event.d];
+                [self.messageDelegate handleMessageCreate:message];
+            }
             break;
 			
 		defualt:

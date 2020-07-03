@@ -7,9 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+@class DCMessage;
 
 @protocol RBMessageDelegate <NSObject>
 
--(void)handleMessageCreate:(NSDictionary *)dict;
+-(void)handleMessageCreate:(DCMessage *)message;
 
 @end

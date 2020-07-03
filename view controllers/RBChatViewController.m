@@ -52,8 +52,16 @@
 -(void)viewWillAppear:(BOOL)animated{
     if(self.activeChannel){
         NSArray* messages = [self.activeChannel retrieveMessages:50];
+        
+        if(messages.count > 0)
+            [self.activeChannel markAsReadWithMessage:messages[0]];
+        
         self.messages = (NSMutableArray*)[[messages reverseObjectEnumerator] allObjects];
+        
         [self loadAttachments:self.messages usingQueue:self.imageQueue inTableView:self.chatTableView];
+        
+        self.activeChannel.isRead = true;
+        
     }
     [self.chatTableView reloadData];
     [RBClient.sharedInstance setMessageDelegate:self];
@@ -62,6 +70,8 @@
 
 -(void) viewWillDisappear:(BOOL)animated {
     [self.imageQueue cancelAllOperations];
+    
+    [self.activeChannel markAsReadWithMessage:self.messages.lastObject];
 }
 
 - (void)keyboardWillShow:(NSNotification *)notification {
@@ -177,8 +187,7 @@
 
 #pragma mark rbmessagedelegate
 
--(void)handleMessageCreate:(NSDictionary *)dict{
-    DCMessage *message = [[DCMessage alloc] initFromDictionary:dict];
+-(void)handleMessageCreate:(DCMessage*)message{
     
     if(message.parentChannel == self.activeChannel){
         [self.messages addObject:message];
@@ -192,6 +201,8 @@
         }
         
         [self.chatTableView reloadData];
+    }else{
+        message.parentChannel.isRead = false;
     }
 }
 
