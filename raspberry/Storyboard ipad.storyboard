@@ -180,7 +180,7 @@
                     <connections>
                         <outlet property="channelTableView" destination="8M1-vv-tH8" id="zAJ-Fv-iRB"/>
                         <outlet property="guildTableView" destination="ily-PK-CTk" id="uIP-h8-Lxi"/>
-                        <segue destination="Zk9-vp-H3k" kind="replace" identifier="guilds to chat" splitViewControllerTargetIndex="1" id="ESf-uP-uxM"/>
+                        <segue destination="Zk9-vp-H3k" kind="push" identifier="guilds to chat" splitViewControllerTargetIndex="1" id="ESf-uP-uxM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XL1-kf-ZK8" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -196,11 +196,11 @@
                         <viewControllerLayoutGuide type="bottom" id="acQ-yk-1jX"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="NFx-Iv-v1I">
-                        <rect key="frame" x="0.0" y="20" width="768" height="1004"/>
+                        <rect key="frame" x="0.0" y="64" width="768" height="960"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="ACZ-oX-XkC" customClass="UIBubbleTableView">
-                                <rect key="frame" x="0.0" y="0.0" width="768" height="960"/>
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="916"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
@@ -208,7 +208,7 @@
                                 </connections>
                             </tableView>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Meq-9q-QvR">
-                                <rect key="frame" x="0.0" y="960" width="768" height="44"/>
+                                <rect key="frame" x="0.0" y="916" width="768" height="44"/>
                                 <items>
                                     <barButtonItem style="plain" id="Ojs-ek-5Or">
                                         <textField key="customView" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="Wem-Uy-toj">
@@ -242,9 +242,7 @@
                             <constraint firstAttribute="trailing" secondItem="Meq-9q-QvR" secondAttribute="trailing" id="zL5-vA-1fG"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Chat" id="qCa-vV-RKP">
-                        <barButtonItem key="rightBarButtonItem" title="Users" id="FkI-OL-Ro1"/>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Chat" id="qCa-vV-RKP"/>
                     <connections>
                         <outlet property="chatTableView" destination="ACZ-oX-XkC" id="hkv-D3-eiz"/>
                         <outlet property="chatToolbar" destination="Meq-9q-QvR" id="VPt-np-nsQ"/>

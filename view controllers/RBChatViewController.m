@@ -32,7 +32,6 @@
 @implementation RBChatViewController
 
 -(void)viewDidLoad{
-    [RBClient.sharedInstance setMessageDelegate:self];
     self.chatTableView.showAvatars = YES;
     self.chatTableView.watchingInRealTime = YES;
     self.imageQueue = [NSOperationQueue new];
@@ -57,6 +56,7 @@
         [self loadAttachments:self.messages usingQueue:self.imageQueue inTableView:self.chatTableView];
     }
     [self.chatTableView reloadData];
+    [RBClient.sharedInstance setMessageDelegate:self];
     [self scrollChatToBottom];
 }
 
@@ -190,6 +190,8 @@
                 [self.chatTableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:YES];
             }];
         }
+        
+        [self.chatTableView reloadData];
     }
 }
 
