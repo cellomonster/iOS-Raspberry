@@ -28,7 +28,7 @@
     
     NSDictionary* jsonUser = [dict objectForKey:@"user"];
     self.user = [RBClient.sharedInstance.userStore getUserBySnowflake:[jsonUser objectForKey:@"id"]];
-    if(self.user == RBClient.sharedInstance.userStore.clientUser){
+    if(self.user == RBClient.sharedInstance.user){
         guild.userGuildMember = self;
     }else if(self.user == nil){
         self.user = [[DCUser alloc] initFromDictionary:jsonUser];

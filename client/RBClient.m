@@ -69,12 +69,4 @@
     [self.webSocket close];
 }
 
-- (void)setLoginDelegate:(id<RBLoginDelegate>)delegate {
-	[self.webSocketDelegate setLoginDelegate:delegate];
-}
-
-- (void)setMessageDelegate:(id <RBMessageDelegate>)delegate {
-    [self.webSocketDelegate setMessageDelegate:delegate];
-}
-
 @end

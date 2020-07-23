@@ -33,7 +33,7 @@
     self.type = (NSInteger)[dict objectForKey:@"type"];
 	
 	self.author = [RBClient.sharedInstance.userStore getUserBySnowflake:[[dict objectForKey:@"author"] objectForKey:@"id"]];
-    if(self.author == RBClient.sharedInstance.userStore.clientUser){
+    if(self.author == RBClient.sharedInstance.user){
         self.writtenByUser = true;
     }else if(!self.author) {
         self.author = [[DCUser alloc] initFromDictionary:[dict objectForKey:@"author"]];
@@ -69,12 +69,9 @@
         messageAttachment.member = self.member;
         messageAttachment.timestamp = self.timestamp;
         messageAttachment.writtenByUser = self.writtenByUser;
+        [messageAttachment queueLoadImageOperation];
         [self.attachments setObject:messageAttachment forKey:messageAttachment.snowflake];
     }
-    
-
-    //self.attachments = [dict objectForKey:@"attachments"];
-    //self.embeds = [dict objectForKey:@"embeds"];
 	
 	return self;
 }

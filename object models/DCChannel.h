@@ -35,10 +35,12 @@ typedef NS_ENUM(NSInteger, DCChannelType) {
 
 @property NSString *lastMessageReadOnLoginSnowflake;
 
-@property bool canSendMessages;
 @property bool isVisible;
-
 @property bool isRead;
+
+@property bool isCurrentlyFocused;
+
+@property NSMutableArray* messages;
 
 //Properties exclusive to DM channels
 @property NSArray *messageRecipients;
@@ -46,8 +48,10 @@ typedef NS_ENUM(NSInteger, DCChannelType) {
 
 - (DCChannel*)initFromDictionary:(NSDictionary *)dict andGuild:(DCGuild*)guild;
 
-- (NSArray*)retrieveMessages:(int)numberOfMessages;
+- (void)retrieveMessages:(int)numberOfMessages;
+- (void)releaseMessages;
 - (void)sendMessage:(NSString*)message;
 - (void)markAsReadWithMessage:(DCMessage*)message;
+- (void)handleNewMessage:(DCMessage*)message;
 
 @end

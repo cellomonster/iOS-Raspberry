@@ -14,6 +14,13 @@
 #import "DCMessage.h"
 #import "DCMessageAttatchment.h"
 #import "DCPermissionOverwrite.h"
+#import "RBNotificationEvent.h"
+
+@interface DCChannel()
+
+@property NSOperationQueue* imageLoadQueue;
+
+@end
 
 @implementation DCChannel
 @synthesize snowflake = _snowflake;
@@ -26,11 +33,13 @@
                                 reason:@"tried to initialize channel from invalid dictionary!"
                               userInfo:dict];
 	}
+    
+    self.parentGuild = guild;
 	
 	self.snowflake = [dict objectForKey:@"id"];
 	self.name = [dict objectForKey:@"name"];
+    self.channelType = [[dict objectForKey:@"type"] intValue];
     self.lastMessageReadOnLoginSnowflake = [dict objectForKey:@"last_message_id"];
-    self.parentGuild = guild;
     
     id sortingPositionId = [dict objectForKey:@"position"];
     if(sortingPositionId != nil){
@@ -42,8 +51,6 @@
         self.parentCatagorySnowflake = @"no cat";
     }
     
-    self.channelType = [[dict objectForKey:@"type"] intValue];
-    
     NSArray* jsonPermissionOverwrites = (NSArray*)[dict objectForKey:@"permission_overwrites"];
     self.permissionOverwrites = [[NSMutableDictionary alloc] initWithCapacity:jsonPermissionOverwrites.count];
     for(NSDictionary* jsonPermissionOverwrite in jsonPermissionOverwrites){
@@ -53,7 +60,6 @@
     }
     
     int isVisibleCode = 0;
-    self.isVisible = false;
     
     for(DCPermissionOverwrite* permOverwrite in [self.permissionOverwrites allValues]){
         
@@ -83,9 +89,7 @@
         }
     }
     
-    if(isVisibleCode == 0 || isVisibleCode == 2 || isVisibleCode == 4){
-        self.isVisible = true;
-    }
+    self.isVisible = (isVisibleCode == 0 || isVisibleCode == 2 || isVisibleCode == 4);
 	
 	return self;
 }
@@ -104,7 +108,7 @@
     return urlRequest;
 }
 
-- (NSArray *)retrieveMessages:(int)numberOfMessages {
+- (void)retrieveMessages:(int)numberOfMessages {
     NSMutableArray *messages = [NSMutableArray arrayWithCapacity:numberOfMessages];
     
     NSString* requestString = [NSString stringWithFormat:@"/messages?limit=%i", numberOfMessages];
@@ -118,7 +122,7 @@
     if(error){
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:error.localizedFailureReason message:error.localizedDescription delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alertView show];
-        return nil;
+        return;
     }
 	
 	if(response){
@@ -137,7 +141,13 @@
         }
 	}
 	
-	return messages;
+	self.messages = (NSMutableArray*)[[messages reverseObjectEnumerator] allObjects];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:RBNotificationEventFocusedChannelUpdated object:nil];
+}
+
+- (void)releaseMessages{
+    self.messages = nil;
 }
 
 - (void)sendMessage:(NSString*)message {
@@ -185,6 +195,21 @@
         }
         
     });
+}
+
+
+- (void)handleNewMessage:(DCMessage*)message{
+    if(self.isCurrentlyFocused){
+        [self.messages addObject:message];
+        
+        for(DCMessageAttatchment *messageAttachment in [message.attachments allValues]){
+            [self.messages addObject:messageAttachment];
+        }
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:RBNotificationEventFocusedChannelUpdated object:nil];
+    }else{
+        self.isRead = false;
+    }
 }
 
 @end

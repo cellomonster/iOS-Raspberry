@@ -192,7 +192,7 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
-                                    <outlet property="bubbleDataSource" destination="Dbc-2A-UEw" id="mOA-38-BBE"/>
+                                    <outlet property="bubbleDataSource" destination="Dbc-2A-UEw" id="r6a-jz-LRl"/>
                                 </connections>
                             </tableView>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ma9-2d-3A9">

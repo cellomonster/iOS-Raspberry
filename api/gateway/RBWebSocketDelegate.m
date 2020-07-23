@@ -15,6 +15,8 @@
 #import "RBGuildStore.h"
 #import "RBUserStore.h"
 #import "DCMessage.h"
+#import "DCChannel.h"
+#import "RBNotificationEvent.h"
 
 @interface RBWebSocketDelegate () <SRWebSocketDelegate>
 
@@ -92,24 +94,31 @@
 
 	switch (index) {
 		case 0: {
-			[self.loginDelegate didLogin];
+			[[NSNotificationCenter defaultCenter] postNotificationName:RBNotificationEventDidLogin object:event];
+            
             NSDictionary* userDict = [event.d objectForKey:@"user"];
             DCUser* user = [[DCUser alloc] initFromDictionary:userDict];
+            
             [self.userStore addUser:user];
-            self.userStore.clientUser = user;
+            
+            RBClient.sharedInstance.user = user;
+            
 			[self.guildStore storeReadyEvent:event];
+            
             self.authenticated = true;
             
             //NSLog(@"%@", event.d);
         }
             break;
             
-        case 1:
-            if(self.messageDelegate){
-                DCMessage* message = [[DCMessage alloc] initFromDictionary:event.d];
-                [self.messageDelegate handleMessageCreate:message];
+        case 1: {
+                
+            DCMessage* message = [[DCMessage alloc] initFromDictionary:event.d];
+            if(message.parentChannel != nil){
+                [message.parentChannel handleNewMessage:message];
             }
             break;
+        }
 			
 		defualt:
 			NSLog(@"unrecognized dispatch type on event %i!", event.s);

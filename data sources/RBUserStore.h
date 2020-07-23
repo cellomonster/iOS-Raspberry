@@ -12,8 +12,6 @@
 
 @interface RBUserStore : NSObject
 
-@property DCUser* clientUser;
-
 - (RBUserStore*)init;
 
 -(void)addUser:(DCUser*)user;

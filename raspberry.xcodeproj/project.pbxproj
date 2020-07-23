@@ -120,7 +120,6 @@
 		095BF8B1235ACFB500F3FCD8 /* UIBubbleTableViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIBubbleTableViewDataSource.h; sourceTree = "<group>"; };
 		095BF8B2235ACFB500F3FCD8 /* UIBubbleTypingTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIBubbleTypingTableViewCell.h; sourceTree = "<group>"; };
 		095BF8B3235ACFB500F3FCD8 /* UIBubbleTypingTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIBubbleTypingTableViewCell.m; sourceTree = "<group>"; };
-		095BF8C6235BB4BC00F3FCD8 /* RBMessageDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RBMessageDelegate.h; sourceTree = "<group>"; };
 		09610CBD224745F5000E65E1 /* raspberry.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = raspberry.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		09610CC0224745F5000E65E1 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		09610CC2224745F5000E65E1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -209,12 +208,12 @@
 		09EF390C2248074400C3FA68 /* RBClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RBClient.h; sourceTree = "<group>"; };
 		09EF390D2248074400C3FA68 /* RBClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RBClient.m; sourceTree = "<group>"; };
 		AB783A1723039EF80001B787 /* Storyboard ipad.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = "Storyboard ipad.storyboard"; path = "raspberry/Storyboard ipad.storyboard"; sourceTree = SOURCE_ROOT; };
-		ABA4603423034A0C00AC83DF /* RBLoginDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RBLoginDelegate.h; sourceTree = "<group>"; };
 		ABA46037230362C000AC83DF /* RBGuildMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RBGuildMenuViewController.h; sourceTree = "<group>"; };
 		ABA46038230362C000AC83DF /* RBGuildMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RBGuildMenuViewController.m; sourceTree = "<group>"; };
 		ABA4603A2303645D00AC83DF /* RBSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RBSettingsViewController.h; sourceTree = "<group>"; };
 		ABA4603B2303645D00AC83DF /* RBSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RBSettingsViewController.m; sourceTree = "<group>"; };
 		ABE3940C22FE7630007144DD /* RBLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RBLoginViewController.m; sourceTree = "<group>"; };
+		B923FA4524BA9307002FFFCE /* RBNotificationEvent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = RBNotificationEvent.h; path = api/RBNotificationEvent.h; sourceTree = SOURCE_ROOT; };
 		B924F06024AE3E2F005CBF95 /* DCPermissionOverwrite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCPermissionOverwrite.h; sourceTree = "<group>"; };
 		B924F06124AE3E2F005CBF95 /* DCPermissionOverwrite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCPermissionOverwrite.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -453,8 +452,6 @@
 				090E0E7922481240004B30AC /* API Settings.plist */,
 				09A6136C22A191B400D23078 /* RBWebSocket.h */,
 				09A6136D22A191B400D23078 /* RBWebSocket.m */,
-				ABA4603423034A0C00AC83DF /* RBLoginDelegate.h */,
-				095BF8C6235BB4BC00F3FCD8 /* RBMessageDelegate.h */,
 				09CE3DEC226BC30300CF6E55 /* RBWebSocketDelegate.h */,
 				09CE3DED226BC30300CF6E55 /* RBWebSocketDelegate.m */,
 				09CE3DF5226BC77E00CF6E55 /* RBGatewayEvent.h */,
@@ -479,6 +476,7 @@
 				ABA4603B2303645D00AC83DF /* RBSettingsViewController.m */,
 				095BF89A235ACF8D00F3FCD8 /* RBChatViewController.h */,
 				095BF89B235ACF8D00F3FCD8 /* RBChatViewController.m */,
+				B923FA4524BA9307002FFFCE /* RBNotificationEvent.h */,
 				09A4D346235DDD2B00A7E59C /* RBMembersTableViewController.h */,
 				09A4D347235DDD2B00A7E59C /* RBMembersTableViewController.m */,
 				0983EC93240FF27A00A1E94D /* TRMalleableFrameView.h */,

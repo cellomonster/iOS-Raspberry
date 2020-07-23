@@ -9,9 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "DCChannel.h"
 #import "UIBubbleTableView.h"
-#import "RBMessageDelegate.h"
 
-@interface RBChatViewController : UIViewController <UIBubbleTableViewDataSource, RBMessageDelegate>
+@interface RBChatViewController : UIViewController <UIBubbleTableViewDataSource>
 
 @property DCChannel *activeChannel;
 

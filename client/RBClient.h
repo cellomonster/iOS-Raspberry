@@ -7,13 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "RBLoginDelegate.h"
-#import "RBMessageDelegate.h"
 
 @class RBGuildStore;
 @class RBUserStore;
 @class RBWebSocket;
 @class DCUser;
+@class DCChannel;
 
 @interface RBClient: NSObject
 
@@ -21,14 +20,12 @@
 @property (strong, nonatomic) RBUserStore *userStore;
 @property (strong, nonatomic) RBWebSocket *webSocket;
 @property (strong, nonatomic) NSString *tokenString;
+@property (strong, nonatomic) DCUser *user;
 
 - (RBClient *)init;
+
 - (void)connectWithTokenString:(NSString*)tokenString;
-
 - (void)endSession;
-
-- (void)setLoginDelegate:(id <RBLoginDelegate>)delegate;
-- (void)setMessageDelegate:(id <RBMessageDelegate>)delegate;
 
 + (RBClient *)sharedInstance;
 

@@ -8,13 +8,15 @@
 
 #import "DCMessageAttatchment.h"
 #import "FTWCache.h"
+#import "RBNotificationEvent.h"
+
+static NSOperationQueue* attachmentLoadOperationQueue;
 
 @implementation DCMessageAttatchment
 @synthesize snowflake = _snowflake;
 @synthesize author = _author;
 @synthesize timestamp = _timestamp;
 @synthesize member = _member;
-
 
 - (DCMessageAttatchment*)initFromDictionary:(NSDictionary *)dict{
     self = [super init];
@@ -33,12 +35,19 @@
     else
         self.attachmentType = DCMessageAttatchmentTypeOther;
     
+    if(!attachmentLoadOperationQueue){
+        attachmentLoadOperationQueue = [[NSOperationQueue alloc] init];
+        attachmentLoadOperationQueue.maxConcurrentOperationCount = 1;
+    }
+    
     return self;
 }
 
-- (void)queueLoadImageOperationInQueue:(NSOperationQueue *)queue withCompletionHandler:(void(^)())handler{
+- (void)queueLoadImageOperation {
     if(self.attachmentType == DCMessageAttatchmentTypeImage){
-        NSBlockOperation *loadImageOperation = [[NSBlockOperation alloc] init];
+        NSBlockOperation *loadImageOperation = [NSBlockOperation new];
+        
+        self.image = [UIImage new];
         
         [loadImageOperation addExecutionBlock:^{
             
@@ -50,14 +59,12 @@
             
             self.image = [UIImage imageWithData:data];
             
-            _attachmentLoadCompletionHandler = [handler copy];
-            
-            _attachmentLoadCompletionHandler();
-            
-            _attachmentLoadCompletionHandler = nil;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [[NSNotificationCenter defaultCenter] postNotificationName:RBNotificationEventFocusedChannelUpdated object:nil];
+            });
         }];
         
-        [queue addOperation:loadImageOperation];
+        [attachmentLoadOperationQueue addOperation:loadImageOperation];
     }
 }
 

@@ -10,9 +10,7 @@
 #import "DCDiscordObject.h"
 #import "RBMessageItem.h"
 
-@interface DCMessageAttatchment : NSObject <RBMessageItem>{
-    void (^_attachmentLoadCompletionHandler)();
-}
+@interface DCMessageAttatchment : NSObject <RBMessageItem>
 
 typedef NS_ENUM(NSInteger, DCMessageAttatchmentType) {
 	DCMessageAttatchmentTypeImage,
@@ -33,6 +31,6 @@ typedef NS_ENUM(NSInteger, DCMessageAttatchmentType) {
 @property bool writtenByUser;
 
 - (DCMessageAttatchment*)initFromDictionary:(NSDictionary *)dict;
-- (void)queueLoadImageOperationInQueue:(NSOperationQueue *)queue withCompletionHandler:(void(^)())handler;
+- (void)queueLoadImageOperation;
 
 @end

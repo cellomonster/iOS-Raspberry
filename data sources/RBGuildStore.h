@@ -17,7 +17,7 @@
 -(void)storeReadyEvent:(RBGatewayEvent*)event;
 
 -(void)addGuild:(DCGuild*)guild;
--(void)removeGuildBySnowflake:(NSString*)snowflake;
+//-(void)removeGuildBySnowflake:(NSString*)snowflake;
 
 -(DCGuild*)guildAtIndex:(int)index;
 -(DCGuild*)guildOfSnowflake:(NSString*)snowflake;

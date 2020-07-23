@@ -7,6 +7,7 @@
 //
 
 #import "RBChatViewController.h"
+#import "RBNotificationEvent.h"
 #import "UIBubbleTableView.h"
 #import "NSBubbleData.h"
 #import "DCMessage.h"
@@ -23,7 +24,6 @@
 @property (weak, nonatomic) IBOutlet UIToolbar *chatToolbar;
 @property (weak, nonatomic) IBOutlet UITextField *messageField;
 
-@property NSMutableArray *messages;
 @property NSOperationQueue* imageQueue;
 @property NSOperationQueue* avatarQueue;
 
@@ -47,31 +47,22 @@
                                            selector:@selector(keyboardWillHide:)
                                                name:UIKeyboardWillHideNotification
                                              object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self.chatTableView
+                                             selector:@selector(reloadData)
+                                                 name:RBNotificationEventFocusedChannelUpdated
+                                               object:nil];
 }
 
--(void)viewWillAppear:(BOOL)animated{
-    if(self.activeChannel){
-        NSArray* messages = [self.activeChannel retrieveMessages:50];
-        
-        if(messages.count > 0)
-            [self.activeChannel markAsReadWithMessage:messages[0]];
-        
-        self.messages = (NSMutableArray*)[[messages reverseObjectEnumerator] allObjects];
-        
-        [self loadAttachments:self.messages usingQueue:self.imageQueue inTableView:self.chatTableView];
-        
-        self.activeChannel.isRead = true;
-        
-    }
-    [self.chatTableView reloadData];
-    [RBClient.sharedInstance setMessageDelegate:self];
+-(void)viewWillAppear:(BOOL)animated {
+    self.activeChannel.isCurrentlyFocused = true;
+    [self.activeChannel retrieveMessages:50];
     [self scrollChatToBottom];
 }
 
 -(void) viewWillDisappear:(BOOL)animated {
+    self.activeChannel.isCurrentlyFocused = false;
     [self.imageQueue cancelAllOperations];
-    
-    [self.activeChannel markAsReadWithMessage:self.messages.lastObject];
 }
 
 - (void)keyboardWillShow:(NSNotification *)notification {
@@ -127,14 +118,14 @@
 #pragma mark uibubbletableview data source
 
 -(NSInteger)rowsForBubbleTable:(UIBubbleTableView *)tableView{
-    return self.messages.count;
+    return self.activeChannel.messages.count;
 }
 
 -(NSBubbleData *)bubbleTableView:(UIBubbleTableView *)tableView dataForRow:(NSInteger)row{
     
     NSBubbleData *bubbleData;
     
-    id <RBMessageItem> item = [self.messages objectAtIndex:row];
+    id <RBMessageItem> item = [self.activeChannel.messages objectAtIndex:row];
     
     if([item isKindOfClass:[DCMessage class]]) {
         DCMessage* message = (DCMessage*)item;
@@ -165,46 +156,7 @@
     return bubbleData;
 }
 
--(void)loadAttachments:(NSArray*) arrayOfMessages usingQueue: (NSOperationQueue*)queue inTableView:(UITableView*)tableView{
-    for(int i = arrayOfMessages.count - 1; i > -1; i--){
-        NSObject<RBMessageItem>* item = arrayOfMessages[i];
-        
-        if([item isKindOfClass:[DCMessageAttatchment class]]) {
-            
-            DCMessageAttatchment* attachment = ((DCMessageAttatchment*)item);
-            
-            if(attachment.attachmentType == DCMessageAttatchmentTypeImage && !attachment.image){
-                
-                attachment.image = [UIImage new];
-                
-                [attachment queueLoadImageOperationInQueue:self.imageQueue withCompletionHandler:^{
-                    [tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:YES];
-                }];
-            }
-        }
-    }
-}
-
 #pragma mark rbmessagedelegate
-
--(void)handleMessageCreate:(DCMessage*)message{
-    
-    if(message.parentChannel == self.activeChannel){
-        [self.messages addObject:message];
-        
-        for(DCMessageAttatchment *messageAttachment in [message.attachments allValues]){
-            [self.messages addObject:messageAttachment];
-            
-            [messageAttachment queueLoadImageOperationInQueue:self.imageQueue withCompletionHandler:^{
-                [self.chatTableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:YES];
-            }];
-        }
-        
-        [self.chatTableView reloadData];
-    }else{
-        message.parentChannel.isRead = false;
-    }
-}
 
 -(void)scrollChatToBottom{
     [self.chatTableView scrollBubbleViewToBottomAnimated:false];

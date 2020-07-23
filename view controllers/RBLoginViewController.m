@@ -9,6 +9,9 @@
 #import "RBLoginViewController.h"
 #import "RBGuildStore.h"
 #import "RBClient.h"
+#import "RBWebSocket.h"
+#import "RBWebSocketDelegate.h"
+#import "RBNotificationEvent.h"
 
 @interface RBLoginViewController ()
 
@@ -25,10 +28,15 @@
 
 - (void)viewDidLoad{
 	[super viewDidLoad];
-    [RBClient.sharedInstance setLoginDelegate:self];
+    
 	self.navigationItem.hidesBackButton = YES;
     
     self.tokenTextField.text = UIPasteboard.generalPasteboard.string;
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(didLogin)
+                                                 name:RBNotificationEventDidLogin
+                                               object:nil];
 }
 
 -(void)viewDidAppear:(BOOL)animated{
@@ -40,7 +48,7 @@
 }
 
 - (IBAction)loginButtonWasClicked {
-	[[RBClient sharedInstance] connectWithTokenString:self.tokenTextField.text];
+	[RBClient.sharedInstance connectWithTokenString:self.tokenTextField.text];
 	[self.loginIndicator startAnimating];
 	[self.loginIndicator setHidden:false];
     [self.loginButton setHidden:true];
