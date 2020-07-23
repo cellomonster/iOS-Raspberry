@@ -18,6 +18,7 @@
 @synthesize author = _author;
 @synthesize timestamp = _timestamp;
 @synthesize member = _member;
+@synthesize writtenByUser = _writtenByUser;
 
 - (DCMessage *)initFromDictionary:(NSDictionary *)dict {
 	self = [super init];
@@ -64,11 +65,7 @@
     self.attachments = [[NSMutableDictionary alloc] initWithCapacity:jsonAttachments.count];
     
     for(NSDictionary *jsonAttachment in jsonAttachments){
-        DCMessageAttatchment *messageAttachment = [[DCMessageAttatchment alloc] initFromDictionary:jsonAttachment];
-        messageAttachment.author = self.author;
-        messageAttachment.member = self.member;
-        messageAttachment.timestamp = self.timestamp;
-        messageAttachment.writtenByUser = self.writtenByUser;
+        DCMessageAttatchment *messageAttachment = [[DCMessageAttatchment alloc] initFromDictionary:jsonAttachment withParentMessage:self];
         [messageAttachment queueLoadImageOperation];
         [self.attachments setObject:messageAttachment forKey:messageAttachment.snowflake];
     }

@@ -9,6 +9,7 @@
 #import "DCMessageAttatchment.h"
 #import "FTWCache.h"
 #import "RBNotificationEvent.h"
+#import "DCMessage.h"
 
 static NSOperationQueue* attachmentLoadOperationQueue;
 
@@ -17,8 +18,9 @@ static NSOperationQueue* attachmentLoadOperationQueue;
 @synthesize author = _author;
 @synthesize timestamp = _timestamp;
 @synthesize member = _member;
+@synthesize writtenByUser = _writtenByUser;
 
-- (DCMessageAttatchment*)initFromDictionary:(NSDictionary *)dict{
+- (DCMessageAttatchment*)initFromDictionary:(NSDictionary *)dict withParentMessage:(DCMessage*)parentMessage{
     self = [super init];
     
     self.snowflake = [dict objectForKey:@"id"];
@@ -28,6 +30,10 @@ static NSOperationQueue* attachmentLoadOperationQueue;
     
     self.imageWidth = (NSUInteger)[dict objectForKey:@"width"];
     self.imageHeight = (NSUInteger)[dict objectForKey:@"height"];
+    
+    self.author = parentMessage.author;
+    self.member = parentMessage.member;
+    self.timestamp = parentMessage.timestamp;
     
 #warning there's probably a much better way to do this
     if([[self.fileName pathExtension] isEqualToString:@"png"] || [[self.fileName pathExtension] isEqualToString:@"jpg"] || [[self.fileName pathExtension] isEqualToString:@"jpeg"] || [[self.fileName pathExtension] isEqualToString:@"gif"] || [[self.fileName pathExtension] isEqualToString:@"webp"])

@@ -29,9 +29,6 @@ typedef NS_ENUM(NSInteger, DCMessageType) {
 @property DCChannel *parentChannel;
 @property DCGuild *parentGuild;
 
-@property DCUser *author;
-@property DCGuildMember *member;
-
 @property DCMessageType type;
 @property NSString *content;
 
@@ -41,8 +38,6 @@ typedef NS_ENUM(NSInteger, DCMessageType) {
 
 @property NSMutableDictionary *attachments;
 @property NSArray *embeds;
-
-@property bool writtenByUser;
 
 - (DCMessage *)initFromDictionary:(NSDictionary *)dict;
 

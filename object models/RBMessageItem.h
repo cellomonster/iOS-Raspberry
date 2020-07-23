@@ -17,5 +17,6 @@
 @property DCUser *author;
 @property NSDate *timestamp;
 @property DCGuildMember *member;
+@property bool writtenByUser;
 
 @end

@@ -14,6 +14,8 @@
 
 @end
 
+static NSOperationQueue* avatarQueue;
+
 @implementation DCUser
 @synthesize snowflake = _snowflake;
 

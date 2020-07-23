@@ -10,6 +10,8 @@
 #import "DCDiscordObject.h"
 #import "RBMessageItem.h"
 
+@class DCMessage;
+
 @interface DCMessageAttatchment : NSObject <RBMessageItem>
 
 typedef NS_ENUM(NSInteger, DCMessageAttatchmentType) {
@@ -28,9 +30,7 @@ typedef NS_ENUM(NSInteger, DCMessageAttatchmentType) {
 @property NSUInteger imageHeight;
 @property UIImage *image;
 
-@property bool writtenByUser;
-
-- (DCMessageAttatchment*)initFromDictionary:(NSDictionary *)dict;
+- (DCMessageAttatchment*)initFromDictionary:(NSDictionary *)dict withParentMessage:(DCMessage*)parentMessage;
 - (void)queueLoadImageOperation;
 
 @end

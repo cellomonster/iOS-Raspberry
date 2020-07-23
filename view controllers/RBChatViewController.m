@@ -24,7 +24,6 @@
 @property (weak, nonatomic) IBOutlet UIToolbar *chatToolbar;
 @property (weak, nonatomic) IBOutlet UITextField *messageField;
 
-@property NSOperationQueue* imageQueue;
 @property NSOperationQueue* avatarQueue;
 
 @end
@@ -34,8 +33,6 @@
 -(void)viewDidLoad{
     self.chatTableView.showAvatars = YES;
     self.chatTableView.watchingInRealTime = YES;
-    self.imageQueue = [NSOperationQueue new];
-    self.imageQueue.maxConcurrentOperationCount = 1;
     self.avatarQueue = [NSOperationQueue new];
     self.avatarQueue.maxConcurrentOperationCount = 1;
     
@@ -62,7 +59,7 @@
 
 -(void) viewWillDisappear:(BOOL)animated {
     self.activeChannel.isCurrentlyFocused = false;
-    [self.imageQueue cancelAllOperations];
+    [self.activeChannel releaseMessages];
 }
 
 - (void)keyboardWillShow:(NSNotification *)notification {
