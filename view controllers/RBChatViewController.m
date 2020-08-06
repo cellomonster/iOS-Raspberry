@@ -131,23 +131,13 @@
     }
     
     if([item isKindOfClass:[DCMessageAttatchment class]]) {
-        
         DCMessageAttatchment* attachment = ((DCMessageAttatchment*)item);
         
         bubbleData = [NSBubbleData dataWithImage:attachment.image date:[NSDate date] type:!attachment.writtenByUser];
     }
     
-    if(item.author.avatarImage != nil) {
+    if(item.author.avatarImage) {
         bubbleData.avatar = item.author.avatarImage;
-    } else {
-        item.author.avatarImage = [UIImage new];
-        
-        NSBlockOperation* loadImageOperation = [NSBlockOperation blockOperationWithBlock: ^{
-            [item.author loadAvatarImage];
-            [tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:YES];
-        }];
-            
-        [self.avatarQueue addOperation:loadImageOperation];
     }
     
     return bubbleData;

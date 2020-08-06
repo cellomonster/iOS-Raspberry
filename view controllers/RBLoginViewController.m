@@ -53,7 +53,7 @@
 	[self.loginIndicator setHidden:false];
     [self.loginButton setHidden:true];
     
-    [self performSelector:@selector(checkAuth) withObject:nil afterDelay:5];
+    [self performSelector:@selector(checkAuth) withObject:nil afterDelay:10];
 }
 
 #pragma mark RBLoginDelegate

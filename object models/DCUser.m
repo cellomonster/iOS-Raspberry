@@ -7,14 +7,9 @@
 //
 
 #import "DCUser.h"
+#import "RBNotificationEvent.h"
 
-@interface DCUser ()
-
-@property bool isLoadingOrHasLoadedAvatarImage;
-
-@end
-
-static NSOperationQueue* avatarQueue;
+static NSOperationQueue* avatarLoadOperationQueue;
 
 @implementation DCUser
 @synthesize snowflake = _snowflake;
@@ -33,24 +28,45 @@ static NSOperationQueue* avatarQueue;
     self.username = [dict objectForKey:@"username"];
     self.avatarHash = [dict objectForKey:@"avatar"];
     
+    if(!avatarLoadOperationQueue){
+        avatarLoadOperationQueue = [[NSOperationQueue alloc] init];
+        avatarLoadOperationQueue.maxConcurrentOperationCount = 1;
+    }
+    
     return self;
 }
 
-- (UIImage *)loadAvatarImage {
+- (void)queueLoadAvatarImage {
+    
+    if(self.avatarImage != nil) return;
+    
+    self.avatarImage = [UIImage new];
+    
+    if(!self.avatarHash) nil;
+    
+    NSBlockOperation *loadAvatarOperation = [NSBlockOperation new];
+    
     NSString *imgURLstr = [NSString stringWithFormat:@"https://cdn.discordapp.com/avatars/%@/%@.png", self.snowflake, self.avatarHash];
     NSURL* imgURL = [NSURL URLWithString:imgURLstr];
     
-    if(imgURL){
-        NSData *data = [NSData dataWithContentsOfURL:imgURL];
-            
-        NSLog(@"loaded pfp for %@", self.username);
-            
-        self.avatarImage = [UIImage imageWithData:data];
+    __weak __typeof__(NSBlockOperation) *weakOp = loadAvatarOperation;
     
-        return self.avatarImage;
-    }else{
-        return [UIImage imageNamed:@"default"];
-    }
+    [loadAvatarOperation addExecutionBlock:^{
+        
+        NSData *data = [NSData dataWithContentsOfURL:imgURL];
+        
+        NSLog(@"loaded pfp for %@", self.username);
+        
+        self.avatarImage = [UIImage imageWithData:data];
+        
+        if(weakOp.isCancelled) return;
+        
+        //            dispatch_async(dispatch_get_main_queue(), ^{
+        //                [[NSNotificationCenter defaultCenter] postNotificationName:RBNotificationEventFocusedChannelUpdated object:nil];
+        //            });
+    }];
+    
+    [avatarLoadOperationQueue addOperation:loadAvatarOperation];
 }
 
 @end

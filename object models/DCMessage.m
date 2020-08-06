@@ -66,11 +66,16 @@
     
     for(NSDictionary *jsonAttachment in jsonAttachments){
         DCMessageAttatchment *messageAttachment = [[DCMessageAttatchment alloc] initFromDictionary:jsonAttachment withParentMessage:self];
-        [messageAttachment queueLoadImageOperation];
         [self.attachments setObject:messageAttachment forKey:messageAttachment.snowflake];
     }
 	
 	return self;
+}
+
+-(void)queueLoadAttachments{
+    for(DCMessageAttatchment *messageAttachment in [self.attachments allValues]){
+        [messageAttachment queueLoadImage];
+    }
 }
 
 @end

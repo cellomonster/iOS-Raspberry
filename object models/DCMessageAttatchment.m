@@ -49,29 +49,34 @@ static NSOperationQueue* attachmentLoadOperationQueue;
     return self;
 }
 
-- (void)queueLoadImageOperation {
-    if(self.attachmentType == DCMessageAttatchmentTypeImage){
-        NSBlockOperation *loadImageOperation = [NSBlockOperation new];
+- (void)queueLoadImage {
+    
+    if(self.image || self.attachmentType != DCMessageAttatchmentTypeImage) return;
         
-        self.image = [UIImage new];
+    self.image = [UIImage new];
+    
+    NSBlockOperation *loadImageOperation = [NSBlockOperation new];
         
-        [loadImageOperation addExecutionBlock:^{
+    __weak __typeof__(NSBlockOperation) *weakOp = loadImageOperation;
+        
+    [loadImageOperation addExecutionBlock:^{
             
-            NSLog(@"loading attachment image... %@", self.fileURL);
+        NSLog(@"loading attachment image... %@", self.fileURL);
             
-            NSData *data = [NSData dataWithContentsOfURL:self.fileURL];
+        NSData *data = [NSData dataWithContentsOfURL:self.fileURL];
             
-            NSLog(@"loaded image %@", self.fileURL);
+        NSLog(@"loaded image %@", self.fileURL);
             
-            self.image = [UIImage imageWithData:data];
+        self.image = [UIImage imageWithData:data];
             
-            dispatch_async(dispatch_get_main_queue(), ^{
+        if(weakOp.isCancelled) return;
+            
+        dispatch_async(dispatch_get_main_queue(), ^{
                 [[NSNotificationCenter defaultCenter] postNotificationName:RBNotificationEventFocusedChannelUpdated object:nil];
-            });
-        }];
-        
-        [attachmentLoadOperationQueue addOperation:loadImageOperation];
-    }
+        });
+    }];
+    
+    [attachmentLoadOperationQueue addOperation:loadImageOperation];
 }
 
 @end

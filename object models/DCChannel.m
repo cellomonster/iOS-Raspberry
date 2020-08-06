@@ -109,7 +109,7 @@
 }
 
 - (void)retrieveMessages:(int)numberOfMessages {
-    NSMutableArray *messages = [NSMutableArray arrayWithCapacity:numberOfMessages];
+    self.messages = [NSMutableArray arrayWithCapacity:numberOfMessages];
     
     NSString* requestString = [NSString stringWithFormat:@"/messages?limit=%i", numberOfMessages];
 	
@@ -131,17 +131,12 @@
         for(id jsonMessage in parsedResponse){
             if([jsonMessage isKindOfClass:[NSDictionary class]]){
                 DCMessage *message = [[DCMessage alloc] initFromDictionary:jsonMessage];
-                
-                for(DCMessageAttatchment *messageAttachment in [message.attachments allValues]){
-                    [messages addObject:messageAttachment];
-                }
-                
-                [messages addObject:message];
+                [self addMessage:message];
             }
         }
 	}
 	
-	self.messages = (NSMutableArray*)[[messages reverseObjectEnumerator] allObjects];
+	self.messages = (NSMutableArray*)[[self.messages reverseObjectEnumerator] allObjects];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:RBNotificationEventFocusedChannelUpdated object:nil];
 }
@@ -197,14 +192,20 @@
     });
 }
 
+- (void)addMessage:(DCMessage*)message{
+    [self.messages addObject:message];
+    
+    for(DCMessageAttatchment *messageAttachment in [message.attachments allValues]){
+        [self.messages addObject:messageAttachment];
+    }
+    
+    [message.author queueLoadAvatarImage];
+    [message queueLoadAttachments];
+}
 
 - (void)handleNewMessage:(DCMessage*)message{
     if(self.isCurrentlyFocused){
-        [self.messages addObject:message];
-        
-        for(DCMessageAttatchment *messageAttachment in [message.attachments allValues]){
-            [self.messages addObject:messageAttachment];
-        }
+        [self addMessage:message];
         
         [[NSNotificationCenter defaultCenter] postNotificationName:RBNotificationEventFocusedChannelUpdated object:nil];
     }else{

@@ -18,6 +18,6 @@
 @property bool isBot;
 
 - (DCUser *)initFromDictionary:(NSDictionary *)dict;
-- (UIImage *)loadAvatarImage;
+- (void)queueLoadAvatarImage;
 
 @end
