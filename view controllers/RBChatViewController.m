@@ -24,8 +24,6 @@
 @property (weak, nonatomic) IBOutlet UIToolbar *chatToolbar;
 @property (weak, nonatomic) IBOutlet UITextField *messageField;
 
-@property NSOperationQueue* avatarQueue;
-
 @end
 
 @implementation RBChatViewController
@@ -33,8 +31,6 @@
 -(void)viewDidLoad{
     self.chatTableView.showAvatars = YES;
     self.chatTableView.watchingInRealTime = YES;
-    self.avatarQueue = [NSOperationQueue new];
-    self.avatarQueue.maxConcurrentOperationCount = 1;
     
     [NSNotificationCenter.defaultCenter addObserver:self
                                            selector:@selector(keyboardWillShow:)
@@ -49,6 +45,9 @@
                                              selector:@selector(reloadData)
                                                  name:RBNotificationEventFocusedChannelUpdated
                                                object:nil];
+    
+    if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad )
+        self.navigationItem.hidesBackButton = YES;
 }
 
 -(void)viewWillAppear:(BOOL)animated {

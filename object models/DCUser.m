@@ -9,7 +9,7 @@
 #import "DCUser.h"
 #import "RBNotificationEvent.h"
 
-static NSOperationQueue* avatarLoadOperationQueue;
+static NSOperationQueue* loadAvatarOperationQueue;
 
 @implementation DCUser
 @synthesize snowflake = _snowflake;
@@ -28,11 +28,6 @@ static NSOperationQueue* avatarLoadOperationQueue;
     self.username = [dict objectForKey:@"username"];
     self.avatarHash = [dict objectForKey:@"avatar"];
     
-    if(!avatarLoadOperationQueue){
-        avatarLoadOperationQueue = [[NSOperationQueue alloc] init];
-        avatarLoadOperationQueue.maxConcurrentOperationCount = 1;
-    }
-    
     return self;
 }
 
@@ -42,16 +37,23 @@ static NSOperationQueue* avatarLoadOperationQueue;
     
     self.avatarImage = [UIImage new];
     
-    if(!self.avatarHash) nil;
+    if(!self.avatarHash) return;
+    
+    if(!loadAvatarOperationQueue){
+        loadAvatarOperationQueue = [[NSOperationQueue alloc] init];
+        loadAvatarOperationQueue.maxConcurrentOperationCount = 1;
+    }
     
     NSBlockOperation *loadAvatarOperation = [NSBlockOperation new];
-    
-    NSString *imgURLstr = [NSString stringWithFormat:@"https://cdn.discordapp.com/avatars/%@/%@.png", self.snowflake, self.avatarHash];
-    NSURL* imgURL = [NSURL URLWithString:imgURLstr];
     
     __weak __typeof__(NSBlockOperation) *weakOp = loadAvatarOperation;
     
     [loadAvatarOperation addExecutionBlock:^{
+        
+        if(weakOp.isCancelled) return;
+        
+        NSString *imgURLstr = [NSString stringWithFormat:@"https://cdn.discordapp.com/avatars/%@/%@.png", self.snowflake, self.avatarHash];
+        NSURL* imgURL = [NSURL URLWithString:imgURLstr];
         
         NSData *data = [NSData dataWithContentsOfURL:imgURL];
         
@@ -59,14 +61,12 @@ static NSOperationQueue* avatarLoadOperationQueue;
         
         self.avatarImage = [UIImage imageWithData:data];
         
-        if(weakOp.isCancelled) return;
-        
-        //            dispatch_async(dispatch_get_main_queue(), ^{
-        //                [[NSNotificationCenter defaultCenter] postNotificationName:RBNotificationEventFocusedChannelUpdated object:nil];
-        //            });
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [[NSNotificationCenter defaultCenter] postNotificationName:RBNotificationEventFocusedChannelUpdated object:nil];
+        });
     }];
     
-    [avatarLoadOperationQueue addOperation:loadAvatarOperation];
+    [loadAvatarOperationQueue addOperation:loadAvatarOperation];
 }
 
 @end

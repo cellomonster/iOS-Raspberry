@@ -38,6 +38,6 @@
 -(DCGuild*)initFromDictionary:(NSDictionary*)dict;
 -(DCGuild*)initAsDMGuildFromJsonPrivateChannels:(NSDictionary*)jsonPrivateChannels;
 
-- (UIImage *)loadIconImage;
+- (void)queueLoadIconImage;
 
 @end

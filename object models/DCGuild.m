@@ -12,6 +12,9 @@
 #import "DCChannel.h"
 #import "DCRole.h"
 #import "DCUser.h"
+#import "RBNotificationEvent.h"
+
+static NSOperationQueue* loadIconOperationQueue;
 
 @implementation DCGuild
 @synthesize snowflake = _snowflake;
@@ -85,7 +88,6 @@
     
 	self.name = @"DM Channel";
     self.snowflake = @"0";
-    self.iconImage = [UIImage imageNamed:@"default"];
     
     // Order in which objects must be initialized:
     // Roles, Guild members, and channels
@@ -113,23 +115,43 @@
 	return self;
 }
 
-
-- (UIImage *)loadIconImage {
-    NSString *imgURLstr = [NSString stringWithFormat:@"https://cdn.discordapp.com/icons/%@/%@.png", self.snowflake, self.iconHash];
-//    NSLog(@"%@", imgURLstr);
-    NSURL* imgURL = [NSURL URLWithString:imgURLstr];
+- (void)queueLoadIconImage {
     
-    if(imgURL){
+    if(self.iconImage != nil) return;
+    
+    self.iconImage = [UIImage new];
+    
+    if(!self.iconHash) return;
+    
+    if(!loadIconOperationQueue){
+        loadIconOperationQueue = [[NSOperationQueue alloc] init];
+        loadIconOperationQueue.maxConcurrentOperationCount = 1;
+    }
+    
+    NSBlockOperation *loadIconOperation = [NSBlockOperation new];
+    
+    __weak __typeof__(NSBlockOperation) *weakOp = loadIconOperation;
+    
+    [loadIconOperation addExecutionBlock:^{
+        
+        if(weakOp.isCancelled) return;
+        
+        NSString *imgURLstr = [NSString stringWithFormat:@"https://cdn.discordapp.com/icons/%@/%@.png", self.snowflake, self.iconHash];
+        //    NSLog(@"%@", imgURLstr);
+        NSURL* imgURL = [NSURL URLWithString:imgURLstr];
+        
         NSData *data = [NSData dataWithContentsOfURL:imgURL];
         
-        NSLog(@"loaded guild icon of %@", self.name);
+        NSLog(@"loaded guild icon for %@", self.name);
         
         self.iconImage = [UIImage imageWithData:data];
         
-        return self.iconImage;
-    }else{
-        return [UIImage imageNamed:@"default"];
-    }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [[NSNotificationCenter defaultCenter] postNotificationName:RBNotificationEventLoadedGuildIcon object:nil];
+        });
+    }];
+    
+    [loadIconOperationQueue addOperation:loadIconOperation];
 }
 
 @end

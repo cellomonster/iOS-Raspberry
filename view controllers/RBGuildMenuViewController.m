@@ -12,6 +12,7 @@
 #import "RBChatViewController.h"
 #import "RBGuildStore.h"
 #import "DCGuild.h"
+#import "RBNotificationEvent.h"
 
 @interface RBGuildMenuViewController ()
 
@@ -33,6 +34,11 @@
     self.serverIconImageQueue.maxConcurrentOperationCount = 1;
     
 	self.navigationItem.hidesBackButton = YES;
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self.guildTableView
+                                             selector:@selector(reloadData)
+                                                 name:RBNotificationEventLoadedGuildIcon
+                                               object:nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -94,19 +100,7 @@
 		cell.textLabel.text = @"";// = guild.name;
         
         if(!guild.iconImage){
-            
-            guild.iconImage = [UIImage new];
-            
-            NSBlockOperation *loadImageOperation = [[NSBlockOperation alloc] init];
-            __weak NSBlockOperation *weakOperation = loadImageOperation;
-            [loadImageOperation addExecutionBlock:^{
-                [guild loadIconImage];
-                if([weakOperation isCancelled])
-                    return;
-                [tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:YES];
-            }];
-            
-            [self.serverIconImageQueue addOperation:loadImageOperation];
+            [guild queueLoadIconImage];
         }
         
         cell.imageView.image = guild.iconImage;
@@ -128,7 +122,7 @@
         
         cell.accessoryType = unreadIndicatorType;
 	}
-  
+    
 	return cell;
 }
 

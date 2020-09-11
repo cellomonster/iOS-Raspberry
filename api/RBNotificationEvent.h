@@ -12,4 +12,5 @@
 #define RBNotificationEventFocusedChannelUpdated @"RBNotificationEventFocusedChannelUpdated"
 #define RBNotificationEventDidLogin              @"RBNotificationEventDidLogin"
 #define RBNotificationEventRecievedNewMessage    @"RBNotificationEventRecievedNewMessage"
+#define RBNotificationEventLoadedGuildIcon     @"RBNotificationEventLoadedGuildIcon"
 typedef NSString* RBNotificationEvent;
