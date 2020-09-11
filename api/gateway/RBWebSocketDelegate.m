@@ -103,7 +103,7 @@
             
             RBClient.sharedInstance.user = user;
             
-			[self.guildStore storeReadyEvent:event];
+			[self.guildStore handleReadyEvent:event];
             
             self.authenticated = true;
             

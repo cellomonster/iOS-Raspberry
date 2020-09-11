@@ -40,5 +40,6 @@ typedef NS_ENUM(NSInteger, DCMessageType) {
 @property NSArray *embeds;
 
 - (DCMessage *)initFromDictionary:(NSDictionary *)dict;
+- (void) queueLoadAttachments;
 
 @end

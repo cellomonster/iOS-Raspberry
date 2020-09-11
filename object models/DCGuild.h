@@ -36,6 +36,7 @@
 @property bool sendNotificationForEveryMessage;
 
 -(DCGuild*)initFromDictionary:(NSDictionary*)dict;
+-(DCGuild*)initAsDMGuildFromJsonPrivateChannels:(NSDictionary*)jsonPrivateChannels;
 
 - (UIImage *)loadIconImage;
 

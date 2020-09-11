@@ -21,7 +21,7 @@
 
 @implementation RBGuildStore
 
--(void)storeReadyEvent:(RBGatewayEvent*)event {
+-(void)handleReadyEvent:(RBGatewayEvent*)event {
 	if(![event.t isEqualToString:@"READY"]){
 		NSLog(@"event %i isn't a ready event!", event.s);
 		return;
@@ -29,6 +29,11 @@
 	
 	self.guildDictionary = [NSMutableDictionary new];
     self.channelDictionary = [NSMutableDictionary new];
+    
+    DCGuild* dmGuild = [[DCGuild alloc] initAsDMGuildFromJsonPrivateChannels:[event.d objectForKey:@"private_channels"]];
+    [self.guildDictionary setObject:dmGuild forKey:dmGuild.snowflake];
+    [self.channelDictionary addEntriesFromDictionary:dmGuild.channels];
+    
 	
 	NSArray* jsonGuilds = [[NSArray alloc] initWithArray:[event.d objectForKey:@"guilds"]];
 	
@@ -53,7 +58,8 @@
     
     self.guildKeys = [[NSMutableArray alloc] initWithCapacity:self.guildDictionary.count];
     //self.guildKeys[0] =
-    self.guildKeys = [[event.d objectForKey:@"user_settings"] objectForKey:@"guild_positions"];
+    self.guildKeys[0] = dmGuild.snowflake;
+    [self.guildKeys addObjectsFromArray:[[event.d objectForKey:@"user_settings"] objectForKey:@"guild_positions"]];
 }
 
 -(void)addGuild:(DCGuild *)guild{

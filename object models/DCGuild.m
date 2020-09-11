@@ -80,6 +80,40 @@
 	return self;
 }
 
+-(DCGuild*)initAsDMGuildFromJsonPrivateChannels:(NSDictionary *)jsonPrivateChannels{
+	self = [super init];
+    
+	self.name = @"DM Channel";
+    self.snowflake = @"0";
+    self.iconImage = [UIImage imageNamed:@"default"];
+    
+    // Order in which objects must be initialized:
+    // Roles, Guild members, and channels
+    
+	//Channels
+	self.channels = [[NSMutableDictionary alloc] initWithCapacity:jsonPrivateChannels.count];
+	for(NSDictionary *jsonChannel in jsonPrivateChannels){
+		DCChannel *channel = [[DCChannel alloc] initFromDictionary:jsonChannel andGuild:self];
+        if(channel.channelType == DCChannelTypeDirectMessage)
+            [self.channels setObject:channel forKey:channel.snowflake];
+	}
+    
+    self.sortedChannels = [[self.channels allValues] sortedArrayUsingComparator:^(DCChannel* c1, DCChannel* c2) {
+        
+        if (c1.sortingPosition > c2.sortingPosition) {
+            return (NSComparisonResult)NSOrderedDescending;
+        }
+        
+        if (c1.sortingPosition < c2.sortingPosition) {
+            return (NSComparisonResult)NSOrderedAscending;
+        }
+        return (NSComparisonResult)NSOrderedSame;
+    }];
+	
+	return self;
+}
+
+
 - (UIImage *)loadIconImage {
     NSString *imgURLstr = [NSString stringWithFormat:@"https://cdn.discordapp.com/icons/%@/%@.png", self.snowflake, self.iconHash];
 //    NSLog(@"%@", imgURLstr);

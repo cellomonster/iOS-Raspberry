@@ -41,10 +41,29 @@
     self.channelType = [[dict objectForKey:@"type"] intValue];
     self.lastMessageReadOnLoginSnowflake = [dict objectForKey:@"last_message_id"];
     
+    if(self.channelType == DCChannelTypeDirectMessage && self.name == nil){
+        //If no name, create a name from channel members
+        NSMutableString* fullChannelName = [@"@" mutableCopy];
+        
+        NSArray* privateChannelMembers = [dict valueForKey:@"recipients"];
+        for(NSDictionary* privateChannelMember in privateChannelMembers){
+            //add comma between member names
+            if([privateChannelMembers indexOfObject:privateChannelMember] != 0)
+                [fullChannelName appendString:@", @"];
+            
+            NSString* memberName = [privateChannelMember valueForKey:@"username"];
+            [fullChannelName appendString:memberName];
+            
+            self.name = fullChannelName;
+        }
+    }
+    
     id sortingPositionId = [dict objectForKey:@"position"];
     if(sortingPositionId != nil){
         self.sortingPosition = [sortingPositionId intValue];
     }
+    
+    if(self.channelType == DCChannelTypeDirectMessage)return self;
     
     self.parentCatagorySnowflake = [dict objectForKey:@"parent_id"];
     if(self.parentCatagorySnowflake == nil){

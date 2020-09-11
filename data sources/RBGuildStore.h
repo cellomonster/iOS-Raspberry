@@ -14,7 +14,7 @@
 
 @interface RBGuildStore : NSObject
 
--(void)storeReadyEvent:(RBGatewayEvent*)event;
+-(void)handleReadyEvent:(RBGatewayEvent*)event;
 
 -(void)addGuild:(DCGuild*)guild;
 //-(void)removeGuildBySnowflake:(NSString*)snowflake;
