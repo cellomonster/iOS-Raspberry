@@ -167,10 +167,16 @@
 - (void)sendMessage:(NSString*)message {
     NSMutableURLRequest* request = [self authedMutableURLRequestFromString:@"/messages"];
     
-    NSString* messageString = [NSString stringWithFormat:@"{\"content\":\"%@\"}", message];
+    // janky way to escape the message string
+    NSString* escapedMessage=[[NSString alloc] initWithData:
+       [NSJSONSerialization dataWithJSONObject:@[message] options:0 error:nil]
+                            encoding:NSUTF8StringEncoding];
+    escapedMessage=[[escapedMessage substringToIndex:([escapedMessage length]-1)] substringFromIndex:1];
+    
+    NSString* messageString = [NSString stringWithFormat:@"{\"content\":%@}", escapedMessage];
     
     [request setHTTPMethod:@"POST"];
-    [request setHTTPBody:[NSData dataWithBytes:[messageString UTF8String] length:[messageString length]]];
+    [request setHTTPBody:[NSData dataWithBytes:[messageString UTF8String] length:[messageString lengthOfBytesUsingEncoding:NSUTF8StringEncoding]]];
     
     
     NSError *error = nil;
@@ -195,8 +201,8 @@
         
         [request setHTTPMethod:@"POST"];
         
-        NSString* messageString = @"{\"token\":\"a\"}";
-        [request setHTTPBody:[NSData dataWithBytes:[messageString UTF8String] length:[messageString length]]];
+        NSString* fakeAckTokenData = @"{\"token\":\"a\"}";
+        [request setHTTPBody:[NSData dataWithBytes:[fakeAckTokenData UTF8String] length:[fakeAckTokenData length]]];
         
         NSError *error = nil;
         NSHTTPURLResponse *responseCode = nil;
