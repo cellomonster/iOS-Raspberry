@@ -7,8 +7,9 @@
       "scale" : "1x"
     },
     {
-      "idiom" : "iphone",
       "size" : "29x29",
+      "idiom" : "iphone",
+      "filename" : "58.png",
       "scale" : "2x"
     },
     {
@@ -39,9 +40,8 @@
       "scale" : "1x"
     },
     {
-      "size" : "29x29",
       "idiom" : "ipad",
-      "filename" : "58.png",
+      "size" : "29x29",
       "scale" : "2x"
     },
     {

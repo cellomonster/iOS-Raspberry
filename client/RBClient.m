@@ -11,6 +11,7 @@
 #import "RBWebSocketDelegate.h"
 #import "RBGuildStore.h"
 #import "RBUserStore.h"
+#import "RBGatewayEvent.h"
 
 @interface RBClient ()
 
@@ -34,17 +35,25 @@
 	
 	self = [super init];
 	
-	self.guildStore = [[RBGuildStore alloc] init];
-    self.userStore = [[RBUserStore alloc] init];
-    
-	self.webSocketDelegate = [[RBWebSocketDelegate alloc] initWithGuildStore:self.guildStore andUserStore:self.userStore];
-	
-	[self.webSocket setDelegate:self.webSocketDelegate];
-	
 	return self;
 }
 
-- (void)connectWithTokenString:(NSString*)tokenString {
+- (void)newSessionWithTokenString:(NSString*)tokenString shouldResume:(bool)shouldResume {
+    
+    if(self.presentSession)
+        [self endSession];
+    
+    if(!shouldResume){
+        self.guildStore = [[RBGuildStore alloc] init];
+        self.userStore = [[RBUserStore alloc] init];
+        
+        self.webSocketDelegate = [[RBWebSocketDelegate alloc] initWithGuildStore:self.guildStore andUserStore:self.userStore];
+        
+        [self.webSocket setDelegate:self.webSocketDelegate];
+    }
+    
+    NSLog(@"began new session with token %@", tokenString);
+    
 	self.tokenString = [tokenString stringByReplacingOccurrencesOfString:@"\"" withString:@""];;
     
     NSString *path = [NSBundle.mainBundle pathForResource: @"API Settings" ofType:@"plist"];
@@ -56,17 +65,17 @@
 	
 	NSURL *url = [NSURL URLWithString:gatewayAddress];
     
+    self.webSocketDelegate.shouldSendResumeOnHello = shouldResume;
     self.webSocket = [[RBWebSocket alloc] initWithURL:url];
     self.webSocket.delegate = self.webSocketDelegate;
     [self.webSocket open];
-}
-
-- (void)resumeWithSequenceNumber:(int)seqNum{
     
+    self.presentSession = true;
 }
 
 - (void)endSession{
     [self.webSocket close];
+    self.presentSession = false;
 }
 
 @end

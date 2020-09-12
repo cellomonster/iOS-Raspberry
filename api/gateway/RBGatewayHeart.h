@@ -16,5 +16,6 @@
 
 @property bool didRecieveResponse;
 @property int *sequenceNumber;
+@property float lastHeartbeatInterval;
 
 @end

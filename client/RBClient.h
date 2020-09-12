@@ -21,10 +21,11 @@
 @property (strong, nonatomic) RBWebSocket *webSocket;
 @property (strong, nonatomic) NSString *tokenString;
 @property (strong, nonatomic) DCUser *user;
+@property bool presentSession;
 
 - (RBClient *)init;
 
-- (void)connectWithTokenString:(NSString*)tokenString;
+- (void)newSessionWithTokenString:(NSString*)tokenString shouldResume:(bool)shouldResume;
 - (void)endSession;
 
 + (RBClient *)sharedInstance;

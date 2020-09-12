@@ -18,6 +18,9 @@
 
 @property RBGuildStore *guildStore;
 @property RBUserStore *userStore;
+@property int sequenceNumber;
+@property NSString* sessionId;
+@property bool shouldSendResumeOnHello;
 
 -(RBWebSocketDelegate*)initWithGuildStore:(RBGuildStore*)guildStore andUserStore:(RBUserStore*)userStore;
 

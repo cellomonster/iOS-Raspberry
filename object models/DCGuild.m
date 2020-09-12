@@ -41,10 +41,8 @@ static NSOperationQueue* loadIconOperationQueue;
     self.roles = [[NSMutableDictionary alloc]initWithCapacity:jsonRoles.count];
 
     for(NSDictionary* jsonRole in jsonRoles){
-//        NSLog(@"%@", jsonRole);
         DCRole* role = [[DCRole alloc] initFromDictionary:jsonRole];
         [self.roles setObject:role forKey:role.snowflake];
-        // todo move into initWithDictionary in role object
     }
     
     self.everyoneRole = [self.roles objectForKey:self.snowflake];
@@ -137,7 +135,6 @@ static NSOperationQueue* loadIconOperationQueue;
         if(weakOp.isCancelled) return;
         
         NSString *imgURLstr = [NSString stringWithFormat:@"https://cdn.discordapp.com/icons/%@/%@.png", self.snowflake, self.iconHash];
-        //    NSLog(@"%@", imgURLstr);
         NSURL* imgURL = [NSURL URLWithString:imgURLstr];
         
         NSData *data = [NSData dataWithContentsOfURL:imgURL];

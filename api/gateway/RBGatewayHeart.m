@@ -12,7 +12,7 @@
 @interface RBGatewayHeart()
 
 @property RBWebSocket *websocket;
-@property NSTimer *heatbeatTimer;
+@property NSTimer *heartbeatTimer;
 
 @end
 
@@ -21,25 +21,33 @@
 - (void)beginBeating:(int)everyMilliseconds throughWebsocket:(RBWebSocket*)websocket withSequenceNumber:(int*)sequenceNumber {
 	self.websocket = websocket;
 	self.sequenceNumber = sequenceNumber;
-	self.heatbeatTimer = [NSTimer scheduledTimerWithTimeInterval:everyMilliseconds / 1000.0f
+	self.heartbeatTimer = [NSTimer scheduledTimerWithTimeInterval:everyMilliseconds / 1000.0f
 																	 target:self
 																 selector:@selector(sendHeartbeat:)
 																 userInfo:nil
 																	repeats:YES];
+    
+    self.lastHeartbeatInterval = everyMilliseconds;
 	
 	NSLog(@"began heartbeat every %f seconds", everyMilliseconds / 1000.0f);
 }
 
 - (void)endHeartbeat{
-    if(self.heatbeatTimer.isValid)
-        [self.heatbeatTimer invalidate];
+    if(self.heartbeatTimer.isValid)
+        [self.heartbeatTimer invalidate];
 }
 
 - (void)sendHeartbeat:(NSTimer *)timer{
-	
+	if(!self.didRecieveResponse){
+        NSLog(@"failed to recieve heartbeat ack!");
+        [self endHeartbeat];
+        [RBClient.sharedInstance newSessionWithTokenString:RBClient.sharedInstance.tokenString shouldResume:true];
+    }
+    
 	NSDictionary *json =
-	@{@"op": @1,
-	 @"d": @(*(self.sequenceNumber))
+	@{
+      @"op": @1,
+      @"d": @(*(self.sequenceNumber))
 	 };
 	
 	[self.websocket sendDictionary:json];

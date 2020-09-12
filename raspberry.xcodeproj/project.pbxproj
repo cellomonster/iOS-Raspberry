@@ -120,7 +120,7 @@
 		095BF8B1235ACFB500F3FCD8 /* UIBubbleTableViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIBubbleTableViewDataSource.h; sourceTree = "<group>"; };
 		095BF8B2235ACFB500F3FCD8 /* UIBubbleTypingTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIBubbleTypingTableViewCell.h; sourceTree = "<group>"; };
 		095BF8B3235ACFB500F3FCD8 /* UIBubbleTypingTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIBubbleTypingTableViewCell.m; sourceTree = "<group>"; };
-		09610CBD224745F5000E65E1 /* raspberry.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = raspberry.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		09610CBD224745F5000E65E1 /* Raspberry alpha.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Raspberry alpha.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		09610CC0224745F5000E65E1 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		09610CC2224745F5000E65E1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		09610CC4224745F5000E65E1 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -299,7 +299,7 @@
 		09610CBE224745F5000E65E1 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				09610CBD224745F5000E65E1 /* raspberry.app */,
+				09610CBD224745F5000E65E1 /* Raspberry alpha.app */,
 				09610CE3224745F5000E65E1 /* raspberryTests.octest */,
 			);
 			name = Products;
@@ -511,7 +511,7 @@
 			);
 			name = raspberry;
 			productName = raspberry;
-			productReference = 09610CBD224745F5000E65E1 /* raspberry.app */;
+			productReference = 09610CBD224745F5000E65E1 /* Raspberry alpha.app */;
 			productType = "com.apple.product-type.application";
 		};
 		09610CE2224745F5000E65E1 /* raspberryTests */ = {
@@ -764,7 +764,7 @@
 				GCC_PREFIX_HEADER = "raspberry/raspberry-Prefix.pch";
 				INFOPLIST_FILE = "raspberry/raspberry-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Raspberry alpha";
 				SDKROOT = iphoneos6.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
@@ -782,7 +782,7 @@
 				GCC_PREFIX_HEADER = "raspberry/raspberry-Prefix.pch";
 				INFOPLIST_FILE = "raspberry/raspberry-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Raspberry alpha";
 				SDKROOT = iphoneos6.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;

@@ -31,7 +31,13 @@
     
 	self.navigationItem.hidesBackButton = YES;
     
-    self.tokenTextField.text = UIPasteboard.generalPasteboard.string;
+    NSString *lastUsableToken = [NSUserDefaults.standardUserDefaults objectForKey:@"last usable token"];
+    
+    if(lastUsableToken){
+        self.tokenTextField.text = lastUsableToken;
+    }else{
+        self.tokenTextField.text = UIPasteboard.generalPasteboard.string;
+    }
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(didLogin)
@@ -48,7 +54,7 @@
 }
 
 - (IBAction)loginButtonWasClicked {
-	[RBClient.sharedInstance connectWithTokenString:self.tokenTextField.text];
+	[RBClient.sharedInstance newSessionWithTokenString:self.tokenTextField.text shouldResume:false];
 	[self.loginIndicator startAnimating];
 	[self.loginIndicator setHidden:false];
     [self.loginButton setHidden:true];
