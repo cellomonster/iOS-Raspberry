@@ -12,6 +12,6 @@
 
 @interface RBChatViewController : UIViewController <UIBubbleTableViewDataSource>
 
-@property DCChannel *activeChannel;
+-(void)subscribeToChannelEvents:(DCChannel*)channel loadNumberOfMessages:(int)numMessages;
 
 @end

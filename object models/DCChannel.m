@@ -127,10 +127,10 @@
     return urlRequest;
 }
 
-- (void)retrieveMessages:(int)numberOfMessages {
-    self.messages = [NSMutableArray arrayWithCapacity:numberOfMessages];
+- (void)retrieveNumberOfMessages:(int)numMessages {
+    self.messages = [NSMutableArray arrayWithCapacity:numMessages];
     
-    NSString* requestString = [NSString stringWithFormat:@"/messages?limit=%i", numberOfMessages];
+    NSString* requestString = [NSString stringWithFormat:@"/messages?limit=%i", numMessages];
 	
 	NSMutableURLRequest* request = [self authedMutableURLRequestFromString:requestString];
 	

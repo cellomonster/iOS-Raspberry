@@ -18,7 +18,7 @@
 
 @property (weak, nonatomic) IBOutlet UITableView *guildTableView;
 @property (weak, nonatomic) IBOutlet UITableView *channelTableView;
-@property DCGuild *focusedGuild;
+@property DCGuild *selectedGuild;
 @property DCChannel *selectedChannel;
 
 @property NSOperationQueue* serverIconImageQueue;
@@ -50,12 +50,12 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	
 	if(tableView == self.guildTableView){
-		self.focusedGuild = [RBClient.sharedInstance.guildStore guildAtIndex:(int)indexPath.row];
+		self.selectedGuild = [RBClient.sharedInstance.guildStore guildAtIndex:(int)indexPath.row];
 		[self.channelTableView reloadData];
 	}
     
     if(tableView == self.channelTableView){
-        self.selectedChannel = (DCChannel*)[self.focusedGuild.sortedChannels objectAtIndex:indexPath.row];
+        self.selectedChannel = (DCChannel*)[self.selectedGuild.sortedChannels objectAtIndex:indexPath.row];
         
         [self performSegueWithIdentifier:@"guilds to chat" sender:self];
         
@@ -77,14 +77,14 @@
 		return [RBClient.sharedInstance.guildStore count];
 	
     if(tableView == self.channelTableView)
-        return self.focusedGuild.channels.count;
+        return self.selectedGuild.channels.count;
     
     return 0;
 }
 
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     if([segue.destinationViewController class] == [RBChatViewController class]){
-        ((RBChatViewController*)segue.destinationViewController).activeChannel = self.selectedChannel;
+        [((RBChatViewController*)segue.destinationViewController) subscribeToChannelEvents:self.selectedChannel loadNumberOfMessages:50];
         ((RBChatViewController*)segue.destinationViewController).title = self.selectedChannel.name;
     }
 }
@@ -97,7 +97,7 @@
 	if(tableView == self.guildTableView){
         DCGuild* guild = [RBClient.sharedInstance.guildStore guildAtIndex:(int)indexPath.row];
 		cell = [tableView dequeueReusableCellWithIdentifier:@"guild" forIndexPath:indexPath];
-		cell.textLabel.text = @"";// = guild.name;
+		cell.textLabel.text = @"";
         
         if(!guild.iconImage){
             [guild queueLoadIconImage];
@@ -107,7 +107,7 @@
 	}
 	
 	if(tableView == self.channelTableView){
-        DCChannel* channel = (DCChannel*)[self.focusedGuild.sortedChannels objectAtIndex:indexPath.row];
+        DCChannel* channel = (DCChannel*)[self.selectedGuild.sortedChannels objectAtIndex:indexPath.row];
         
 		cell = [tableView dequeueReusableCellWithIdentifier:@"channel" forIndexPath:indexPath];
 		cell.textLabel.text = channel.name;

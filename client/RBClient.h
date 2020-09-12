@@ -23,8 +23,6 @@
 @property (strong, nonatomic) DCUser *user;
 @property bool presentSession;
 
-- (RBClient *)init;
-
 - (void)newSessionWithTokenString:(NSString*)tokenString shouldResume:(bool)shouldResume;
 - (void)endSession;
 

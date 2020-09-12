@@ -31,13 +31,6 @@
 	return sharedInstance;
 }
 
-- (RBClient *)init {
-	
-	self = [super init];
-	
-	return self;
-}
-
 - (void)newSessionWithTokenString:(NSString*)tokenString shouldResume:(bool)shouldResume {
     
     if(self.presentSession)

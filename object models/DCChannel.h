@@ -48,7 +48,7 @@ typedef NS_ENUM(NSInteger, DCChannelType) {
 
 - (DCChannel*)initFromDictionary:(NSDictionary *)dict andGuild:(DCGuild*)guild;
 
-- (void)retrieveMessages:(int)numberOfMessages;
+- (void)retrieveNumberOfMessages:(int)numMessages;
 - (void)releaseMessages;
 - (void)sendMessage:(NSString*)message;
 - (void)markAsReadWithMessage:(DCMessage*)message;

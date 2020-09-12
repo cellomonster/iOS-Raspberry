@@ -23,6 +23,7 @@
 @property (weak, nonatomic) IBOutlet UIBubbleTableView *chatTableView;
 @property (weak, nonatomic) IBOutlet UIToolbar *chatToolbar;
 @property (weak, nonatomic) IBOutlet UITextField *messageField;
+@property DCChannel *subscribedToChannel;
 
 @end
 
@@ -50,17 +51,27 @@
         self.navigationItem.hidesBackButton = YES;
 }
 
--(void)viewWillAppear:(BOOL)animated {
-    self.activeChannel.isCurrentlyFocused = true;
-    [self.activeChannel retrieveMessages:50];
-    [self.activeChannel markAsReadWithMessage:self.activeChannel.messages.lastObject];
+-(void)subscribeToChannelEvents:(DCChannel*)channel loadNumberOfMessages:(int)numMessages{
+    if(self.subscribedToChannel){
+        @throw [[NSException alloc] initWithName:@"u fukd up!" reason:@"chat view was already subscribed to a channel!" userInfo:nil];
+    }
+    
+    self.subscribedToChannel = channel;
+    channel.isCurrentlyFocused = true;
+    [channel retrieveNumberOfMessages:50];
+    [channel markAsReadWithMessage:self.subscribedToChannel.messages.lastObject];
     [self scrollChatToBottom];
 }
 
+-(void)unsubscribeFromSubscribedChannelEvents {
+    self.subscribedToChannel.isCurrentlyFocused = false;
+    [self.subscribedToChannel markAsReadWithMessage:self.subscribedToChannel.messages.lastObject];
+    [self.subscribedToChannel releaseMessages];
+    self.subscribedToChannel = nil;
+}
+
 -(void) viewWillDisappear:(BOOL)animated {
-    self.activeChannel.isCurrentlyFocused = false;
-    [self.activeChannel markAsReadWithMessage:self.activeChannel.messages.lastObject];
-    [self.activeChannel releaseMessages];
+    [self unsubscribeFromSubscribedChannelEvents];
 }
 
 - (void)keyboardWillShow:(NSNotification *)notification {
@@ -109,21 +120,21 @@
 }
 
 - (IBAction)sendButtonWasPressed:(id)sender {
-    [self.activeChannel sendMessage:self.messageField.text];
+    [self.subscribedToChannel sendMessage:self.messageField.text];
     self.messageField.text = @"";
 }
 
 #pragma mark uibubbletableview data source
 
 -(NSInteger)rowsForBubbleTable:(UIBubbleTableView *)tableView{
-    return self.activeChannel.messages.count;
+    return self.subscribedToChannel.messages.count;
 }
 
 -(NSBubbleData *)bubbleTableView:(UIBubbleTableView *)tableView dataForRow:(NSInteger)row{
     
     NSBubbleData *bubbleData;
     
-    id <RBMessageItem> item = [self.activeChannel.messages objectAtIndex:row];
+    id <RBMessageItem> item = [self.subscribedToChannel.messages objectAtIndex:row];
     
     if([item isKindOfClass:[DCMessage class]]) {
         DCMessage* message = (DCMessage*)item;
