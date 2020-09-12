@@ -53,11 +53,13 @@
 -(void)viewWillAppear:(BOOL)animated {
     self.activeChannel.isCurrentlyFocused = true;
     [self.activeChannel retrieveMessages:50];
+    [self.activeChannel markAsReadWithMessage:self.activeChannel.messages.lastObject];
     [self scrollChatToBottom];
 }
 
 -(void) viewWillDisappear:(BOOL)animated {
     self.activeChannel.isCurrentlyFocused = false;
+    [self.activeChannel markAsReadWithMessage:self.activeChannel.messages.lastObject];
     [self.activeChannel releaseMessages];
 }
 

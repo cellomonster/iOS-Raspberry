@@ -767,6 +767,7 @@
 				PRODUCT_NAME = "Raspberry alpha";
 				SDKROOT = iphoneos6.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -785,6 +786,7 @@
 				PRODUCT_NAME = "Raspberry alpha";
 				SDKROOT = iphoneos6.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
