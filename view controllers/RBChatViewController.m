@@ -54,7 +54,7 @@
 -(void)subscribeToChannelEvents:(DCChannel*)channel loadNumberOfMessages:(int)numMessages{
     if(self.subscribedChannel){
         @throw [[NSException alloc] initWithName:@"u fukd up!" reason:@"chat view was already subscribed to a channel!" userInfo:nil];
-    }`
+    }
     
     self.subscribedChannel = channel;
     channel.isCurrentlyFocused = true;
