@@ -196,6 +196,40 @@
     }
 }
 
+- (void)sendImage:(UIImage*)image {
+	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+		NSURL* channelURL = [NSURL URLWithString: [NSString stringWithFormat:@"https://discordapp.com/api/channels/%@/messages", self.snowflake]];
+		
+		NSMutableURLRequest *urlRequest=[NSMutableURLRequest requestWithURL:channelURL cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10];
+		
+		[urlRequest setHTTPMethod:@"POST"];
+		
+		NSString *boundary = @"---------------------------14737809831466499882746641449";
+		
+		NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@", boundary];
+		[urlRequest addValue:contentType forHTTPHeaderField: @"Content-Type"];
+		[urlRequest addValue:RBClient.sharedInstance.tokenString forHTTPHeaderField:@"Authorization"];
+		
+		NSMutableData *postbody = NSMutableData.new;
+		[postbody appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+		[postbody appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"file\"; filename=\"upload.jpg\"\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
+		[postbody appendData:[@"Content-Type: image/jpeg\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+		[postbody appendData:[NSData dataWithData:UIImageJPEGRepresentation(image, 0.9f)]];
+		[postbody appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+		[postbody appendData:[@"Content-Disposition: form-data; name=\"content\"\r\n\r\n " dataUsingEncoding:NSUTF8StringEncoding]];
+		[postbody appendData:[[NSString stringWithFormat:@"\r\n--%@--", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+		
+		[urlRequest setHTTPBody:postbody];
+		
+		
+		NSError *error = nil;
+		NSHTTPURLResponse *responseCode = nil;
+		
+		[NSURLConnection sendSynchronousRequest:urlRequest returningResponse:&responseCode error:&error];
+        
+	});
+}
+
 - (void)markAsReadWithMessage:(DCMessage*)message{
     self.isRead = true;
     

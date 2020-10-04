@@ -23,7 +23,7 @@
 @property (weak, nonatomic) IBOutlet UIBubbleTableView *chatTableView;
 @property (weak, nonatomic) IBOutlet UIToolbar *chatToolbar;
 @property (weak, nonatomic) IBOutlet UITextField *messageField;
-@property DCChannel *subscribedToChannel;
+@property DCChannel *subscribedChannel;
 
 @end
 
@@ -52,25 +52,30 @@
 }
 
 -(void)subscribeToChannelEvents:(DCChannel*)channel loadNumberOfMessages:(int)numMessages{
-    if(self.subscribedToChannel){
+    if(self.subscribedChannel){
         @throw [[NSException alloc] initWithName:@"u fukd up!" reason:@"chat view was already subscribed to a channel!" userInfo:nil];
     }
     
-    self.subscribedToChannel = channel;
+    self.subscribedChannel = channel;
     channel.isCurrentlyFocused = true;
     [channel retrieveNumberOfMessages:50];
-    [channel markAsReadWithMessage:self.subscribedToChannel.messages.lastObject];
+    [channel markAsReadWithMessage:self.subscribedChannel.messages.lastObject];
     [self scrollChatToBottom];
 }
 
 -(void)unsubscribeFromSubscribedChannelEvents {
-    self.subscribedToChannel.isCurrentlyFocused = false;
-    [self.subscribedToChannel markAsReadWithMessage:self.subscribedToChannel.messages.lastObject];
-    [self.subscribedToChannel releaseMessages];
-    self.subscribedToChannel = nil;
+    self.subscribedChannel.isCurrentlyFocused = false;
+    [self.subscribedChannel markAsReadWithMessage:self.subscribedChannel.messages.lastObject];
+    [self.subscribedChannel releaseMessages];
+    self.subscribedChannel = nil;
 }
 
--(void) viewWillDisappear:(BOOL)animated {
+- (void) willMoveToParentViewController:(UIViewController *)parent {
+    [super didMoveToParentViewController:parent];
+    
+    if (parent == nil && self.parentViewController == nil) return;
+    if (parent != nil && self.parentViewController == parent) return;
+    
     [self unsubscribeFromSubscribedChannelEvents];
 }
 
@@ -120,21 +125,21 @@
 }
 
 - (IBAction)sendButtonWasPressed:(id)sender {
-    [self.subscribedToChannel sendMessage:self.messageField.text];
+    [self.subscribedChannel sendMessage:self.messageField.text];
     self.messageField.text = @"";
 }
 
 #pragma mark uibubbletableview data source
 
 -(NSInteger)rowsForBubbleTable:(UIBubbleTableView *)tableView{
-    return self.subscribedToChannel.messages.count;
+    return self.subscribedChannel.messages.count;
 }
 
 -(NSBubbleData *)bubbleTableView:(UIBubbleTableView *)tableView dataForRow:(NSInteger)row{
     
     NSBubbleData *bubbleData;
     
-    id <RBMessageItem> item = [self.subscribedToChannel.messages objectAtIndex:row];
+    id <RBMessageItem> item = [self.subscribedChannel.messages objectAtIndex:row];
     
     if([item isKindOfClass:[DCMessage class]]) {
         DCMessage* message = (DCMessage*)item;
@@ -155,10 +160,40 @@
     return bubbleData;
 }
 
+- (IBAction)cameraButtonWasPressed:(id)sender {
+    [self.messageField resignFirstResponder];
+	
+	UIImagePickerController *picker = UIImagePickerController.new;
+	
+	picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+	
+	[picker setDelegate:self];
+	
+	[self presentModalViewController:picker animated:YES];
+}
+
 #pragma mark rbmessagedelegate
 
 -(void)scrollChatToBottom{
     [self.chatTableView scrollBubbleViewToBottomAnimated:false];
 }
+
+#pragma mark uiimagepickercontrollerdelegate
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+	
+	[picker dismissModalViewControllerAnimated:YES];
+	
+	UIImage* originalImage = [info objectForKey:UIImagePickerControllerEditedImage];
+	
+	if(originalImage==nil)
+		originalImage = [info objectForKey:UIImagePickerControllerOriginalImage];
+	
+	if(originalImage==nil)
+		originalImage = [info objectForKey:UIImagePickerControllerCropRect];
+	
+	[self.subscribedChannel sendImage:originalImage];
+}
+
 
 @end

@@ -51,6 +51,7 @@ typedef NS_ENUM(NSInteger, DCChannelType) {
 - (void)retrieveNumberOfMessages:(int)numMessages;
 - (void)releaseMessages;
 - (void)sendMessage:(NSString*)message;
+- (void)sendImage:(UIImage*)image;
 - (void)markAsReadWithMessage:(DCMessage*)message;
 - (void)handleNewMessage:(DCMessage*)message;
 

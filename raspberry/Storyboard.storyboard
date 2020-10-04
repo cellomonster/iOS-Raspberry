@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="5056" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" variant="6xAndEarlier" propertyAccessControl="none" useAutolayout="YES" initialViewController="v1G-dI-Slk">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="5056" systemVersion="13F1911" targetRuntime="iOS.CocoaTouch" variant="6xAndEarlier" propertyAccessControl="none" useAutolayout="YES" initialViewController="v1G-dI-Slk">
     <dependencies>
         <deployment version="1536" defaultVersion="1536" identifier="iOS"/>
         <development version="4600" identifier="xcode"/>
@@ -198,9 +198,14 @@
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ma9-2d-3A9">
                                 <rect key="frame" x="0.0" y="372" width="320" height="44"/>
                                 <items>
+                                    <barButtonItem systemItem="camera" id="g58-n0-Uc6">
+                                        <connections>
+                                            <action selector="cameraButtonWasPressed:" destination="Dbc-2A-UEw" id="S2L-t7-GBQ"/>
+                                        </connections>
+                                    </barButtonItem>
                                     <barButtonItem style="plain" id="aOj-gh-fY5">
                                         <textField key="customView" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="sAS-X1-3th">
-                                            <rect key="frame" x="12" y="7" width="243" height="30"/>
+                                            <rect key="frame" x="56" y="7" width="198" height="30"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <textInputTraits key="textInputTraits"/>

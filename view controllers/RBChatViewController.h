@@ -10,7 +10,7 @@
 #import "DCChannel.h"
 #import "UIBubbleTableView.h"
 
-@interface RBChatViewController : UIViewController <UIBubbleTableViewDataSource>
+@interface RBChatViewController : UIViewController <UIBubbleTableViewDataSource, UIImagePickerControllerDelegate>
 
 -(void)subscribeToChannelEvents:(DCChannel*)channel loadNumberOfMessages:(int)numMessages;
 
