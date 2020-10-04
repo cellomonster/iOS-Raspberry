@@ -94,7 +94,7 @@ static NSOperationQueue* loadIconOperationQueue;
 	self.channels = [[NSMutableDictionary alloc] initWithCapacity:jsonPrivateChannels.count];
 	for(NSDictionary *jsonChannel in jsonPrivateChannels){
 		DCChannel *channel = [[DCChannel alloc] initFromDictionary:jsonChannel andGuild:self];
-        if(channel.channelType == DCChannelTypeDirectMessage)
+        if(channel.channelType == DCChannelTypeDirectMessage || channel.channelType == DCChannelTypeGroupMessage)
             [self.channels setObject:channel forKey:channel.snowflake];
 	}
     

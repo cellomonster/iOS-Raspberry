@@ -41,9 +41,15 @@
     self.channelType = [[dict objectForKey:@"type"] intValue];
     self.lastMessageReadOnLoginSnowflake = [dict objectForKey:@"last_message_id"];
     
-    if(self.channelType == DCChannelTypeDirectMessage && self.name == nil){
+    if(!self.name || [self.name isKindOfClass:[NSNull class]]){
         //If no name, create a name from channel members
-        NSMutableString* fullChannelName = [@"@" mutableCopy];
+        NSMutableString* fullChannelName;
+        
+        if(self.channelType == DCChannelTypeDirectMessage){
+            fullChannelName = [@"@" mutableCopy];
+        }else{
+            fullChannelName = [@"Group: @" mutableCopy];
+        }
         
         NSArray* privateChannelMembers = [dict valueForKey:@"recipients"];
         for(NSDictionary* privateChannelMember in privateChannelMembers){
