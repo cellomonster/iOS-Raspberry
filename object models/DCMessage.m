@@ -48,17 +48,14 @@
 #warning need to fix date parsing!
     
     //FORMAT: 2020-01-03T15:46:52.158000+00:00
-//    
-//    NSDateFormatter *dateFormat = [NSDateFormatter new];
-//    [dateFormat setDateFormat: @"yyyy-MM-dd'T'HH:mm:ss"];
-//    [dateFormat setTimeZone:[NSTimeZone systemTimeZone]];
-//    [dateFormat setLocale: [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"]];
-//    [dateFormat setFormatterBehavior:NSDateFormatterBehaviorDefault];
-//    
-//    NSString *dateString = [dict objectForKey:@"timestamp"];
-//    self.timestamp = [dateFormat dateFromString:dateString];
-//    
-//    NSLog(@"%@", [dateFormat dateFromString:dateString]);
+    
+    NSDateFormatter *dateFormat = [NSDateFormatter new];
+    dateFormat.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss.SSSSSSZZZZZ";
+    // Always use this locale when parsing fixed format date strings
+    dateFormat.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"];
+    
+    NSString *dateString = [dict objectForKey:@"timestamp"];
+    self.timestamp = [dateFormat dateFromString:dateString];
     
     
     NSArray *jsonAttachments = (NSArray*)([dict objectForKey:@"attachments"]);

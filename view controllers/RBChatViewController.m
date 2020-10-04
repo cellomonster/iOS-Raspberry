@@ -144,13 +144,13 @@
     if([item isKindOfClass:[DCMessage class]]) {
         DCMessage* message = (DCMessage*)item;
         NSString* bubbleText = [NSString stringWithFormat:@"%@:\n%@", message.author.username, message.content];
-        bubbleData = [NSBubbleData dataWithText:bubbleText date:[NSDate date] type:!message.writtenByUser];
+        bubbleData = [NSBubbleData dataWithText:bubbleText date:message.timestamp type:!message.writtenByUser];
     }
     
     if([item isKindOfClass:[DCMessageAttatchment class]]) {
-        DCMessageAttatchment* attachment = ((DCMessageAttatchment*)item);
+        DCMessageAttatchment* attachment = (DCMessageAttatchment*)item;
         
-        bubbleData = [NSBubbleData dataWithImage:attachment.image date:[NSDate date] type:!attachment.writtenByUser];
+        bubbleData = [NSBubbleData dataWithImage:attachment.image date:attachment.timestamp type:!attachment.writtenByUser];
     }
     
     if(item.author.avatarImage) {

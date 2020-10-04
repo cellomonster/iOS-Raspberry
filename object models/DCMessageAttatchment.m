@@ -32,6 +32,7 @@ static NSOperationQueue* attachmentLoadOperationQueue;
     self.imageHeight = (NSUInteger)[dict objectForKey:@"height"];
     
     self.author = parentMessage.author;
+    self.writtenByUser = parentMessage.writtenByUser;
     self.member = parentMessage.member;
     self.timestamp = parentMessage.timestamp;
     

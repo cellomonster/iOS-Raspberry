@@ -161,7 +161,7 @@
         }
 	}
 	
-	self.messages = (NSMutableArray*)[[self.messages reverseObjectEnumerator] allObjects];
+	//self.messages = (NSMutableArray*)[[self.messages reverseObjectEnumerator] allObjects];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:RBNotificationEventFocusedChannelUpdated object:nil];
 }
