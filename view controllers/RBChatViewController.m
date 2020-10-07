@@ -24,6 +24,7 @@
 @property (weak, nonatomic) IBOutlet UIToolbar *chatToolbar;
 @property (weak, nonatomic) IBOutlet UITextField *messageField;
 @property DCChannel *subscribedChannel;
+@property UIPopoverController *imageUploadSelectionPopover;
 
 @end
 
@@ -160,7 +161,7 @@
     return bubbleData;
 }
 
-- (IBAction)cameraButtonWasPressed:(id)sender {
+- (IBAction)imageUploadButtonWasPressed:(UIBarButtonItem *)sender {
     [self.messageField resignFirstResponder];
 	
 	UIImagePickerController *picker = UIImagePickerController.new;
@@ -169,7 +170,13 @@
 	
 	[picker setDelegate:self];
 	
-	[self presentModalViewController:picker animated:YES];
+	if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+        UIPopoverController *popover = [[UIPopoverController alloc] initWithContentViewController:picker];
+        [popover presentPopoverFromBarButtonItem:sender permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+        self.imageUploadSelectionPopover = popover;
+    } else {
+        [self presentModalViewController:picker animated:YES];
+    }
 }
 
 #pragma mark rbmessagedelegate

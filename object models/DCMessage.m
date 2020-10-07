@@ -45,8 +45,6 @@
     self.parentGuild = [RBClient.sharedInstance.guildStore guildOfSnowflake:[dict objectForKey:@"guild_id"]];
     self.parentChannel = [RBClient.sharedInstance.guildStore channelOfSnowflake:[dict objectForKey:@"channel_id"]];
     
-#warning need to fix date parsing!
-    
     //FORMAT: 2020-01-03T15:46:52.158000+00:00
     
     NSDateFormatter *dateFormat = [NSDateFormatter new];
