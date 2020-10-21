@@ -68,6 +68,11 @@
 -(void)didLogin {
 	[self performSegueWithIdentifier:@"login to guilds" sender:self];
     self.authenticated = true;
+    
+    // user shouldn't be able to go back to this screen once logged in
+    NSMutableArray *navigationArray = [[NSMutableArray alloc] initWithArray: self.navigationController.viewControllers];
+    [navigationArray removeObjectAtIndex:0];
+    self.navigationController.viewControllers = navigationArray;
 }
 
 -(void)checkAuth {

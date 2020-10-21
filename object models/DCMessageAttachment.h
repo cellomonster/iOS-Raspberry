@@ -1,5 +1,5 @@
 //
-//  DCMessageAttatchment.h
+//  DCMessageAttachment.h
 //  Disco
 //
 //  Created by Trevir on 3/2/19.
@@ -14,12 +14,12 @@
 
 @interface DCMessageAttachment : NSObject <RBMessageItem>
 
-typedef NS_ENUM(NSInteger, DCMessageAttatchmentType) {
-	DCMessageAttatchmentTypeImage,
-	DCMessageAttatchmentTypeOther,
+typedef NS_ENUM(NSInteger, DCMessageAttachmentType) {
+	DCMessageAttachmentTypeImage,
+	DCMessageAttachmentTypeOther,
 };
 
-@property DCMessageAttatchmentType attachmentType;
+@property DCMessageAttachmentType attachmentType;
 
 @property NSString *fileName;
 @property int sizeInBytes;

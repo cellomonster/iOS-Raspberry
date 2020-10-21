@@ -1,5 +1,5 @@
 //
-//  DCMessageAttatchment.m
+//  DCMessageAttachment.m
 //  Disco
 //
 //  Created by Trevir on 3/2/19.
@@ -38,9 +38,9 @@ static NSOperationQueue* attachmentLoadOperationQueue;
     
 #warning there's probably a much better way to do this
     if([[self.fileName pathExtension] isEqualToString:@"png"] || [[self.fileName pathExtension] isEqualToString:@"jpg"] || [[self.fileName pathExtension] isEqualToString:@"jpeg"] || [[self.fileName pathExtension] isEqualToString:@"gif"] || [[self.fileName pathExtension] isEqualToString:@"webp"])
-        self.attachmentType = DCMessageAttatchmentTypeImage;
+        self.attachmentType = DCMessageAttachmentTypeImage;
     else
-        self.attachmentType = DCMessageAttatchmentTypeOther;
+        self.attachmentType = DCMessageAttachmentTypeOther;
     
     if(!attachmentLoadOperationQueue){
         attachmentLoadOperationQueue = [[NSOperationQueue alloc] init];
@@ -52,7 +52,7 @@ static NSOperationQueue* attachmentLoadOperationQueue;
 
 - (void)queueLoadImage {
     
-    if(self.image || self.attachmentType != DCMessageAttatchmentTypeImage) return;
+    if(self.image || self.attachmentType != DCMessageAttachmentTypeImage) return;
         
     self.image = [UIImage new];
     
