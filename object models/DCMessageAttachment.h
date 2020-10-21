@@ -12,7 +12,7 @@
 
 @class DCMessage;
 
-@interface DCMessageAttatchment : NSObject <RBMessageItem>
+@interface DCMessageAttachment : NSObject <RBMessageItem>
 
 typedef NS_ENUM(NSInteger, DCMessageAttatchmentType) {
 	DCMessageAttatchmentTypeImage,
@@ -30,7 +30,7 @@ typedef NS_ENUM(NSInteger, DCMessageAttatchmentType) {
 @property NSUInteger imageHeight;
 @property UIImage *image;
 
-- (DCMessageAttatchment*)initFromDictionary:(NSDictionary *)dict withParentMessage:(DCMessage*)parentMessage;
+- (DCMessageAttachment*)initFromDictionary:(NSDictionary *)dict withParentMessage:(DCMessage*)parentMessage;
 - (void)queueLoadImage;
 
 @end

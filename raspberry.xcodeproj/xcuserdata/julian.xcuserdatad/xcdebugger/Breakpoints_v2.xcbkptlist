@@ -391,22 +391,6 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "view controllers/RBChatViewController.m"
-            timestampString = "623694992.1448081"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "80"
-            endingLineNumber = "80"
-            landmarkName = "-willMoveToParentViewController:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "object models/DCMessage.m"
             timestampString = "623611997.737253"
             startingColumnNumber = "9223372036854775807"
@@ -423,7 +407,7 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "object models/DCMessageAttatchment.m"
+            filePath = "object models/DCMessageAttachment.m"
             timestampString = "623479305.391588"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"

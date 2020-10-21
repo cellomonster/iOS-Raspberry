@@ -6,21 +6,21 @@
 //  Copyright (c) 2019 Trevir. All rights reserved.
 //
 
-#import "DCMessageAttatchment.h"
+#import "DCMessageAttachment.h"
 #import "FTWCache.h"
 #import "RBNotificationEvent.h"
 #import "DCMessage.h"
 
 static NSOperationQueue* attachmentLoadOperationQueue;
 
-@implementation DCMessageAttatchment
+@implementation DCMessageAttachment
 @synthesize snowflake = _snowflake;
 @synthesize author = _author;
 @synthesize timestamp = _timestamp;
 @synthesize member = _member;
 @synthesize writtenByUser = _writtenByUser;
 
-- (DCMessageAttatchment*)initFromDictionary:(NSDictionary *)dict withParentMessage:(DCMessage*)parentMessage{
+- (DCMessageAttachment*)initFromDictionary:(NSDictionary *)dict withParentMessage:(DCMessage*)parentMessage{
     self = [super init];
     
     self.snowflake = [dict objectForKey:@"id"];

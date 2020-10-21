@@ -13,6 +13,9 @@
 @implementation RBAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
+    [[UINavigationBar appearance] setTintColor:[UIColor colorWithRed:45.0/255.0 green:54.0/255.0 blue:85.0/255.0 alpha:1.0]];
+    
 	return YES;
 }
 							

@@ -14,7 +14,7 @@
 #import "RBClient.h"
 #import "FTWCache.h"
 #import "RBMessageItem.h"
-#import "DCMessageAttatchment.h"
+#import "DCMessageAttachment.h"
 #import "TRMalleableFrameView.h"
 #import "DCUser.h"
 
@@ -148,8 +148,8 @@
         bubbleData = [NSBubbleData dataWithText:bubbleText date:message.timestamp type:!message.writtenByUser];
     }
     
-    if([item isKindOfClass:[DCMessageAttatchment class]]) {
-        DCMessageAttatchment* attachment = (DCMessageAttatchment*)item;
+    if([item isKindOfClass:[DCMessageAttachment class]]) {
+        DCMessageAttachment* attachment = (DCMessageAttachment*)item;
         
         bubbleData = [NSBubbleData dataWithImage:attachment.image date:attachment.timestamp type:!attachment.writtenByUser];
     }

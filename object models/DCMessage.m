@@ -8,7 +8,7 @@
 
 #import "DCMessage.h"
 #import "RBClient.h"
-#import "DCMessageAttatchment.h"
+#import "DCMessageAttachment.h"
 #import "RBUserStore.h"
 #import "RBGuildStore.h"
 #import "DCUser.h"
@@ -60,7 +60,7 @@
     self.attachments = [[NSMutableDictionary alloc] initWithCapacity:jsonAttachments.count];
     
     for(NSDictionary *jsonAttachment in jsonAttachments){
-        DCMessageAttatchment *messageAttachment = [[DCMessageAttatchment alloc] initFromDictionary:jsonAttachment withParentMessage:self];
+        DCMessageAttachment *messageAttachment = [[DCMessageAttachment alloc] initFromDictionary:jsonAttachment withParentMessage:self];
         [self.attachments setObject:messageAttachment forKey:messageAttachment.snowflake];
     }
 	
@@ -68,7 +68,7 @@
 }
 
 -(void)queueLoadAttachments{
-    for(DCMessageAttatchment *messageAttachment in [self.attachments allValues]){
+    for(DCMessageAttachment *messageAttachment in [self.attachments allValues]){
         [messageAttachment queueLoadImage];
     }
 }

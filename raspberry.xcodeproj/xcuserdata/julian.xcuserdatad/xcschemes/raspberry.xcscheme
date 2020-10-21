@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "09610CBC224745F5000E65E1"
-               BuildableName = "Raspberry alpha.app"
+               BuildableName = "Discord.app"
                BlueprintName = "raspberry"
                ReferencedContainer = "container:raspberry.xcodeproj">
             </BuildableReference>
@@ -43,7 +43,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "09610CBC224745F5000E65E1"
-            BuildableName = "Raspberry alpha.app"
+            BuildableName = "Discord.app"
             BlueprintName = "raspberry"
             ReferencedContainer = "container:raspberry.xcodeproj">
          </BuildableReference>
@@ -62,7 +62,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "09610CBC224745F5000E65E1"
-            BuildableName = "Raspberry alpha.app"
+            BuildableName = "Discord.app"
             BlueprintName = "raspberry"
             ReferencedContainer = "container:raspberry.xcodeproj">
          </BuildableReference>
@@ -80,7 +80,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "09610CBC224745F5000E65E1"
-            BuildableName = "Raspberry alpha.app"
+            BuildableName = "Discord.app"
             BlueprintName = "raspberry"
             ReferencedContainer = "container:raspberry.xcodeproj">
          </BuildableReference>

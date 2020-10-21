@@ -12,7 +12,7 @@
 #import "DCGuildMember.h"
 #import "DCUser.h"
 #import "DCMessage.h"
-#import "DCMessageAttatchment.h"
+#import "DCMessageAttachment.h"
 #import "DCPermissionOverwrite.h"
 #import "RBNotificationEvent.h"
 
@@ -260,7 +260,7 @@
 - (void)addMessage:(DCMessage*)message{
     [self.messages addObject:message];
     
-    for(DCMessageAttatchment *messageAttachment in [message.attachments allValues]){
+    for(DCMessageAttachment *messageAttachment in [message.attachments allValues]){
         [self.messages addObject:messageAttachment];
     }
     

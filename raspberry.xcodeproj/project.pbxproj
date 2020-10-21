@@ -42,7 +42,7 @@
 		09610D1222474651000E65E1 /* DCGuild.m in Sources */ = {isa = PBXBuildFile; fileRef = 09610D0422474651000E65E1 /* DCGuild.m */; };
 		09610D1322474651000E65E1 /* DCGuildMember.m in Sources */ = {isa = PBXBuildFile; fileRef = 09610D0622474651000E65E1 /* DCGuildMember.m */; };
 		09610D1422474651000E65E1 /* DCMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 09610D0822474651000E65E1 /* DCMessage.m */; };
-		09610D1522474651000E65E1 /* DCMessageAttatchment.m in Sources */ = {isa = PBXBuildFile; fileRef = 09610D0A22474651000E65E1 /* DCMessageAttatchment.m */; };
+		09610D1522474651000E65E1 /* DCMessageAttachment.m in Sources */ = {isa = PBXBuildFile; fileRef = 09610D0A22474651000E65E1 /* DCMessageAttachment.m */; };
 		09610D1622474651000E65E1 /* DCRole.m in Sources */ = {isa = PBXBuildFile; fileRef = 09610D0C22474651000E65E1 /* DCRole.m */; };
 		09610D1722474651000E65E1 /* DCUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 09610D0E22474651000E65E1 /* DCUser.m */; };
 		09610D3522474658000E65E1 /* AFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 09610D1B22474658000E65E1 /* AFHTTPClient.m */; };
@@ -120,7 +120,7 @@
 		095BF8B1235ACFB500F3FCD8 /* UIBubbleTableViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIBubbleTableViewDataSource.h; sourceTree = "<group>"; };
 		095BF8B2235ACFB500F3FCD8 /* UIBubbleTypingTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIBubbleTypingTableViewCell.h; sourceTree = "<group>"; };
 		095BF8B3235ACFB500F3FCD8 /* UIBubbleTypingTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIBubbleTypingTableViewCell.m; sourceTree = "<group>"; };
-		09610CBD224745F5000E65E1 /* Raspberry alpha.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Raspberry alpha.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		09610CBD224745F5000E65E1 /* Discord.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Discord.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		09610CC0224745F5000E65E1 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		09610CC2224745F5000E65E1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		09610CC4224745F5000E65E1 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -146,8 +146,8 @@
 		09610D0622474651000E65E1 /* DCGuildMember.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCGuildMember.m; sourceTree = "<group>"; };
 		09610D0722474651000E65E1 /* DCMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCMessage.h; sourceTree = "<group>"; };
 		09610D0822474651000E65E1 /* DCMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCMessage.m; sourceTree = "<group>"; };
-		09610D0922474651000E65E1 /* DCMessageAttatchment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCMessageAttatchment.h; sourceTree = "<group>"; };
-		09610D0A22474651000E65E1 /* DCMessageAttatchment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCMessageAttatchment.m; sourceTree = "<group>"; };
+		09610D0922474651000E65E1 /* DCMessageAttachment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCMessageAttachment.h; sourceTree = "<group>"; };
+		09610D0A22474651000E65E1 /* DCMessageAttachment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCMessageAttachment.m; sourceTree = "<group>"; };
 		09610D0B22474651000E65E1 /* DCRole.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCRole.h; sourceTree = "<group>"; };
 		09610D0C22474651000E65E1 /* DCRole.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCRole.m; sourceTree = "<group>"; };
 		09610D0D22474651000E65E1 /* DCUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCUser.h; sourceTree = "<group>"; };
@@ -299,7 +299,7 @@
 		09610CBE224745F5000E65E1 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				09610CBD224745F5000E65E1 /* Raspberry alpha.app */,
+				09610CBD224745F5000E65E1 /* Discord.app */,
 				09610CE3224745F5000E65E1 /* raspberryTests.octest */,
 			);
 			name = Products;
@@ -367,8 +367,8 @@
 				096EEC5E2370DA240026D06D /* RBMessageItem.h */,
 				09610D0722474651000E65E1 /* DCMessage.h */,
 				09610D0822474651000E65E1 /* DCMessage.m */,
-				09610D0922474651000E65E1 /* DCMessageAttatchment.h */,
-				09610D0A22474651000E65E1 /* DCMessageAttatchment.m */,
+				09610D0922474651000E65E1 /* DCMessageAttachment.h */,
+				09610D0A22474651000E65E1 /* DCMessageAttachment.m */,
 			);
 			path = "object models";
 			sourceTree = "<group>";
@@ -511,7 +511,7 @@
 			);
 			name = raspberry;
 			productName = raspberry;
-			productReference = 09610CBD224745F5000E65E1 /* Raspberry alpha.app */;
+			productReference = 09610CBD224745F5000E65E1 /* Discord.app */;
 			productType = "com.apple.product-type.application";
 		};
 		09610CE2224745F5000E65E1 /* raspberryTests */ = {
@@ -543,6 +543,15 @@
 				LastTestingUpgradeCheck = 0510;
 				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = Trevir;
+				TargetAttributes = {
+					09610CBC224745F5000E65E1 = {
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 0;
+							};
+						};
+					};
+				};
 			};
 			buildConfigurationList = 09610CB8224745F5000E65E1 /* Build configuration list for PBXProject "raspberry" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -635,7 +644,7 @@
 				09610D1322474651000E65E1 /* DCGuildMember.m in Sources */,
 				09610D1422474651000E65E1 /* DCMessage.m in Sources */,
 				09A4D348235DDD2B00A7E59C /* RBMembersTableViewController.m in Sources */,
-				09610D1522474651000E65E1 /* DCMessageAttatchment.m in Sources */,
+				09610D1522474651000E65E1 /* DCMessageAttachment.m in Sources */,
 				09610D1622474651000E65E1 /* DCRole.m in Sources */,
 				095BF89C235ACF8D00F3FCD8 /* RBChatViewController.m in Sources */,
 				09610D1722474651000E65E1 /* DCUser.m in Sources */,
@@ -770,7 +779,7 @@
 				INFOPLIST_FILE = "raspberry/raspberry-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_NAME = "Raspberry alpha";
+				PRODUCT_NAME = Discord;
 				SDKROOT = iphoneos6.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "armv7 armv7s";
@@ -795,7 +804,7 @@
 				INFOPLIST_FILE = "raspberry/raspberry-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_NAME = "Raspberry alpha";
+				PRODUCT_NAME = Discord;
 				SDKROOT = iphoneos6.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "armv7 armv7s";

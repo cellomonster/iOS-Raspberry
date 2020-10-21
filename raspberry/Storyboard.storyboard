@@ -10,9 +10,10 @@
         <scene sceneID="VFu-6b-edc">
             <objects>
                 <navigationController title="epstein didn't kill himself" definesPresentationContext="YES" id="v1G-dI-Slk" sceneMemberID="viewController">
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="5Sx-Mf-MSI">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="5Sx-Mf-MSI">
                         <rect key="frame" x="0.0" y="0.0" width="0.0" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -64,7 +65,6 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Log In" id="0H7-if-7Hi"/>
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="loginButton" destination="BlS-4m-Ok2" id="E8J-Yf-eIi"/>
                         <outlet property="loginIndicator" destination="qf4-8d-Bw8" id="vbj-fN-LvG"/>
