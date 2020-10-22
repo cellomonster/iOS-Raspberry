@@ -258,11 +258,10 @@
 }
 
 - (void)addMessage:(DCMessage*)message{
-    [self.messages addObject:message];
-    
-    for(DCMessageAttachment *messageAttachment in [message.attachments allValues]){
+    for(DCMessageAttachment *messageAttachment in [message.attachments allValues])
         [self.messages addObject:messageAttachment];
-    }
+    
+    [self.messages addObject:message];
     
     [message.author queueLoadAvatarImage];
     [message queueLoadAttachments];

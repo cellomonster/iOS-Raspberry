@@ -50,7 +50,7 @@ static NSOperationQueue* attachmentLoadOperationQueue;
     return self;
 }
 
-- (void)queueLoadImage {
+- (void)queueLoadContent {
     
     if(self.image || self.attachmentType != DCMessageAttachmentTypeImage) return;
         

@@ -86,6 +86,7 @@ static NSOperationQueue* loadIconOperationQueue;
     
 	self.name = @"DM Channel";
     self.snowflake = @"0";
+    self.iconImage = [UIImage imageNamed:@"DMs"];
     
     // Order in which objects must be initialized:
     // Roles, Guild members, and channels
@@ -115,11 +116,14 @@ static NSOperationQueue* loadIconOperationQueue;
 
 - (void)queueLoadIconImage {
     
-    if(self.iconImage != nil) return;
+    if(self.iconImage) return;
     
     self.iconImage = [UIImage new];
     
-    if(!self.iconHash) return;
+    if(!self.iconHash || [self.iconHash isEqual:[NSNull null]]){
+        self.iconImage = [UIImage imageNamed:@"no icon"];
+        return;
+    }
     
     if(!loadIconOperationQueue){
         loadIconOperationQueue = [[NSOperationQueue alloc] init];

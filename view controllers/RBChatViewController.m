@@ -150,8 +150,10 @@
     
     if([item isKindOfClass:[DCMessageAttachment class]]) {
         DCMessageAttachment* attachment = (DCMessageAttachment*)item;
-        
-        bubbleData = [NSBubbleData dataWithImage:attachment.image date:attachment.timestamp type:!attachment.writtenByUser];
+        if(attachment.attachmentType == DCMessageAttachmentTypeImage)
+            bubbleData = [NSBubbleData dataWithImage:attachment.image date:attachment.timestamp type:!attachment.writtenByUser];
+        else
+            bubbleData = [NSBubbleData dataWithText:@"<UNSUPPORTED ATTACHMENT>" date:attachment.timestamp type:!attachment.writtenByUser];
     }
     
     if(item.author.avatarImage) {

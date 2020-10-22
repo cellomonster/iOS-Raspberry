@@ -69,7 +69,7 @@
 
 -(void)queueLoadAttachments{
     for(DCMessageAttachment *messageAttachment in [self.attachments allValues]){
-        [messageAttachment queueLoadImage];
+        [messageAttachment queueLoadContent];
     }
 }
 
