@@ -38,7 +38,6 @@
 		09610CE6224745F5000E65E1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09610CC0224745F5000E65E1 /* UIKit.framework */; };
 		09610CE7224745F5000E65E1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09610CC2224745F5000E65E1 /* Foundation.framework */; };
 		09610D0F22474651000E65E1 /* DCChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = 09610CFE22474651000E65E1 /* DCChannel.m */; };
-		09610D1122474651000E65E1 /* DCEmoji.m in Sources */ = {isa = PBXBuildFile; fileRef = 09610D0222474651000E65E1 /* DCEmoji.m */; };
 		09610D1222474651000E65E1 /* DCGuild.m in Sources */ = {isa = PBXBuildFile; fileRef = 09610D0422474651000E65E1 /* DCGuild.m */; };
 		09610D1322474651000E65E1 /* DCGuildMember.m in Sources */ = {isa = PBXBuildFile; fileRef = 09610D0622474651000E65E1 /* DCGuildMember.m */; };
 		09610D1422474651000E65E1 /* DCMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 09610D0822474651000E65E1 /* DCMessage.m */; };
@@ -80,6 +79,7 @@
 		ABA46039230362C000AC83DF /* RBGuildMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ABA46038230362C000AC83DF /* RBGuildMenuViewController.m */; };
 		ABA4603C2303645D00AC83DF /* RBSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ABA4603B2303645D00AC83DF /* RBSettingsViewController.m */; };
 		ABE3940D22FE7630007144DD /* RBLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ABE3940C22FE7630007144DD /* RBLoginViewController.m */; };
+		B908BADF2656BB660085034D /* RBContactViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B908BADE2656BB660085034D /* RBContactViewController.m */; };
 		B924F06224AE3E2F005CBF95 /* DCPermissionOverwrite.m in Sources */ = {isa = PBXBuildFile; fileRef = B924F06124AE3E2F005CBF95 /* DCPermissionOverwrite.m */; };
 /* End PBXBuildFile section */
 
@@ -213,9 +213,12 @@
 		ABA4603A2303645D00AC83DF /* RBSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RBSettingsViewController.h; sourceTree = "<group>"; };
 		ABA4603B2303645D00AC83DF /* RBSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RBSettingsViewController.m; sourceTree = "<group>"; };
 		ABE3940C22FE7630007144DD /* RBLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RBLoginViewController.m; sourceTree = "<group>"; };
+		B908BADD2656BB660085034D /* RBContactViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RBContactViewController.h; sourceTree = "<group>"; };
+		B908BADE2656BB660085034D /* RBContactViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RBContactViewController.m; sourceTree = "<group>"; };
 		B923FA4524BA9307002FFFCE /* RBNotificationEvent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = RBNotificationEvent.h; path = api/RBNotificationEvent.h; sourceTree = SOURCE_ROOT; };
 		B924F06024AE3E2F005CBF95 /* DCPermissionOverwrite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCPermissionOverwrite.h; sourceTree = "<group>"; };
 		B924F06124AE3E2F005CBF95 /* DCPermissionOverwrite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCPermissionOverwrite.m; sourceTree = "<group>"; };
+		B9D844052656C55B0001822A /* UIBubbleTableViewDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UIBubbleTableViewDelegate.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -253,6 +256,7 @@
 				095BF8AA235ACFB500F3FCD8 /* NSBubbleData.m */,
 				095BF8AB235ACFB500F3FCD8 /* UIBubbleHeaderTableViewCell.h */,
 				095BF8AC235ACFB500F3FCD8 /* UIBubbleHeaderTableViewCell.m */,
+				B9D844052656C55B0001822A /* UIBubbleTableViewDelegate.h */,
 				095BF8AD235ACFB500F3FCD8 /* UIBubbleTableView.h */,
 				095BF8AE235ACFB500F3FCD8 /* UIBubbleTableView.m */,
 				095BF8AF235ACFB500F3FCD8 /* UIBubbleTableViewCell.h */,
@@ -470,6 +474,8 @@
 			children = (
 				099A611F22FA6A6200C8E877 /* RBLoginViewController.h */,
 				ABE3940C22FE7630007144DD /* RBLoginViewController.m */,
+				B908BADD2656BB660085034D /* RBContactViewController.h */,
+				B908BADE2656BB660085034D /* RBContactViewController.m */,
 				ABA46037230362C000AC83DF /* RBGuildMenuViewController.h */,
 				ABA46038230362C000AC83DF /* RBGuildMenuViewController.m */,
 				ABA4603A2303645D00AC83DF /* RBSettingsViewController.h */,
@@ -638,7 +644,7 @@
 				09A4D34F23614E1400A7E59C /* UIImageView+Network.m in Sources */,
 				09610D0F22474651000E65E1 /* DCChannel.m in Sources */,
 				095BF8BE235ACFB500F3FCD8 /* NSBubbleData.m in Sources */,
-				09610D1122474651000E65E1 /* DCEmoji.m in Sources */,
+				B908BADF2656BB660085034D /* RBContactViewController.m in Sources */,
 				095BF8C1235ACFB500F3FCD8 /* UIBubbleTableViewCell.m in Sources */,
 				09610D1222474651000E65E1 /* DCGuild.m in Sources */,
 				09610D1322474651000E65E1 /* DCGuildMember.m in Sources */,

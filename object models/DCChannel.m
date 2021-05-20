@@ -134,7 +134,7 @@
 }
 
 - (void)retrieveNumberOfMessages:(int)numMessages {
-    self.messages = [NSMutableArray arrayWithCapacity:numMessages];
+    self.messagesAndAttachments = [NSMutableArray arrayWithCapacity:numMessages];
     
     NSString* requestString = [NSString stringWithFormat:@"/messages?limit=%i", numMessages];
 	
@@ -161,13 +161,13 @@
         }
 	}
 	
-	self.messages = (NSMutableArray*)[[self.messages reverseObjectEnumerator] allObjects];
+	self.messagesAndAttachments = (NSMutableArray*)[[self.messagesAndAttachments reverseObjectEnumerator] allObjects];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:RBNotificationEventFocusedChannelUpdated object:nil];
 }
 
 - (void)releaseMessages{
-    self.messages = nil;
+    self.messagesAndAttachments = nil;
 }
 
 - (void)sendMessage:(NSString*)message {
@@ -259,9 +259,9 @@
 
 - (void)addMessage:(DCMessage*)message{
     for(DCMessageAttachment *messageAttachment in [message.attachments allValues])
-        [self.messages addObject:messageAttachment];
+        [self.messagesAndAttachments addObject:messageAttachment];
     
-    [self.messages addObject:message];
+    [self.messagesAndAttachments addObject:message];
     
     [message.author queueLoadAvatarImage];
     [message queueLoadAttachments];
@@ -274,6 +274,18 @@
         [[NSNotificationCenter defaultCenter] postNotificationName:RBNotificationEventFocusedChannelUpdated object:nil];
     }else{
         self.isRead = false;
+    }
+}
+
+-(DCMessage*)getLastAddedMessage{
+    id<RBMessageItem> messageItem = self.messagesAndAttachments.lastObject;
+    if([messageItem isKindOfClass:[DCMessage class]]){
+        return messageItem;
+    }else if([messageItem isKindOfClass:[DCMessageAttachment class]]){
+        return ((DCMessageAttachment*)messageItem).parentMessage;
+    }else{
+        NSLog(@"!couldn't find last added message!");
+        return nil;
     }
 }
 

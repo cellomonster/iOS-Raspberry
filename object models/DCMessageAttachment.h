@@ -30,6 +30,8 @@ typedef NS_ENUM(NSInteger, DCMessageAttachmentType) {
 @property NSUInteger imageHeight;
 @property UIImage *image;
 
+@property DCMessage* parentMessage;
+
 - (DCMessageAttachment*)initFromDictionary:(NSDictionary *)dict withParentMessage:(DCMessage*)parentMessage;
 - (void)queueLoadContent;
 

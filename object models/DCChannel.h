@@ -40,7 +40,7 @@ typedef NS_ENUM(NSInteger, DCChannelType) {
 
 @property bool isCurrentlyFocused;
 
-@property NSMutableArray* messages;
+@property NSMutableArray* messagesAndAttachments;
 
 //Properties exclusive to DM channels
 @property NSArray *messageRecipients;
@@ -54,5 +54,7 @@ typedef NS_ENUM(NSInteger, DCChannelType) {
 - (void)sendImage:(UIImage*)image;
 - (void)markAsReadWithMessage:(DCMessage*)message;
 - (void)handleNewMessage:(DCMessage*)message;
+
+-(DCMessage*)getLastAddedMessage;
 
 @end

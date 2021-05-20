@@ -36,6 +36,8 @@ static NSOperationQueue* attachmentLoadOperationQueue;
     self.member = parentMessage.member;
     self.timestamp = parentMessage.timestamp;
     
+    self.parentMessage = parentMessage;
+    
 #warning there's probably a much better way to do this
     if([[self.fileName pathExtension] isEqualToString:@"png"] || [[self.fileName pathExtension] isEqualToString:@"jpg"] || [[self.fileName pathExtension] isEqualToString:@"jpeg"] || [[self.fileName pathExtension] isEqualToString:@"gif"] || [[self.fileName pathExtension] isEqualToString:@"webp"])
         self.attachmentType = DCMessageAttachmentTypeImage;

@@ -17,6 +17,7 @@
 #import "DCMessageAttachment.h"
 #import "TRMalleableFrameView.h"
 #import "DCUser.h"
+#import "RBContactViewController.h"
 
 @interface RBChatViewController ()
 
@@ -26,6 +27,9 @@
 @property DCChannel *subscribedChannel;
 @property UIPopoverController *imageUploadSelectionPopover;
 
+@property UIImagePickerController *imagePickerController;
+@property id <RBMessageItem> selectedMessageItem;
+
 @end
 
 @implementation RBChatViewController
@@ -33,6 +37,9 @@
 -(void)viewDidLoad{
     self.chatTableView.showAvatars = YES;
     self.chatTableView.watchingInRealTime = YES;
+    
+    self.imagePickerController = UIImagePickerController.new;
+	self.imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     
     [NSNotificationCenter.defaultCenter addObserver:self
                                            selector:@selector(keyboardWillShow:)
@@ -60,13 +67,13 @@
     self.subscribedChannel = channel;
     channel.isCurrentlyFocused = true;
     [channel retrieveNumberOfMessages:50];
-    [channel markAsReadWithMessage:self.subscribedChannel.messages.lastObject];
+    [channel markAsReadWithMessage:[self.subscribedChannel getLastAddedMessage]];
     [self scrollChatToBottom];
 }
 
 -(void)unsubscribeFromSubscribedChannelEvents {
     self.subscribedChannel.isCurrentlyFocused = false;
-    [self.subscribedChannel markAsReadWithMessage:self.subscribedChannel.messages.lastObject];
+    [self.subscribedChannel markAsReadWithMessage:[self.subscribedChannel getLastAddedMessage]];
     [self.subscribedChannel releaseMessages];
     self.subscribedChannel = nil;
 }
@@ -133,14 +140,14 @@
 #pragma mark uibubbletableview data source
 
 -(NSInteger)rowsForBubbleTable:(UIBubbleTableView *)tableView{
-    return self.subscribedChannel.messages.count;
+    return self.subscribedChannel.messagesAndAttachments.count;
 }
 
 -(NSBubbleData *)bubbleTableView:(UIBubbleTableView *)tableView dataForRow:(NSInteger)row{
     
     NSBubbleData *bubbleData;
     
-    id <RBMessageItem> item = [self.subscribedChannel.messages objectAtIndex:row];
+    id <RBMessageItem> item = [self.subscribedChannel.messagesAndAttachments objectAtIndex:row];
     
     if([item isKindOfClass:[DCMessage class]]) {
         DCMessage* message = (DCMessage*)item;
@@ -160,24 +167,33 @@
         bubbleData.avatar = item.author.avatarImage;
     }
     
+    bubbleData.index = row;
+    
     return bubbleData;
 }
 
 - (IBAction)imageUploadButtonWasPressed:(UIBarButtonItem *)sender {
     [self.messageField resignFirstResponder];
 	
-	UIImagePickerController *picker = UIImagePickerController.new;
-	
-	picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-	
-	[picker setDelegate:self];
-	
 	if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-        UIPopoverController *popover = [[UIPopoverController alloc] initWithContentViewController:picker];
+        UIPopoverController *popover = [[UIPopoverController alloc] initWithContentViewController:self.imagePickerController];
         [popover presentPopoverFromBarButtonItem:sender permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
         self.imageUploadSelectionPopover = popover;
     } else {
-        [self presentModalViewController:picker animated:YES];
+        [self presentModalViewController:self.imagePickerController animated:YES];
+    }
+}
+
+#pragma mark uibubble	tableviewdelegate
+
+- (void)bubbleTableView:(UIBubbleTableView *)bubbleTableView didSelectRow:(int) row{
+    self.selectedMessageItem = [self.subscribedChannel.messagesAndAttachments objectAtIndex:row];
+    [self performSegueWithIdentifier:@"chat to contact" sender:self];
+}
+
+- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    if([segue.destinationViewController class] == [RBContactViewController class]){
+        [((RBContactViewController*)segue.destinationViewController) setSelectedUser:self.selectedMessageItem.author];
     }
 }
 

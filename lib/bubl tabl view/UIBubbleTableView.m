@@ -156,6 +156,25 @@
 
 #pragma mark - UITableViewDelegate implementation
 
+- (void)tableView:(UITableView *)tableView
+didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    // Now typing
+	if (indexPath.section >= [self.bubbleSection count])
+    {
+        return;
+    }
+    
+    // Header
+    if (indexPath.row == 0)
+    {
+        return ;
+    }
+    
+    NSBubbleData *data = [[self.bubbleSection objectAtIndex:indexPath.section] objectAtIndex:indexPath.row - 1];
+    [self.bubbleDelegate bubbleTableView:self didSelectRow:data.index];
+}
+
 #pragma mark - UITableViewDataSource implementation
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
